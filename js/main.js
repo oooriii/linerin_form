@@ -22,9 +22,9 @@ mounted () {
     .then(function(response){
        console.log(response.data);
        self.formArticles = JSON.parse(response.data);
-    }).
+    })
   */
-    finally(function(){
+    .finally(function(){
       self.loading=false;
 
       console.log(self.data);
