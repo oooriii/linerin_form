@@ -20,6 +20,7 @@ mounted () {
     //.then(response => (this.formArticles = response.data)).
     .then(function(response){
        console.log(response.data);
+       self.formArticles = response.data;
     }).
     finally(function(){
       self.loading=false;
