@@ -19,7 +19,7 @@ mounted () {
     axios.get('formArticles.json')
     //.then(response => (this.formArticles = response.data)).
     .then(function(response){
-       console.log(response);
+       console.log(response.data);
     }).
     finally(function(){
       self.loading=false;
