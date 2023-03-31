@@ -18,16 +18,9 @@ mounted () {
     
     axios.get('formArticles.json')
     .then(response => (this.formArticles =  JSON.parse(response.data)).
- /*
-    .then(function(response){
-       console.log(response.data);
-       self.formArticles = JSON.parse(response.data);
-    })
-  */
     .finally(function(){
       self.loading=false;
-
-      console.log(self.data);
+      console.log(self.formArticles);
 
     });
 
