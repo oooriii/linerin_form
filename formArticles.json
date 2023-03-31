@@ -1,15 +1,18 @@
 {
-	"beams":{
-		"quals": {
-			"q1": "AAAA",
-			"q2": "BBBB",
-			"q3": "CCCC",
-		},
-	},
-	"sheets":{
-	},
-	"pipes":{
-	},
-	"bars":{
-	},
+  "beams": {
+    "quals": {
+      "q1": "AAAA",
+      "q2": "BBBB",
+      "q3": "CCCC"
+    }
+  },
+  "sheets": {
+    "": ""
+  },
+  "pipes": {
+    "": ""
+  },
+  "bars": {
+    "": ""
+  }
 }
