@@ -1,103 +1,15 @@
 {
-	'beams':{
-		'name':'quals',
-		'vals': {
-			'q1': {
-				'name': 'thicken',
-				'vals': {
-					'4mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'6mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'8mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					},
-				},
-			},
-			'q2': {
-				'name': 'thicken',
-				'vals': {
-					'4mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'6mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'8mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					},
-				},
-			},
-			'q3': {
-				'name': 'thicken',
-				'vals': {
-					'4mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'6mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					
-					},
-					'8mm': {
-						'name': 'sizes',
-						'vals': [
-							'2x2',
-							'4x4',
-							'6x6',
-						],
-					},
-				},
-			},
+	"beams":{
+		"quals": {
+			"q1": "AAAA",
+			"q2": "BBBB",
+			"q3": "CCCC",
 		},
 	},
-	'sheets':{},
-	'pipes':{},
-	'bars':{},
+	"sheets":{
+	},
+	"pipes":{
+	},
+	"bars":{
+	},
 }
