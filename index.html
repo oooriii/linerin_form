@@ -51,16 +51,8 @@
 <main id="form">
   <div class="container-fluid">
     <section class="row">
-    <article v-for="article in articles" class="col-sm-4 mb-2">
-      <a v-bind:href="article.url" target="_blank">
-        <h3 class="pl-1">{{article.nom}}</h3>
-        <div>
-          <img class="img-thumbnail" v-bind:src="article.img" v-bind:alt="article.desc" loading="lazy"/>
-        </div>
-        <div>
-          <span class="pl-1" aria-aria-label="price">{{article.preu}} €</span>
-        </div>
-      </a>
+    <article v-for="formArt in articlesForm" class="col-sm-4 mb-2">
+    	<h3 class="pl-1">{{formArt.qual}}</h3>
     </article>
     </section>
   </div>
