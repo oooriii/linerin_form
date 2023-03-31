@@ -3,19 +3,21 @@ var vm = new Vue({
  el: '#vue-app',
  data: {
    articles:[],
+   formArticles: [],
  },
 
  data () {
    return {
      articles:[],
+     formArticles: [],
    }
  },
 mounted () {
     this.loading = true;
     self = this;
     //
-    axios.get('articles.json')
-    .then(response => (this.articles = response.data)).
+    axios.get('formArticles.json')
+    .then(response => (this.formArticles = response.data)).
     finally(function(){
       self.loading=false;
 
