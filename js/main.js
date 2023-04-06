@@ -1,21 +1,1045 @@
+/****
+lines wire rod
+****/
+Vue.component('line-wire-rod', {
+    props:{
+		linies: Object,
+		line: Object,
+		id: Number,
+    },
+	template: `
+<tr>
+	<td>{{id}}</td>
+	<td v-if="line.grade!='other'">{{line.grade}}</td>
+	<td v-else>{{line.grade_other}}</td>
+	<td class="number">{{line.diameter}}</td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unity}}</td>
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+</tr>
+	`,
+	data () {
+	    return {
+			type: "WIRE ROD",
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+/****
+lines beam
+****/
+Vue.component('line-beam', {
+    props:{
+		linies: Object,
+		line: Object,
+		id: Number,
+    },
+	template: `
+<tr>
+	<td>{{id}}</td>
+	<td v-if="line.quality!='other'">{{line.quality}}</td>
+	<td v-else>{{line.quality_other}}</td>
+	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
+	<td v-else class="number">{{line.length_other}}</td>
+	<td>{{line.product}}</td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unity}}</td>
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+</tr>
+	`,
+	data () {
+	    return {
+			type: "BEAM",
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+/****
+lines cement
+****/
+Vue.component('line-cement', {
+    props:{
+		linies: Object,
+		line: Object,
+		id: Number,
+    },
+	template: `
+<tr>
+	<td>{{id}}</td>
+	<td v-if="line.cement_type!='other'">{{line.cement_type}}</td>
+	<td v-else>{{line.cement_type_other}}</td>
+	<td>{{line.format}}</td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unity}}</td>
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+</tr>
+	`,
+	data () {
+	    return {
+			type: "CEMENT",
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+Vue.component('lines-articles', {
+    props:{
+		//linies: Array,
+		linies: Object,
+    },
+	template: `
+<div>
+<h3>Lines articles</h3>
+	<section v-if="linies['REBAR'].length > 0">
+	<h4>REBAR</h4>
+		<div v-for="(line, id) in linies['REBAR']" :key="id">
+			<span>{{ id }}</span>&nbsp;
+			{{line}}
+			&nbsp;
+			<strong>Quantity:</strong>
+			<input class="input" type="number" v-model.number="linies['REBAR'][id]['quantity']" placeholder="0"/>
+			&nbsp;
+			<button class="button is-danger is-pulled-right" @click="del('REBAR',id)"><span class="icon"><i class="fas fa-trash"></i></span></button>
+		</div>
+	</section>
+			
+	<section v-if="linies['WIRE ROD'].length > 0">
+	<h4>WIRE ROD</h4>
+			<table>
+				<tr><th>id</th><th>grade</th><th>diameter</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<line-wire-rod v-for="(line, id) in linies['WIRE ROD']" :key="id" :linies="linies" :line="line" :id="id"></line-wire-rod>
+			</table>
+	</section>
+			
+	<section v-if="linies['BEAM'].length > 0">
+	<h4>BEAMS</h4>
+			<table>
+				<tr><th>id</th><th>quality</th><th>length</th><th>product</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<line-beam v-for="(line, id) in linies['BEAM']" :key="id" :linies="linies" :line="line" :id="id"></line-beam>
+			</table>
+	</section>
+			
+	<section v-if="linies['CEMENT'].length > 0">
+	<h4>CEMENT</h4>
+			<table>
+				<tr><th>id</th><th>type</th><th>format</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<line-cement v-for="(line, id) in linies['CEMENT']" :key="id" :linies="linies" :line="line" :id="id"></line-cement>
+			</table>
+	</section>
+</div>
+	`,
+	data () {
+	    return {
+			
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+
+
+/*****
+REBAR
+*****/
+Vue.component('rebar-form', {
+    props:{
+		article: Object,
+    },
+	template: `
+<div>
+	<h1>STEEL: LONG PRODUCTS: Reinforcing steel bars (REBAR)</h1>
+	<div>
+		<strong>Quality:</strong>&nbsp;
+				<select v-model="article.quality">
+					<option disabled selected>select steel quality</option>
+					<option v-for="q in qualities" :value="q">{{q}}</option>
+					
+					<option value="other">Other grade - please specify</option>
+					
+				</select>
+				<input v-if="article.quality=='other'" type="text" v-model="article.quality_other" placeholder="Other grade - please, specify"/>
+	</div>
+	<div>
+		<strong>Length:</strong>&nbsp;
+				<select v-model="article.length">
+					<option disabled selected>select length</option>
+					<option v-for="l in lengths" :value="l">{{l}}</option>
+					<option value="other">Other length - please specify</option>
+				</select>
+				<input v-if="article.length=='other'" type="text" v-model="article.length" placeholder="Other length - please, specify"/>
+	</div>
+	<div>
+		<strong>Diameters:</strong>&nbsp;
+				<select v-model="article.diameter">
+					<option disabled selected>select diameter</option>
+					<option v-for="d in diameters" :value="d">{{d}}</option>
+				</select>
+	</div>	
+	<div>
+		<strong>Unity:</strong>&nbsp;
+				<select v-model="article.unity">
+					<option disabled selected>select unity</option>
+					<option v-for="u in unities" :value="u">{{u}}</option>
+				</select>
+	</div>
+	
+</div>
+	`,
+	data () {
+	    return {
+			qualities: [
+				"BS4448 GR B500B",
+				"NFA 35-080-1 B 500B",
+				"ASTM A615 GR 60",
+				//"Other grade - please specify",
+			],
+			lengths: [
+				"In 12 meters standard bar length",
+				//"In other length (please specify)",
+				"In coils",
+			],
+			unities: [
+				"MT",
+				"KGS",
+				"PCS",
+			],
+			diameters: [
+				6,
+				8,
+				10,
+				12,
+				14,
+				16,
+				20,
+				25,
+				28,
+				32,
+				40,
+			],
+			other: false,
+			
+		}
+	},
+	methods:{
+		/*
+		otherGrade: function(){
+			if(this.quality==""){
+				this.other = true;
+			}
+		},
+		*/
+		
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+
+/*****
+WIRED ROD
+*****/
+Vue.component('wire-rod-form', {
+    props:{
+		article: Object,
+		articles: Object,
+    },
+	template: `
+<div>
+	<h1>STEEL: LONG PRODUCTS: Wire Rod</h1>
+	<div>
+		<strong>Steel Grade:</strong>&nbsp;
+				<select v-model="article.grade">
+					<option disabled selected>select steel grade</option>
+					<option v-for="g in grades" :value="g">{{g}}</option>
+					
+					<option value="other">Other grade - please specify</option>
+					
+				</select>
+				<input v-if="article.grade=='other'" type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
+	</div>
+<!--
+	<div>
+		<strong>Diameters:</strong>&nbsp;
+				<select v-model="article.diameter">
+					<option disabled selected>select diameter</option>
+					<option v-for="d in diameters" :value="d">{{d}}</option>
+				</select>
+	</div>	
+-->
+	<div v-if="article.grade">
+		<h5><strong>Diameters:</strong></h5>
+		<div class="diameters">
+			<span v-for="d in diameters" class="diameter" @click="addDiameter(d)">{{d}}</span>
+		</div>
+	</div>
+		
+	<div>
+		<strong>Unity:</strong>&nbsp;{{article.unity}}
+	</div>
+	
+</div>
+	`,
+	data () {
+	    return {
+			grades: [
+				"ASTM A 510 SAE1006",
+				"ASTM A 510 SAE1008",
+				"ASTM A 510 SAE1010",
+				"ASTM A 510 SAE1012",
+				"ASTM A 510 SAE1015",
+				"ASTM A 510 SAE1018",
+				//"Other grade - please specify",
+			],
+
+			unities: [
+				"MT",
+			],
+			diameters: [
+				5.5,
+				6,
+				6.5,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+			],
+			newArt: {},
+		}
+	},
+	methods:{
+		addDiameter: function(d){
+			//console.log("dia: "+d);
+			// patch x copiar obj enlloc d'agafar referència
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.diameter = d;
+			this.articles['WIRE ROD'].push(this.newArt);
+			
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+	  this.article.unity = 'MT';
+  },
+
+});
+
+/*****
+BEAMS
+*****/
+Vue.component('beam-form', {
+    props:{
+		article: Object,
+    },
+	template: `
+<div>
+	<h1>STEEL: LONG PRODUCTS: Beams)</h1>
+	<div>
+		<strong>Quality:</strong>&nbsp;
+				<select v-model="article.quality">
+					<option disabled selected>select steel quality</option>
+					<option v-for="q in qualities" :value="q">{{q}}</option>
+					
+					<option value="other">Other grade - please specify</option>
+					
+				</select>
+				<input v-if="article.quality=='other'" type="text" v-model="article.quality_other" placeholder="Other grade - please, specify"/>
+	</div>
+	<div>
+		<strong>Length:</strong>&nbsp;
+				<select v-model="article.length">
+					<option disabled selected>select length</option>
+					<option v-for="l in lengths" :value="l">{{l}}</option>
+					<option value="other">Other length - please specify</option>
+				</select>
+				<input v-if="article.length=='other'" type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+	</div>
+	<div>
+		<strong>Subtypes:</strong>&nbsp;
+				<select v-model="article.subtype">
+					<option disabled selected>select subtype</option>
+					<option v-for="s in subtypes" :value="s">{{s}}</option>
+				</select>
+	</div>	
+	<div>
+		<strong>Product:</strong>&nbsp;
+				<select v-model="article.product">
+					<option disabled selected>select product</option>
+					<option v-for="p in products[article.subtype]" :value="p">{{p}}</option>
+				</select>
+	</div>
+	<div>
+		<strong>Unity:</strong>&nbsp;
+				<select v-model="article.unity">
+					<option disabled selected>select unity</option>
+					<option v-for="u in unities" :value="u">{{u}}</option>
+				</select>
+	</div>
+	
+</div>
+	`,
+	data () {
+	    return {
+			qualities: [
+				"S275JR",
+				"S355JR",
+			],
+			lengths: [
+				"6m",
+				"12m",
+			],
+			unities: [
+				"MT",
+				"PCS",
+			],
+			subtypes:[
+				"UPN",
+				"UPE",
+				"IPN",
+				"IPE",
+				"HEA",
+				"HEB",
+				"HL",
+			],
+			products:{
+				UPN: [
+					"UPN 50",
+					"UPN 65",
+					"UPN 80",
+					"UPN 100",
+					"UPN 120",
+					"UPN 140",
+					"UPN 160",
+					"UPN 180",
+					"UPN 200",
+					"UPN 220",
+					"UPN 240",
+					"UPN 260",
+					"UPN 280",
+					"UPN 300",
+					"UPN 320",
+					"UPN 350",
+					"UPN 380",
+					"UPN 400",
+				],
+				UPE: [
+					"UPE 80",
+					"UPE 100",
+					"UPE 120",
+					"UPE 140",
+					"UPE 160",
+					"UPE 180",
+					"UPE 200",
+					"UPE 220",
+					"UPE 240",
+					"UPE 270",
+					"UPE 300",
+					"UPE 330",
+					"UPE 360",
+					"UPE 400",
+				],
+				IPN: [
+					"IPN 80",
+					"IPN 100",
+					"IPN 120",
+					"IPN 140",
+					"IPN 160",
+					"IPN 180",
+					"IPN 200",
+					"IPN 220",
+					"IPN 240",
+					"IPN 260",
+					"IPN 280",
+					"IPN 300",
+					"IPN 320",
+					"IPN 340",
+					"IPN 360",
+					"IPN 380",
+					"IPN 400",
+					"IPN 450",
+					"IPN 500",
+					"IPN 550",
+					"IPN 600",
+				],
+				IPE: [
+					"IPE 80",
+					"IPE 100",
+					"IPE 120",
+					"IPE 140",
+					"IPE 160",
+					"IPE 180",
+					"IPE 200",
+					"IPE 220",
+					"IPE 240",
+					"IPE 270",
+					"IPE 300",
+					"IPE 330",
+					"IPE 360",
+					"IPE 400",
+					"IPE 450",
+					"IPE 500",
+					"IPE 550",
+					"IPE 600",
+					"IPE 750 x 134",
+					"IPE 750 x 147",
+					"IPE 750 x 173",
+					"IPE 750 x 196",
+					"IPE 750 x 220",
+				],
+				HEA: [
+					"HEA 100",
+					"HEA 120",
+					"HEA 140",
+					"HEA 160",
+					"HEA 180",
+					"HEA 200",
+					"HEA 220",
+					"HEA 240",
+					"HEA 260",
+					"HEA 280",
+					"HEA 300",
+					"HEA 320",
+					"HEA 340",
+					"HEA 360",
+					"HEA 400",
+					"HEA 450",
+					"HEA 500",
+					"HEA 550",
+					"HEA 600",
+					"HE 600 x 337",
+					"HE 600 x 399",
+					"HEA 650",
+					"HE 650 x 343",
+					"HE 650 x 407",
+					"HEA 700",
+					"HE 700 x 352",
+					"HE 700 x 418",
+					"HEA 800",
+					"HE 800 x 373",
+					"HE 800 x 444",
+					"HEA 900",
+					"HE 900 x 391",
+					"HE 900 x 466",
+					"HEA 1000",
+					"HE 1000 x 249",
+					"HE 1000 x 393",
+					"HE 1000 x 415",
+					"HE 1000 x 438",
+					"HE 1000 x 494",
+					"HE 1000 x 584",
+				],
+				HEB: [
+					"HEB 100",
+					"HEB 120",
+					"HEB 140",
+					"HEB 160",
+					"HEB 180",
+					"HEB 200",
+					"HEB 220",
+					"HEB 240",
+					"HEB 260",
+					"HEB 280",
+					"HEB 300",
+					"HEB 320",
+					"HEB 340",
+					"HEB 360",
+					"HEB 400",
+					"HEB 450",
+					"HEB 500",
+					"HEB 550",
+					"HEB 600",
+					"HE 600 x 337",
+					"HE 600 x 399",
+					"HEB 650",
+					"HE 650 x 343",
+					"HE 650 x 407",
+					"HEB 700",
+					"HE 700 x 352",
+					"HE 700 x 418",
+					"HEB 800",
+					"HE 800 x 373",
+					"HE 800 x 444",
+					"HEB 900",
+					"HE 900 x 391",
+					"HE 900 x 466",
+					"HEB 1000",
+					"HE 1000 x 249",
+					"HE 1000 x 393",
+					"HE 1000 x 415",
+					"HE 1000 x 438",
+					"HE 1000 x 494",
+					"HE 1000 x 584",
+				],
+				HL: [
+					"HL 920 x 1077",
+					"HL 920 x 1194",
+					"HL 920 x 1269",
+					"HL 920 x 1377",
+					"HL 920 x 344",
+					"HL 920 x 368",
+					"HL 920 x 390",
+					"HL 920 x 420",
+					"HL 920 x 449",
+					"HL 920 x 491",
+					"HL 920 x 537",
+					"HL 920 x 588",
+					"HL 920 x 656",
+					"HL 920 x 725",
+					"HL 920 x 787",
+					"HL 920 x 970",
+					"HL 920 x 1077",
+					"HL 920 x 1194",
+					"HL 920 x 1269",
+					"HL 920 x 1377",
+					"HL 1000 A",
+					"HL 1000 AA",
+					"HL 1000 B",
+					"HL 1000 M",
+					"HL 1000 x 443",
+					"HL 1000 x 483",
+					"HL 1000 x 539",
+					"HL 1000 x 554",
+					"HL 1000 x 591",
+					"HL 1000 x 642",
+					"HL 1000 x 748",
+					"HL 1000 x 883",
+					"HL 1000 x 976",
+					"HL 1100 A",
+					"HL 1100 B",
+					"HL 1100 M",
+					"HL 1100 R",
+					"HL 1100 x 548",
+					"HL 1100 x 607",
+				],
+			},
+			
+			
+		}
+	},
+	methods:{
+		/*
+		otherGrade: function(){
+			if(this.quality==""){
+				this.other = true;
+			}
+		},
+		*/
+		
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+/*****
+CEMENT
+*****/
+Vue.component('cement-form', {
+    props:{
+		article: Object,
+    },
+	template: `
+<div>
+	<h1>CEMENT</h1>
+	<div>
+		<strong>Cement type:</strong>&nbsp;
+				<select v-model="article.cement_type">
+					<option disabled selected>select cement type</option>
+					<option v-for="ct in Object.keys(cement_types_legend)" :value="ct">{{ct}}</option>
+					
+					<option value="other">Other - please specify</option>
+					
+				</select>
+				<input v-if="article.cement_type=='other'" type="text" v-model="article.cement_type_other" placeholder="Other - please, specify"/>
+	</div>
+	<div>
+		<em>{{cement_types_legend[article.cement_type]}}</em>
+	</div>
+	<div>
+		<strong>Bagged cement / Bulk Cement:</strong>&nbsp;
+				<select v-model="article.format">
+					<option disabled selected>select format</option>
+					<option v-for="format in formats" :value="format">{{format}}</option>
+					
+					<option value="other">Other - please specify</option>
+					
+				</select>
+				<input v-if="article.format=='other'" type="text" v-model="article.format_other" placeholder="Other - please, specify"/>
+	</div>
+	<div>
+		<strong>Unity:</strong>&nbsp;{{article.unity}}
+		<!--
+				<select v-model="article.unity">
+					<option disabled selected>select unity</option>
+					<option v-for="u in unities" :value="u">{{u}}</option>
+				</select>
+		-->
+	</div>
+	
+</div>
+	`,
+	data () {
+	    return {
+			/*
+			cement_types: [
+				'CEM I 42.5 N',
+				'CEM I 42.5 R',
+				'CEM I 52.5 N',
+				'CEM II 32.5 N',
+				'CEM II 42.5 R',
+				'CEM I 42.5 N-SR',
+				'CEM I 42,5 R-SR',
+				'WHITE CEMENT CEM II 42.5N',
+			],
+			*/
+			cement_types_legend: {
+				'CEM I 42.5 N':'Medium-strength, Normal Hardening, Portland Cement with at least 95% clinker',
+				'CEM I 42.5 R':'Medium-strength, Rapid Hardening, Portland Cement with at least 95% clinker',
+				'CEM I 52.5 N':'High-strength, Normal Hardening, Portland Cement with at least 95% clinker',
+				'CEM II 32.5 N':'Low-strength, Normal Hardening, Portland Cement with max. additive content of 35%',
+				'CEM II 42.5 R':'Medium-strength, Rapid Hardening, Portland Cement with max. additive content of 35%',
+				'CEM I 42.5 N-SR':'Sulfate Resistant, Medium-strength, Normal Hardening, Portland Cement with at least 95% clinker',
+				'CEM I 42,5 R-SR':'Sulfate Resistant, Rapid-strength, Normal Hardening, Portland Cement with at least 95% clinker',
+				'WHITE CEMENT CEM II 42.5N':'White Cement, Medium-strength, Normal Hardening, Portland Cement with max. additive content of 35%',
+			},
+			formats: [
+				'25kgs bags',
+				'50kgs bags',
+				'Bulk in big bags',
+				'Bulk',
+				//'Other  - specify',	
+			],
+
+// fer units fixe en aquest cas
+			unities: [
+				"MT",
+				//"KGS",
+				//"PCS",
+			],
+
+			
+		}
+	},
+	methods:{
+
+		
+
+	},
+	computed:{
+
+	},
+  mounted (){
+	  this.article.unity = 'MT';
+  },
+
+});
+
+
+
+Vue.component('form-articles', {
+    props:{
+		//articles: Array,
+		articles: Object,
+		//rebarArticles: Array,
+    },
+	template: `
+<div>
+	<div>
+	<!--
+		<strong>type:</strong> <input type="text" value="" name="type" v-model="article.type"/>
+		<strong>product:</strong> <input type="text" value="" name="product" v-model="article.product"/>
+	-->
+	<strong>type:</strong>
+				<select v-model="type">
+					<option disabled selected>select type of product</option>
+					<option v-for="pType in types" :value="pType">{{pType}}</option>
+				</select>
+	
+	<div v-if="type == 'REBAR'">
+		<rebar-form :article="article"></rebar-form>
+	</div>
+	<div v-if="type == 'WIRE ROD'">
+		<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
+	</div>	
+	<div v-if="type == 'BEAM'">
+		<beam-form :article="article"></beam-form>
+	</div>	
+		
+		
+		
+	<div v-if="type == 'CEMENT'">
+		<cement-form :article="article"></cement-form>
+	</div>	
+	<!--
+		<strong>quant:</strong> <input type="number" value="" name="" v-model="article.quantity"/>
+	-->
+	</div>
+<button @click="addNew">add art</button>
+</div>
+	`,
+	data () {
+	    return {
+			//article: {quantity: 400, type: "XXX", product: "asdasda|asdas|asdasda|asdasd"},
+			article: {},
+			types: [
+				"REBAR",
+				"BEAM",
+				"WIRE ROD",
+				"MERCHANT BARS",
+				"HOT ROLLED",
+				"COLD ROLLED",
+				"GALVANIZED",
+				
+				"NAILS",
+				"CEMENT",
+			],
+			type: "",
+			
+		}
+	},
+	methods:{
+	    addNew: function(){
+		  //console.log(this.articles);
+		  this.article.type=this.type;
+		  
+		  // segons tipus cap a un array o altre
+	      //this.articles.push(this.article);
+		  if(this.type=='REBAR'){
+		  	this.articles['REBAR'].push(this.article);
+		  }
+		  else if(this.type=='WIRE ROD'){
+		  	this.articles['WIRE ROD'].push(this.article);
+		  }
+		  else if(this.type=='BEAM'){
+		  	this.articles['BEAM'].push(this.article);
+		  }
+		  
+		  
+		  else if(this.type=='CEMENT'){
+		  	this.articles['CEMENT'].push(this.article);
+		  }
+		  
+		  this.article={};
+		  this.type="";
+	    },
+
+	},
+	computed:{
+
+	},
+  mounted (){
+	  //this.articles['REBAR']=[];
+	  //this.articles['BEAM']=[];
+  },
+
+});
+
+
+Vue.component('all-app', {
+    props:{
+		//articles: Array,
+		articles: Object,
+    },
+	template: `
+<div>
+	<h3>Products</h3>
+	<section>
+		<form-articles :articles="articles"></form-articles>
+		<lines-articles :linies="articles"></lines-articles>
+	</section>
+  <pre>
+  {{articles}}
+  </pre>
+</div>
+	`,
+	data () {
+	    return {
+			//articles: [],
+	        }
+
+	},
+	methods:{
+
+	},
+	computed:{
+
+	},
+  mounted (){
+	  //this.articles = this.i_articles;
+  },
+
+});
+
+
 
 var vm = new Vue({
  el: '#vue-app',
+	/*
  data: {
    articles:[],
    formArticles: [],
  },
-
+*/
  data () {
    return {
-     articles:[],
-     formArticles: [],
+	   
+       formArticles: [],
+	   
+	   /* si ha de ser possible múltiples seleccions cal fer-ho així
+	   ports: {
+		   Belgium: ["Antwerp"],
+		   Italy: ["Venice", "Ravenna", "Genova", "Porto Nogaro", "Trieste"],
+		   Portugal: ["Leixoes", "Setubal", "Aveiro"],
+	   },
+	   */
+	   ports: [
+	   	   "Belgium:Antwerp",
+		   
+		   "France:Le Havre",
+		   "France:Marseille",
+		   
+		   "Italy:Venice",
+		   "Italy:Ravenna",
+		   "Italy:Genova",
+		   "Italy:Porto Nogaro",
+		   "Italy:Trieste",
+		   
+		   "Portugal:Leixoes",
+		   "Portugal:Setubal",
+		   "Portugal:Aveiro",
+		   
+		   "Spain:Bilbao",
+		   "Spain:Barcelona",
+		   "Spain:Valencia",
+		   "Spain:Sagunto",
+		   "Spain:Santander",
+
+		   "Tunisia:Bizerte",
+		   "Tunisia:Sfax",
+		   "Tunisia:Rades",
+		   "Tunisia:Sousse",
+	   ],
+	   paymentTerms: [
+		   "100% Advance payment",
+		   "20% advance and 80% against B/L",	
+		   "L/C (Letter of Credit)",
+		   "100% Open Account 30 days (Against invoice at 30 days)",	
+		   "CAD (Cash Against Documents)",
+	   ],
+	 	// news
+	   //articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}, {type: "pipe", quantity: 1050, product: "q3|um400|12m|10cm"}, {type: "pipe", quantity: 1050, product: "q2|B452X0|4x12cm|2cm"}],
+	   //articles: [],
+	   articles: {
+		   	'REBAR':[],
+			'BEAM':[],
+			'WIRE ROD':[],
+			'MERCHANT BARS':[],
+			'HOT ROLLED':[],
+			'COLD ROLLED':[],
+			'GALVANIZED':[],	
+			'NAILS':[],
+			'CEMENT':[],
+	   },
+	   actual: {},
+	   
+	   email: "",
+	   name: "",
+	   
+	   payment: "",
+	   delivery: "",
+	   deliveryPorts: [],
+	   deliveryType: "",
+	   DAP: {zip: "", city: "", country: ""},
+	   
+	   result: "",
+	   
+	   step: 0,
    }
  },
+ /*
+ components: {
+    'all-app': all-app,
+    'form-articles': form-articles,
+	 'lines-articles': lines-articles,
+  },
+  */
 mounted () {
     this.loading = true;
     self = this;
-    
+	
+	
+    /*
     axios.get('formArticles.json')
     //.then(response => (this.formArticles =  JSON.parse(response.data)))
     .then(response => (this.formArticles =  response.data))
@@ -24,6 +1048,56 @@ mounted () {
       console.log(self.formArticles);
 
     });
+	*/
+
+},
+methods:{
+  // generals
+  sendData: function(){
+	  urlMake = "https://hook.eu1.make.com/4s5840hop54m95p2zx8541c2e5xigepq";
+	  console.log("url: "+urlMake);
+	  
+	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}, {type: "pipe", quantity: 1050, product: "q3|um400|12m|10cm"}, {type: "pipe", quantity: 1050, product: "q2|B452X0|4x12cm|2cm"}]};
+	  //data = {email: "manolo@xxxx.com", name: "Manolo", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}]};
+	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: this.articles};
+	  data = {email: this.email, name: this.name, articles: this.articles};
+	  axios.post(urlMake, data).
+	  then(function(response){
+		  console.log(response.data);
+		  this.result = response.data["message"];
+		  
+	  }).
+	  //catch(response => (this.message =  JSON.parse(response.data) )).
+	  finally(function(){
+	  	self.loading=false;
+		console.log("DONE");
+	  });
+  },
+	validEmail: function(){
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if(this.email.match(mailformat)){
+			return true;
+		}
+		else return false;
+	
+	},
+},
+computed:{
+	someArticle: function(){
+		var c = _.countBy(this.articles, 'length');
+		//console.log(c);
+		//console.log(c[0]);
+		// si menys de 9 llavors algun tipus conté valor
+		if(c[0]<9){
+			return true;
+		}
+		else{
+			return false;
+		}
+	},
+	count: function(){
+			return _.countBy(this.articles, 'length');
+	},
 
 },
 });
