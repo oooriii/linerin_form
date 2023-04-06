@@ -16,7 +16,10 @@
 
 
     <title>Linerin Form</title>
+	<!--
     <base href="https://oooriii.github.io/linerin_form/" target="_blank">
+	-->
+
     <!-- favicon -->
     <!--
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
@@ -39,6 +42,32 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+	
+	<style>
+		.diameters{
+			width: 300px;
+		}
+		.diameter{
+			width: 50px;
+			height: 42px;
+			display: inline-block;
+			margin: 2px;
+			border: 1px solid #000;
+			border-radius: 2px;
+			text-align: center;
+			padding-top: 8px;
+		}
+		.diameter:hover{
+			background-color: red;
+			color: white;
+			cursor: pointer;
+		}
+		td.number{
+			text-align: right;
+		}	
+	</style>
+	
+</head>
 
 <body class="bg-white">
 <div id="vue-app">
@@ -46,17 +75,102 @@
 <header id="header" class="container-fluid mt-1 mb-6">
   <div class="row">
     <h1 class="col-md-9">Linerin</h1>
+	<!--
     <div class="col-md mt-3 ml-1 justify-content-end"><input id="search" name="search" type="search" placeholder="cerca"/></div>
+	-->
   </div>
 </header>
 
 <main id="form">
   <div class="container-fluid">
+<!--
     <section class="row">
     <article v-for="formArt in formArticles" class="col-sm-4 mb-2">
     	<h3 class="pl-1">{{formArt}}</h3>
     </article>
     </section>
+-->
+	<section v-if="step==0">
+	  	<all-app :articles="articles"></all-app>
+		<button @click="step++">next step</button>
+	</section>
+	
+  	<section v-if="step==1">
+		<h3>Payment and delivery</h3>
+  		<div>
+  			<strong>Delivery terms:</strong>&nbsp;
+			<select v-model="deliveryType">
+				<option disabled selected>select delivery term</option>
+				<option value="CFR / CIF">CFR / CIF</option>
+				<option value="DAP – Delivered At Place">DAP – Delivered At Place</option>
+			</select>
+			
+			<div v-if="deliveryType == 'CFR / CIF'">
+				<select v-model="deliveryPorts" multiple>
+					<option disabled selected>select one or more ports</option>
+					<option v-for="port in ports" :value="port">{{port}}</option>
+				</select>
+			</div>
+			
+			
+			<div v-if="deliveryType == 'DAP – Delivered At Place'">
+				<input v-model="DAP.zip" placeholder="Enter ZIP Code"/>
+				<input v-model="DAP.city" placeholder="Enter City"/>
+				<input v-model="DAP.country" placeholder="Enter Country"/>
+			</div>
+  		</div>
+  		<div>
+  			<strong>Payment terms</strong>&nbsp;
+			<select v-model="payment">
+				<option disabled selected>select payment term</option>
+				<option v-for="paymentTerm in paymentTerms" :value="paymentTerm">{{paymentTerm}}</option>
+			</select>
+  		</div>
+		<button @click="step--">previous step</button>
+		<button @click="step++">next step</button>
+  	</section>
+	  
+  	<section v-if="step==2">
+		<h3>Contact</h3>
+  		<div>
+  			<strong>Email:</strong>&nbsp;<input type="email" v-model="email" placeholder="Contact email" required/>
+  		</div>
+  		<div>
+  			<strong>Name:</strong>&nbsp;<input type="text" v-model="name" placeholder="Contact name"/>
+  		</div>
+		<button @click="step--">previous step</button>
+  	</section>
+	  
+	  <!--
+	  <div v-if="email!='' && articles.length>0">
+	-->
+		  <!--
+	  <div v-if="validEmail() && articles.length>0 && step==2">
+			 -->
+	  <div v-if="validEmail() && someArticle && step==2">
+		  <button @click="sendData()">SEND</button>
+	  </div>
+	
+	<div>
+		<div>
+			<strong>Count:</strong> <span>{{count}}</span>
+		</div>
+		<div>
+			<strong>Message:</strong> <span>{{result}}</span>
+		</div>
+		<div>
+			<strong>PaymentTerm:</strong> <span>{{payment}}</span>
+		</div>
+		<div>
+			<strong>Delivery Terms:</strong> <span>{{deliveryType}}</span>
+		</div>
+		<div v-if="deliveryType == 'CFR / CIF'">
+			<strong>Ports:</strong> <span>{{deliveryPorts}}</span>
+		</div>
+		<div v-if="deliveryType == 'DAP – Delivered At Place'">
+			<strong>DAP:</strong> <span>{{DAP}}</span>
+		</div>		
+	</div>
   </div>
 </main>
 
