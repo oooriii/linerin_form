@@ -42,7 +42,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-	
+
 	<style>
 		.diameters{
 			width: 300px;
@@ -62,11 +62,35 @@
 			color: white;
 			cursor: pointer;
 		}
+    .subtypes{
+      width: 400px;
+      vertical-align: middle;
+    }
+    .subtype{
+      width: 70px;
+      height: 84px;
+      display: inline-block;
+      margin: 2px;
+      border: 1px solid #000;
+      border-radius: 2px;
+      text-align: center;
+      padding-top: 8px;
+      word-wrap: break-word;
+      float: left;
+    }
+    .subtype:hover,.subtype.selected{
+      background-color: red;
+      color: white;
+      cursor: pointer;
+    }
+    .clear{
+      clear: both;
+    }
 		td.number{
 			text-align: right;
-		}	
+		}
 	</style>
-	
+
 </head>
 
 <body class="bg-white">
@@ -94,7 +118,7 @@
 	  	<all-app :articles="articles"></all-app>
 		<button @click="step++">next step</button>
 	</section>
-	
+
   	<section v-if="step==1">
 		<h3>Payment and delivery</h3>
   		<div>
@@ -104,15 +128,15 @@
 				<option value="CFR / CIF">CFR / CIF</option>
 				<option value="DAP – Delivered At Place">DAP – Delivered At Place</option>
 			</select>
-			
+
 			<div v-if="deliveryType == 'CFR / CIF'">
 				<select v-model="deliveryPorts" multiple>
 					<option disabled selected>select one or more ports</option>
 					<option v-for="port in ports" :value="port">{{port}}</option>
 				</select>
 			</div>
-			
-			
+
+
 			<div v-if="deliveryType == 'DAP – Delivered At Place'">
 				<input v-model="DAP.zip" placeholder="Enter ZIP Code"/>
 				<input v-model="DAP.city" placeholder="Enter City"/>
@@ -129,7 +153,7 @@
 		<button @click="step--">previous step</button>
 		<button @click="step++">next step</button>
   	</section>
-	  
+
   	<section v-if="step==2">
 		<h3>Contact</h3>
   		<div>
@@ -140,7 +164,7 @@
   		</div>
 		<button @click="step--">previous step</button>
   	</section>
-	  
+
 	  <!--
 	  <div v-if="email!='' && articles.length>0">
 	-->
@@ -150,7 +174,7 @@
 	  <div v-if="validEmail() && someArticle && step==2">
 		  <button @click="sendData()">SEND</button>
 	  </div>
-	
+
 	<div>
 		<div>
 			<strong>Count:</strong> <span>{{count}}</span>
@@ -169,7 +193,7 @@
 		</div>
 		<div v-if="deliveryType == 'DAP – Delivered At Place'">
 			<strong>DAP:</strong> <span>{{DAP}}</span>
-		</div>		
+		</div>
 	</div>
   </div>
 </main>

@@ -143,7 +143,7 @@ Vue.component('lines-articles', {
 			<button class="button is-danger is-pulled-right" @click="del('REBAR',id)"><span class="icon"><i class="fas fa-trash"></i></span></button>
 		</div>
 	</section>
-			
+
 	<section v-if="linies['WIRE ROD'].length > 0">
 	<h4>WIRE ROD</h4>
 			<table>
@@ -151,7 +151,7 @@ Vue.component('lines-articles', {
 				<line-wire-rod v-for="(line, id) in linies['WIRE ROD']" :key="id" :linies="linies" :line="line" :id="id"></line-wire-rod>
 			</table>
 	</section>
-			
+
 	<section v-if="linies['BEAM'].length > 0">
 	<h4>BEAMS</h4>
 			<table>
@@ -159,7 +159,7 @@ Vue.component('lines-articles', {
 				<line-beam v-for="(line, id) in linies['BEAM']" :key="id" :linies="linies" :line="line" :id="id"></line-beam>
 			</table>
 	</section>
-			
+
 	<section v-if="linies['CEMENT'].length > 0">
 	<h4>CEMENT</h4>
 			<table>
@@ -171,7 +171,7 @@ Vue.component('lines-articles', {
 	`,
 	data () {
 	    return {
-			
+
 		}
 	},
 	methods:{
@@ -207,9 +207,9 @@ Vue.component('rebar-form', {
 				<select v-model="article.quality">
 					<option disabled selected>select steel quality</option>
 					<option v-for="q in qualities" :value="q">{{q}}</option>
-					
+
 					<option value="other">Other grade - please specify</option>
-					
+
 				</select>
 				<input v-if="article.quality=='other'" type="text" v-model="article.quality_other" placeholder="Other grade - please, specify"/>
 	</div>
@@ -228,7 +228,7 @@ Vue.component('rebar-form', {
 					<option disabled selected>select diameter</option>
 					<option v-for="d in diameters" :value="d">{{d}}</option>
 				</select>
-	</div>	
+	</div>
 	<div>
 		<strong>Unity:</strong>&nbsp;
 				<select v-model="article.unity">
@@ -236,7 +236,7 @@ Vue.component('rebar-form', {
 					<option v-for="u in unities" :value="u">{{u}}</option>
 				</select>
 	</div>
-	
+
 </div>
 	`,
 	data () {
@@ -271,7 +271,7 @@ Vue.component('rebar-form', {
 				40,
 			],
 			other: false,
-			
+
 		}
 	},
 	methods:{
@@ -282,7 +282,7 @@ Vue.component('rebar-form', {
 			}
 		},
 		*/
-		
+
 
 	},
 	computed:{
@@ -291,6 +291,234 @@ Vue.component('rebar-form', {
   mounted (){
 
          },
+
+});
+/*****
+WIRED ROD
+*****/
+Vue.component('merchant-bars-form', {
+    props:{
+		article: Object,
+		articles: Object,
+    },
+	template: `
+<div>
+	<h1>STEEL: LONG PRODUCTS: Merchant bars: {{subtype}}</h1>
+  <div>
+    <h5><strong>Subtypes:</strong></h5>
+    <div class="subtypes">
+      <span v-for="s in subtypes" :class="{selected:s==subtype}" class="subtype" @click="selectSubtype(s)">{{s}}</span>
+    </div>
+  </div>
+  <div class="clear">
+    <strong>Steel Grade:</strong>&nbsp;
+        <select v-model="article.grade">
+          <option disabled selected>select steel grade</option>
+          <option v-for="g in grades" :value="g">{{g}}</option>
+
+          <option value="other">Other grade - please specify</option>
+
+        </select>
+        <input v-if="article.grade=='other'" type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
+  </div>
+  <div>
+    <strong>Length:</strong>&nbsp;
+        <select v-model="article.length">
+          <option disabled selected>select length</option>
+          <option v-for="l in lengths" :value="l">{{l}}</option>
+          <option value="other">Other length - please specify</option>
+        </select>
+        <input v-if="article.length=='other'" type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+  </div>
+  <div>
+    <strong>Unity:</strong>&nbsp;
+        <select v-model="article.unity">
+          <option disabled selected>select unity</option>
+          <option v-for="u in unities" :value="u">{{u}}</option>
+        </select>
+  </div>
+<!--
+	<div>
+		<strong>Diameters:</strong>&nbsp;
+				<select v-model="article.diameter">
+					<option disabled selected>select diameter</option>
+					<option v-for="d in diameters" :value="d">{{d}}</option>
+				</select>
+	</div>
+
+-->
+	<div v-if="article.subtype && article.grade && article.length && article.unity">
+		<h5><strong>{{sizes[this.subtype].label}}:</strong></h5>
+		<div class="diameters">
+			<span v-for="d in sizes[this.subtype].values" class="diameter" @click="addDiameter(d)">{{d}}</span>
+		</div>
+	</div>
+
+
+
+</div>
+	`,
+	data () {
+	    return {
+			grades: [
+				"S275JR",
+        "S355JR",
+				//"Other grade - please specify",
+			],
+      subtypes: [
+        "Flat Bars",
+        "Equal Angles",
+        "Square Bars",
+        "Round Bars",
+        "T Bars",
+      ],
+      subtype: "",
+      lengths: [
+				"6m",
+				"12m",
+			],
+			unities: [
+				"MT",
+        "PCS",
+			],
+      sizes: {
+        "Flat Bars": {
+
+        },
+        "Equal Angles": {
+
+        },
+        "Square Bars": {
+          label: "Sizes",
+          values: [
+            "8x8",
+            "10x10",
+            "12x12",
+            "14x14",
+            "16x16",
+            "18x18",
+            "20x20",
+            "22x22",
+            "25x25",
+            "30x30",
+            "35x35",
+            "40x40",
+            "45x45",
+            "50x50",
+            "60x60",
+            "70x70",
+            "80x80",
+          ],
+        },
+        "Round Bars": {
+          label: "Diameter",
+          values: [
+            "4.50",
+            "5.00",
+            "5.50",
+            "6.00",
+            "6.50",
+            "7.00",
+            "8.00",
+            "9.00",
+            "10.00",
+            "11.00",
+            "11.50",
+            "12.00",
+            "13.00",
+            "14.00",
+            "15.00",
+            "16.00",
+            "18.00",
+            "19.00",
+            "20.00",
+            "22.00",
+            "24.00",
+            "25.00",
+            "26.00",
+            "28.00",
+            "30.00",
+            "32.00",
+            "35.00",
+            "36.00",
+            "38.00",
+            "40.00",
+            "42.00",
+            "45.00",
+            "48.00",
+            "50.00",
+            "52.00",
+            "54.00",
+            "55.00",
+            "56.00",
+            "58.00",
+            "60.00",
+          ],
+        },
+        "T Bars": {
+          label: "Sizes",
+          values: [
+            "20x20x3",
+            "25x25x3",
+            "25x25x3,5",
+            "30x30x3",
+            "30x30x4",
+            "35x35x4",
+            "35x35x4,5",
+            "40x40x4",
+            "40x40x5",
+            "45x45x5,5",
+            "50x50x5",
+            "50x50x6",
+            "60x60x7",
+            "70x70x8",
+            "80x80x9",
+            "90x90x10",
+            "100x100x11",
+            "120x120x13",
+            "140x140x15",
+          ],
+        },
+      },
+			diameters: [
+				5.5,
+				6,
+				6.5,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+			],
+			newArt: {},
+		}
+	},
+	methods:{
+		addDiameter: function(d){
+			//console.log("dia: "+d);
+			// patch x copiar obj enlloc d'agafar referència
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.diameter = d;
+			this.articles['MERCHANT BARS'].push(this.newArt);
+
+		},
+    selectSubtype: function(s){
+      this.subtype = s;
+      this.article.subtype = s;
+
+    },
+	},
+	computed:{
+
+	},
+  mounted (){
+	  //this.article.unity = 'MT';
+  },
 
 });
 
@@ -310,9 +538,9 @@ Vue.component('wire-rod-form', {
 				<select v-model="article.grade">
 					<option disabled selected>select steel grade</option>
 					<option v-for="g in grades" :value="g">{{g}}</option>
-					
+
 					<option value="other">Other grade - please specify</option>
-					
+
 				</select>
 				<input v-if="article.grade=='other'" type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
 	</div>
@@ -323,7 +551,7 @@ Vue.component('wire-rod-form', {
 					<option disabled selected>select diameter</option>
 					<option v-for="d in diameters" :value="d">{{d}}</option>
 				</select>
-	</div>	
+	</div>
 -->
 	<div v-if="article.grade">
 		<h5><strong>Diameters:</strong></h5>
@@ -331,11 +559,11 @@ Vue.component('wire-rod-form', {
 			<span v-for="d in diameters" class="diameter" @click="addDiameter(d)">{{d}}</span>
 		</div>
 	</div>
-		
+
 	<div>
 		<strong>Unity:</strong>&nbsp;{{article.unity}}
 	</div>
-	
+
 </div>
 	`,
 	data () {
@@ -378,7 +606,7 @@ Vue.component('wire-rod-form', {
 			this.newArt = JSON.parse(JSON.stringify(this.article));
 			this.newArt.diameter = d;
 			this.articles['WIRE ROD'].push(this.newArt);
-			
+
 		},
 
 	},
@@ -406,9 +634,9 @@ Vue.component('beam-form', {
 				<select v-model="article.quality">
 					<option disabled selected>select steel quality</option>
 					<option v-for="q in qualities" :value="q">{{q}}</option>
-					
+
 					<option value="other">Other grade - please specify</option>
-					
+
 				</select>
 				<input v-if="article.quality=='other'" type="text" v-model="article.quality_other" placeholder="Other grade - please, specify"/>
 	</div>
@@ -427,7 +655,7 @@ Vue.component('beam-form', {
 					<option disabled selected>select subtype</option>
 					<option v-for="s in subtypes" :value="s">{{s}}</option>
 				</select>
-	</div>	
+	</div>
 	<div>
 		<strong>Product:</strong>&nbsp;
 				<select v-model="article.product">
@@ -442,7 +670,7 @@ Vue.component('beam-form', {
 					<option v-for="u in unities" :value="u">{{u}}</option>
 				</select>
 	</div>
-	
+
 </div>
 	`,
 	data () {
@@ -679,8 +907,8 @@ Vue.component('beam-form', {
 					"HL 1100 x 607",
 				],
 			},
-			
-			
+
+
 		}
 	},
 	methods:{
@@ -691,7 +919,7 @@ Vue.component('beam-form', {
 			}
 		},
 		*/
-		
+
 
 	},
 	computed:{
@@ -717,9 +945,9 @@ Vue.component('cement-form', {
 				<select v-model="article.cement_type">
 					<option disabled selected>select cement type</option>
 					<option v-for="ct in Object.keys(cement_types_legend)" :value="ct">{{ct}}</option>
-					
+
 					<option value="other">Other - please specify</option>
-					
+
 				</select>
 				<input v-if="article.cement_type=='other'" type="text" v-model="article.cement_type_other" placeholder="Other - please, specify"/>
 	</div>
@@ -731,9 +959,9 @@ Vue.component('cement-form', {
 				<select v-model="article.format">
 					<option disabled selected>select format</option>
 					<option v-for="format in formats" :value="format">{{format}}</option>
-					
+
 					<option value="other">Other - please specify</option>
-					
+
 				</select>
 				<input v-if="article.format=='other'" type="text" v-model="article.format_other" placeholder="Other - please, specify"/>
 	</div>
@@ -746,7 +974,7 @@ Vue.component('cement-form', {
 				</select>
 		-->
 	</div>
-	
+
 </div>
 	`,
 	data () {
@@ -778,7 +1006,7 @@ Vue.component('cement-form', {
 				'50kgs bags',
 				'Bulk in big bags',
 				'Bulk',
-				//'Other  - specify',	
+				//'Other  - specify',
 			],
 
 // fer units fixe en aquest cas
@@ -788,12 +1016,12 @@ Vue.component('cement-form', {
 				//"PCS",
 			],
 
-			
+
 		}
 	},
 	methods:{
 
-		
+
 
 	},
 	computed:{
@@ -825,22 +1053,25 @@ Vue.component('form-articles', {
 					<option disabled selected>select type of product</option>
 					<option v-for="pType in types" :value="pType">{{pType}}</option>
 				</select>
-	
+
 	<div v-if="type == 'REBAR'">
 		<rebar-form :article="article"></rebar-form>
 	</div>
 	<div v-if="type == 'WIRE ROD'">
 		<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
-	</div>	
+	</div>
+  <div v-if="type == 'MERCHANT BARS'">
+    <merchant-bars-form :article="article" :articles="articles"></merchant-bars-form>
+  </div>
 	<div v-if="type == 'BEAM'">
 		<beam-form :article="article"></beam-form>
-	</div>	
-		
-		
-		
+	</div>
+
+
+
 	<div v-if="type == 'CEMENT'">
 		<cement-form :article="article"></cement-form>
-	</div>	
+	</div>
 	<!--
 		<strong>quant:</strong> <input type="number" value="" name="" v-model="article.quantity"/>
 	-->
@@ -860,19 +1091,19 @@ Vue.component('form-articles', {
 				"HOT ROLLED",
 				"COLD ROLLED",
 				"GALVANIZED",
-				
+
 				"NAILS",
 				"CEMENT",
 			],
 			type: "",
-			
+
 		}
 	},
 	methods:{
 	    addNew: function(){
 		  //console.log(this.articles);
 		  this.article.type=this.type;
-		  
+
 		  // segons tipus cap a un array o altre
 	      //this.articles.push(this.article);
 		  if(this.type=='REBAR'){
@@ -884,12 +1115,12 @@ Vue.component('form-articles', {
 		  else if(this.type=='BEAM'){
 		  	this.articles['BEAM'].push(this.article);
 		  }
-		  
-		  
+
+
 		  else if(this.type=='CEMENT'){
 		  	this.articles['CEMENT'].push(this.article);
 		  }
-		  
+
 		  this.article={};
 		  this.type="";
 	    },
@@ -953,9 +1184,9 @@ var vm = new Vue({
 */
  data () {
    return {
-	   
+
        formArticles: [],
-	   
+
 	   /* si ha de ser possible múltiples seleccions cal fer-ho així
 	   ports: {
 		   Belgium: ["Antwerp"],
@@ -965,20 +1196,20 @@ var vm = new Vue({
 	   */
 	   ports: [
 	   	   "Belgium:Antwerp",
-		   
+
 		   "France:Le Havre",
 		   "France:Marseille",
-		   
+
 		   "Italy:Venice",
 		   "Italy:Ravenna",
 		   "Italy:Genova",
 		   "Italy:Porto Nogaro",
 		   "Italy:Trieste",
-		   
+
 		   "Portugal:Leixoes",
 		   "Portugal:Setubal",
 		   "Portugal:Aveiro",
-		   
+
 		   "Spain:Bilbao",
 		   "Spain:Barcelona",
 		   "Spain:Valencia",
@@ -992,9 +1223,9 @@ var vm = new Vue({
 	   ],
 	   paymentTerms: [
 		   "100% Advance payment",
-		   "20% advance and 80% against B/L",	
+		   "20% advance and 80% against B/L",
 		   "L/C (Letter of Credit)",
-		   "100% Open Account 30 days (Against invoice at 30 days)",	
+		   "100% Open Account 30 days (Against invoice at 30 days)",
 		   "CAD (Cash Against Documents)",
 	   ],
 	 	// news
@@ -1007,23 +1238,23 @@ var vm = new Vue({
 			'MERCHANT BARS':[],
 			'HOT ROLLED':[],
 			'COLD ROLLED':[],
-			'GALVANIZED':[],	
+			'GALVANIZED':[],
 			'NAILS':[],
 			'CEMENT':[],
 	   },
 	   actual: {},
-	   
+
 	   email: "",
 	   name: "",
-	   
+
 	   payment: "",
 	   delivery: "",
 	   deliveryPorts: [],
 	   deliveryType: "",
 	   DAP: {zip: "", city: "", country: ""},
-	   
+
 	   result: "",
-	   
+
 	   step: 0,
    }
  },
@@ -1037,8 +1268,8 @@ var vm = new Vue({
 mounted () {
     this.loading = true;
     self = this;
-	
-	
+
+
     /*
     axios.get('formArticles.json')
     //.then(response => (this.formArticles =  JSON.parse(response.data)))
@@ -1056,7 +1287,7 @@ methods:{
   sendData: function(){
 	  urlMake = "https://hook.eu1.make.com/4s5840hop54m95p2zx8541c2e5xigepq";
 	  console.log("url: "+urlMake);
-	  
+
 	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}, {type: "pipe", quantity: 1050, product: "q3|um400|12m|10cm"}, {type: "pipe", quantity: 1050, product: "q2|B452X0|4x12cm|2cm"}]};
 	  //data = {email: "manolo@xxxx.com", name: "Manolo", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}]};
 	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: this.articles};
@@ -1065,7 +1296,7 @@ methods:{
 	  then(function(response){
 		  console.log(response.data);
 		  this.result = response.data["message"];
-		  
+
 	  }).
 	  //catch(response => (this.message =  JSON.parse(response.data) )).
 	  finally(function(){
@@ -1079,7 +1310,7 @@ methods:{
 			return true;
 		}
 		else return false;
-	
+
 	},
 },
 computed:{
