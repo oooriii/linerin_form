@@ -40,6 +40,92 @@ Vue.component('line-wire-rod', {
 
 });
 /****
+lines merchant
+****/
+Vue.component('line-merchant1', {
+    props:{
+		linies: Object,
+		line: Object,
+		id: Number,
+    },
+	template: `
+<tr v-if="line.subtype!='Flat Bars' && line.subtype!='Equal Angles'">
+	<td>{{id}}</td>
+	<td>{{line.subtype}}</td>
+	<td v-if="line.grade!='other'">{{line.grade}}</td>
+	<td v-else>{{line.grade_other}}</td>
+	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
+	<td v-else class="number">{{line.length_other}}</td>
+	<td>{{line.diameter}}</td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unity}}</td>
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+</tr>
+	`,
+	data () {
+	    return {
+			type: "MERCHANT BARS",
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+Vue.component('line-merchant2', {
+    props:{
+		linies: Object,
+		line: Object,
+		id: Number,
+    },
+	template: `
+<tr v-if="line.subtype=='Flat Bars' || line.subtype=='Equal Angles'">
+	<td>{{id}}</td>
+	<td>{{line.subtype}}</td>
+	<td v-if="line.grade!='other'">{{line.grade}}</td>
+	<td v-else>{{line.grade_other}}</td>
+	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
+	<td v-else class="number">{{line.length_other}}</td>
+	<td>{{line.d1}}</td>
+	<td>{{line.d2}}</td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unity}}</td>
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+</tr>
+	`,
+	data () {
+	    return {
+			type: "MERCHANT BARS",
+		}
+	},
+	methods:{
+		del: function(type,index){
+			      this.linies[type].splice(index,1);
+			      // funca
+			      //this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+/****
 lines beam
 ****/
 Vue.component('line-beam', {
@@ -149,6 +235,21 @@ Vue.component('lines-articles', {
 			<table>
 				<tr><th>id</th><th>grade</th><th>diameter</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
 				<line-wire-rod v-for="(line, id) in linies['WIRE ROD']" :key="id" :linies="linies" :line="line" :id="id"></line-wire-rod>
+			</table>
+	</section>
+			
+	<section v-if="linies['MERCHANT BARS'].length > 0">
+	<h4>MERCHANT BAR</h4>
+			<table>
+				<tr><th>id</th><th>subtype</th><th>grade</th><th>length</th><th>diameter</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<line-merchant1 v-for="(line, id) in linies['MERCHANT BARS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant1>
+			</table>
+			<table>	
+				<tr><th>id</th><th>subtype</th><th>grade</th><th>length</th><th>a</th><th>s</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<!--
+				<line-merchant2 v-for="(line, id) in _.find(linies['MERCHANT BARS'], function(o) { return o.subtype=='Flat Bars'; })" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
+				-->
+				<line-merchant2 v-for="(line, id) in linies['MERCHANT BARS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
 			</table>
 	</section>
 
@@ -337,19 +438,28 @@ Vue.component('merchant-bars-form', {
           <option v-for="u in unities" :value="u">{{u}}</option>
         </select>
   </div>
-<!--
-	<div>
-		<strong>Diameters:</strong>&nbsp;
-				<select v-model="article.diameter">
-					<option disabled selected>select diameter</option>
-					<option v-for="d in diameters" :value="d">{{d}}</option>
-				</select>
-	</div>
 
--->
 	<div v-if="article.subtype && article.grade && article.length && article.unity">
 		<h5><strong>{{sizes[this.subtype].label}}:</strong></h5>
-		<div class="diameters">
+		<!-- flat i angle bars - 2 dimensions -->
+		<div v-if="this.subtype == 'Flat Bars' || this.subtype == 'Equal Angles'">
+			<img :src="sizes[this.subtype].img"/>
+			<div class="merchants">
+				<span class="diameter th"><strong>{{sizes[this.subtype].label1}}/{{sizes[this.subtype].label2}}</strong></span>
+
+				<span class="diameter th" v-for="sth in sizes[this.subtype].s"><strong>{{sth}}</strong></span>
+
+
+				<div class="" v-for="d1 in Object.keys(this.sizes[this.subtype].values)">
+					<span class="diameter th"><strong>{{d1}}</strong></span>
+					<span  v-for="d2 in dim2" class="diameter" :class="isEnabled(d1, d2) ? 'enabled' : 'disabled'" @click="addSize(d1,d2)">&nbsp;</span>
+				</div>
+
+			</div>
+			
+		</div>
+		<!-- altres tipus - 1 dimensió -->
+		<div class="diameters" v-else>
 			<span v-for="d in sizes[this.subtype].values" class="diameter" @click="addDiameter(d)">{{d}}</span>
 		</div>
 	</div>
@@ -362,31 +472,105 @@ Vue.component('merchant-bars-form', {
 	    return {
 			grades: [
 				"S275JR",
-        "S355JR",
+        		"S355JR",
 				//"Other grade - please specify",
 			],
-      subtypes: [
+      	  subtypes: [
         "Flat Bars",
         "Equal Angles",
         "Square Bars",
         "Round Bars",
         "T Bars",
       ],
-      subtype: "",
-      lengths: [
+     	 subtype: "",
+    	 lengths: [
 				"6m",
 				"12m",
-			],
-			unities: [
-				"MT",
-        "PCS",
-			],
+		],
+		unities: [
+			"MT",
+        	"PCS",
+		],
       sizes: {
+
         "Flat Bars": {
-
+            label: "Sizes",
+			label1: "B",
+			label2: "S",
+			//img: "/imgs/flat.png",
+			img: "imgs/flat.png",
+			s: [3,4,5,6,8,10,12,16,20,25,30,35,40,50],
+            values: {
+				'10': [3,4,5],
+				'12': [3,4,5,6],
+				'14': [3,4,5,6,8],
+				'15': [3,4,5,6,8,10],
+				'16': [3,4,5,6,8,10],
+				'18': [3,4,5,6,8,10],
+				'20': [3,4,5,6,8,10],
+				'25': [3,4,5,6,8,10,12],
+				'30': [3,4,5,6,8,10,12,16,20],
+				'35': [3,4,5,6,8,10,12,16,20],
+				'40': [3,4,5,6,8,10,12,16,20,25],
+				'45': [4,5,6,8,10,12,16,20,25],
+				'50': [4,5,6,8,10,12,16,20,25,30],
+				'60': [6,8,10,12,16,20,25,30],
+				'70': [6,8,10,12,16,20,25,30],
+				'80': [6,8,10,12,16,20,25,30],
+				'90': [6,8,10,12,16,20,25,30],
+				'100': [6,8,10,12,16,20,25,30],
+				'110': [8,10,12,16,20,25,30],
+				'120': [8,10,12,16,20,25,30],
+				'130': [8,10,12,16,20,25,30],
+				'140': [8,10,12,16,20,25,30],
+				'150': [8,10,12,16,20,25,30],
+				'160': [10,12,16,20,25,30],
+				'170': [10,12,16,20,25,30],
+				'180': [10,12,16,20,25,30],
+				'190': [10,12,16,20,25,30],
+				'200': [10,12,16,20,25,30,35,40,50],
+				'210': [10,12,16,20,25,30,35,40,50],
+				'220': [10,12,16,20,25,30,35,40,50],
+				'230': [10,12,16,20,25,30,35,40,50],
+				'240': [10,12,16,20,25,30,35,40,50],
+				'250': [10,12,16,20,25,30,35,40,50],
+			},
         },
-        "Equal Angles": {
 
+        "Equal Angles": {
+            label: "Sizes",
+			label1: "A",
+			label2: "S",
+			//img: "/imgs/flat.png",
+			img: "imgs/equal_angles.png",
+			s: [2.3,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+            values: {
+				'20x20': [2.3,3,4],
+				'25x25': [2.3,3,4,5],
+				'30x30': [2.3,3,4,5],
+				'35x35': [2.3,3,4,5,6],
+				'38x38': [2.3,3,4,5,6],
+				'40x40': [2.3,3,4,5,6],
+				'45x45': [3,4,5,6,7],
+				'50x50': [3,4,5,6,7,8,9],
+				'55x55': [4,5,6,7,8,9,10],
+				'60x60': [4,5,6,7,8,9,10],
+				'65x65': [4,5,6,7,8,9,10,11],
+				'70x70': [4,5,6,7,8,9,10,11],
+				'75x75': [5,6,7,8,9,10,11,12],
+				'80x80': [6,7,8,9,10,11,12],
+				'90x90': [6,7,8,9,10,11,12],
+				'100x100': [7,8,9,10,11,12],
+				'110x110': [7,8,9,10,11,12],
+				'120x120': [8,9,10,11,12,13,14,15],
+				'125x125': [8,9,10,11,12,13,14,15,16],
+				'130x130': [8,9,10,11,12,13,14,15,16],
+				'140x140': [10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+				'150x150': [10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+				'160x160': [10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+				'180x180': [10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+				'200x200': [10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+			},
         },
         "Square Bars": {
           label: "Sizes",
@@ -478,24 +662,17 @@ Vue.component('merchant-bars-form', {
             "120x120x13",
             "140x140x15",
           ],
-        },
+	  	},
+		
       },
-			diameters: [
-				5.5,
-				6,
-				6.5,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12,
-				13,
-				14,
-				15,
-				16,
-			],
+
+	 
 			newArt: {},
+	  		//fsize: null,
+	  /*
+	  		flats: [3,4,5,6,8,10,12,16,20,25,30,35,40,50],
+	  		angles: [2.3,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,25,26,28],
+	  */
 		}
 	},
 	methods:{
@@ -507,17 +684,33 @@ Vue.component('merchant-bars-form', {
 			this.articles['MERCHANT BARS'].push(this.newArt);
 
 		},
-    selectSubtype: function(s){
-      this.subtype = s;
-      this.article.subtype = s;
+		addSize: function(d1, d2){
+			// patch x copiar obj enlloc d'agafar referència
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.d1 = d1;
+			this.newArt.d2 = d2;
+			this.articles['MERCHANT BARS'].push(this.newArt);
 
-    },
+		},
+   	 	selectSubtype: function(s){
+     	   	this.subtype = s;
+     	   	this.article.subtype = s;
+
+    	},
+		isEnabled: function(val1, val2){
+			return _.includes(this.sizes[this.subtype].values[val1], val2);
+		},
 	},
 	computed:{
-
+		dim2: function(){
+			console.log(this.sizes[this.subtype].s);
+			return this.sizes[this.subtype].s;
+		},
 	},
   mounted (){
 	  //this.article.unity = 'MT';
+	  //console.log(this.sizes['Flat Bars'].s);
+	  //console.log(Object.keys(this.sizes['Flat Bars'].values));
   },
 
 });
@@ -651,7 +844,7 @@ Vue.component('beam-form', {
 	</div>
 	<div>
 		<strong>Subtypes:</strong>&nbsp;
-				<select v-model="article.subtype">
+				<select v-model="article.subtype" @change="updateSub">
 					<option disabled selected>select subtype</option>
 					<option v-for="s in subtypes" :value="s">{{s}}</option>
 				</select>
@@ -919,6 +1112,9 @@ Vue.component('beam-form', {
 			}
 		},
 		*/
+		updateSub: function(){
+			this.$forceUpdate();	
+		},
 
 
 	},

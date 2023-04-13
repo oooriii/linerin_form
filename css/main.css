@@ -3,3 +3,66 @@ body{
   color: #000;
   background-color: #ece9df;
 }
+
+
+	.diameters{
+		width: 300px;
+	}
+	.diameter{
+		width: 50px;
+		height: 42px;
+		display: inline-block;
+		margin: 2px;
+		border: 1px solid #000;
+		border-radius: 2px;
+		text-align: center;
+		padding-top: 8px;
+	}
+	.diameter:hover{
+		background-color: red;
+		color: white;
+		cursor: pointer;
+	}
+	.diameter.disabled{
+		background-color: #DDD;
+	}
+	.diameter.enabled{
+		background-color: green;
+	}
+	.diameter.th{
+		background-color: blue;
+	}
+	.diameter.disabled:hover, .diameter.th:hover{
+		cursor: not-allowed;
+		color: black;
+	}
+	.merchant{
+	  width: 100%;
+	}
+.subtypes{
+  width: 850px;
+  vertical-align: middle;
+}
+.subtype{
+  width: 110px;
+  height: 40px;
+  display: inline-block;
+  margin: 2px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  text-align: center;
+  padding-top: 8px;
+  word-wrap: break-word;
+  float: left;
+}
+.subtype:hover,.subtype.selected{
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+.clear{
+  clear: both;
+}
+	td.number{
+		text-align: right;
+	}
