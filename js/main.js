@@ -215,7 +215,7 @@ Vue.component('lines-articles', {
 		linies: Object,
     },
 	template: `
-<div>
+<div class="col-12 col-md-6">
 <h3>Lines articles</h3>
 	<section v-if="linies['REBAR'].length > 0">
 	<h4>REBAR</h4>
@@ -1238,42 +1238,57 @@ Vue.component('form-articles', {
 		//rebarArticles: Array,
     },
 	template: `
-<div>
-	<div>
+	<div class="col-12 col-md-6">
+		<div class="row">
 	<!--
-		<strong>type:</strong> <input type="text" value="" name="type" v-model="article.type"/>
-		<strong>product:</strong> <input type="text" value="" name="product" v-model="article.product"/>
+			<h4 class="col-12">Types:</h4>
 	-->
-	<strong>type:</strong>
-				<select v-model="type">
-					<option disabled selected>select type of product</option>
-					<option v-for="pType in types" :value="pType">{{pType}}</option>
-				</select>
+			<div class="btn btn-outline-dark col-3 m-1" v-for="pType in types" @click="setType(pType)">{{pType}}</div>
+			<p class="help">Select one type of product to start</p>
+		</div>
+		<div class="row">
+	    			<transition name="fade">
+			<div v-if="type == 'REBAR'">
+				<rebar-form :article="article"></rebar-form>
+			</div>
+					</transition>
+	    			<transition name="fade">
+			<div v-if="type == 'WIRE ROD'">
+				<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
+			</div>
+				</transition>
+	    			<transition name="fade">
+			<div v-if="type == 'MERCHANT BARS'">
+				<merchant-bars-form :article="article" :articles="articles"></merchant-bars-form>
+  			</div>
+				</transition>
+    			<transition name="fade">
+			<div v-if="type == 'BEAM'">
+				<beam-form :article="article"></beam-form>
+			</div>
+				</transition>
 
-	<div v-if="type == 'REBAR'">
-		<rebar-form :article="article"></rebar-form>
-	</div>
-	<div v-if="type == 'WIRE ROD'">
-		<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
-	</div>
-  <div v-if="type == 'MERCHANT BARS'">
-    <merchant-bars-form :article="article" :articles="articles"></merchant-bars-form>
-  </div>
-	<div v-if="type == 'BEAM'">
-		<beam-form :article="article"></beam-form>
+    			<transition name="fade">
+			<div v-if="type == 'CEMENT'">
+
+					<cement-form :article="article"></cement-form>
+			</div>
+		    	</transition>
+		</div>
+	
+	
+	<button class="btn-slider" @click="addNew">add art</button>
+	
 	</div>
 
-
-
-	<div v-if="type == 'CEMENT'">
-		<cement-form :article="article"></cement-form>
+<!--
 	</div>
-	<!--
-		<strong>quant:</strong> <input type="number" value="" name="" v-model="article.quantity"/>
-	-->
-	</div>
-<button @click="addNew">add art</button>
+
+<button class="btn-slider" @click="addNew">add art</button>
+	
 </div>
+	
+-->
 	`,
 	data () {
 	    return {
@@ -1319,7 +1334,12 @@ Vue.component('form-articles', {
 
 		  this.article={};
 		  this.type="";
+		  
+		  this.$emit('new-element');
 	    },
+		setType: function(t){
+			this.type = t;
+		},
 
 	},
 	computed:{
@@ -1339,10 +1359,10 @@ Vue.component('all-app', {
 		articles: Object,
     },
 	template: `
-<div>
-	<h3>Products</h3>
-	<section>
-		<form-articles :articles="articles"></form-articles>
+<div class="container-fluid">
+	<h3>Our Products</h3>
+	<section class="col-12 row">
+		<form-articles :articles="articles" v-on:new-element="popUp"></form-articles>
 		<lines-articles :linies="articles"></lines-articles>
 	</section>
   <pre>
@@ -1357,6 +1377,9 @@ Vue.component('all-app', {
 
 	},
 	methods:{
+		popUp: function(){
+			this.$emit('new-element');
+		},
 
 	},
 	computed:{
@@ -1452,6 +1475,8 @@ var vm = new Vue({
 	   result: "",
 
 	   step: 0,
+	   
+	   pop: false,
    }
  },
  /*
@@ -1508,6 +1533,13 @@ methods:{
 		else return false;
 
 	},
+	popUp: function(){
+		//console.log('pop');
+		this.pop = true;
+		console.log(this.pop);
+		self = this;
+		setTimeout(function(){self.pop = false;} , 1000);
+	}
 },
 computed:{
 	someArticle: function(){
@@ -1529,23 +1561,3 @@ computed:{
 },
 });
 
-/*
-var vm = new Vue({
- el: '#vue-header',
- data: {
-   isActiveBurger: false,
-   loadingBtn: false,
-   message: {
-     missatge: '',
-     status: '',
-   },
- },
- methods:{
-   // generals
-   toggleBurger: function(){
-       this.isActiveBurger = !this.isActiveBurger;
-       //console.log('toggle');
-   },
- },
-});
-*/

@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+	<!--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	-->
+	<!--
+	https://demo-web.com.es/wp-content/themes/inusti/css/bootstrap.css?ver=1.0.2
+	-->
+	<link rel="stylesheet" href="https://demo-web.com.es/wp-content/themes/inusti/css/bootstrap.css?ver=1.0.2">
+	
     <link rel="stylesheet" href="css/main.css">
 <!--
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -59,6 +66,13 @@
 </header>
 
 <main id="form">
+
+    <transition name="fade">
+      <p class="info popup" v-if="pop">New element added</p>
+    </transition>
+
+	 
+	
   <div class="container-fluid">
 <!--
     <section class="row">
@@ -67,12 +81,12 @@
     </article>
     </section>
 -->
-	<section v-if="step==0">
-	  	<all-app :articles="articles"></all-app>
+	<section class="row" v-if="step==0">
+	  	<all-app :articles="articles" v-on:new-element="popUp"></all-app>
 		<button @click="step++">next step</button>
 	</section>
 
-  	<section v-if="step==1">
+  	<section class="row" v-if="step==1">
 		<h3>Payment and delivery</h3>
   		<div>
   			<strong>Delivery terms:</strong>&nbsp;
@@ -107,7 +121,7 @@
 		<button @click="step++">next step</button>
   	</section>
 
-  	<section v-if="step==2">
+  	<section class="row" v-if="step==2">
 		<h3>Contact</h3>
   		<div>
   			<strong>Email:</strong>&nbsp;<input type="email" v-model="email" placeholder="Contact email" required/>
@@ -128,23 +142,23 @@
 		  <button @click="sendData()">SEND</button>
 	  </div>
 
-	<div>
-		<div>
+	<div class="row">
+		<div class="col">
 			<strong>Count:</strong> <span>{{count}}</span>
 		</div>
-		<div>
+		<div class="col">
 			<strong>Message:</strong> <span>{{result}}</span>
 		</div>
-		<div>
+		<div class="col">
 			<strong>PaymentTerm:</strong> <span>{{payment}}</span>
 		</div>
-		<div>
+		<div class="col-9">
 			<strong>Delivery Terms:</strong> <span>{{deliveryType}}</span>
 		</div>
-		<div v-if="deliveryType == 'CFR / CIF'">
+		<div class="col" v-if="deliveryType == 'CFR / CIF'">
 			<strong>Ports:</strong> <span>{{deliveryPorts}}</span>
 		</div>
-		<div v-if="deliveryType == 'DAP – Delivered At Place'">
+		<div class="col" v-if="deliveryType == 'DAP – Delivered At Place'">
 			<strong>DAP:</strong> <span>{{DAP}}</span>
 		</div>
 	</div>

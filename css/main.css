@@ -4,6 +4,25 @@ body{
   background-color: #ece9df;
 }
 
+.popup{
+	position: fixed;
+	display: block;
+	width: 300px;
+	z-index: 2000;
+	text-align: center;
+	left: calc(50% - 150px);
+	right: calc(50% - 150px);
+	top: 300px;
+	background-color: white;
+	padding: 10px;
+	border: 5px solid black;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
 
 	.diameters{
 		width: 300px;
