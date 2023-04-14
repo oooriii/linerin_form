@@ -1247,37 +1247,36 @@ Vue.component('form-articles', {
 			<p class="help">Select one type of product to start</p>
 		</div>
 		<div class="row">
-	    			<transition name="fade">
-			<div v-if="type == 'REBAR'">
-				<rebar-form :article="article"></rebar-form>
-			</div>
-					</transition>
-	    			<transition name="fade">
-			<div v-if="type == 'WIRE ROD'">
-				<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
-			</div>
-				</transition>
-	    			<transition name="fade">
-			<div v-if="type == 'MERCHANT BARS'">
-				<merchant-bars-form :article="article" :articles="articles"></merchant-bars-form>
-  			</div>
-				</transition>
-    			<transition name="fade">
-			<div v-if="type == 'BEAM'">
-				<beam-form :article="article"></beam-form>
-			</div>
-				</transition>
+	    	<transition name="fade">
+				<div v-if="type == 'REBAR'">
+					<rebar-form :article="article"></rebar-form>
+				</div>
+			</transition>
+	    	<transition name="fade">
+				<div v-if="type == 'WIRE ROD'">
+					<wire-rod-form :article="article" :articles="articles"></wire-rod-form>
+				</div>
+			</transition>
+	    	<transition name="fade">
+				<div v-if="type == 'MERCHANT BARS'">
+					<merchant-bars-form :article="article" :articles="articles"></merchant-bars-form>
+  				</div>
+			</transition>
+    		<transition name="fade">
+				<div v-if="type == 'BEAM'">
+					<beam-form :article="article"></beam-form>
+				</div>
+			</transition>
 
-    			<transition name="fade">
-			<div v-if="type == 'CEMENT'">
-
+    		<transition name="fade">
+				<div v-if="type == 'CEMENT'">
 					<cement-form :article="article"></cement-form>
-			</div>
-		    	</transition>
+				</div>
+		    </transition>
 		</div>
 	
 	
-	<button class="btn-slider" @click="addNew">add art</button>
+	<button class="btn btn-slider" @click="addNew">add article</button>
 	
 	</div>
 
@@ -1477,6 +1476,8 @@ var vm = new Vue({
 	   step: 0,
 	   
 	   pop: false,
+	   filterPort: "",
+	   newPort: "",
    }
  },
  /*
@@ -1539,7 +1540,16 @@ methods:{
 		console.log(this.pop);
 		self = this;
 		setTimeout(function(){self.pop = false;} , 1000);
-	}
+	},
+	addPort: function(){
+		this.ports.push(this.newPort);
+		this.ports = _.sortBy(_.uniq(this.ports));
+		this.newPort = '';
+	},
+	addDelPort: function(p){
+		this.deliveryPorts.push(p);
+		this.deliveryPorts = _.sortBy(_.uniq(this.deliveryPorts));
+	},
 },
 computed:{
 	someArticle: function(){
@@ -1556,6 +1566,14 @@ computed:{
 	},
 	count: function(){
 			return _.countBy(this.articles, 'length');
+	},
+	portsF: function(){
+		self = this;
+		
+		return _.sortBy(_.filter(this.ports, function(o) { 
+			var thisRegex = new RegExp(self.filterPort); 
+			return thisRegex.test(o); 
+		}));
 	},
 
 },

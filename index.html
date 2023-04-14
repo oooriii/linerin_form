@@ -83,7 +83,9 @@
 -->
 	<section class="row" v-if="step==0">
 	  	<all-app :articles="articles" v-on:new-element="popUp"></all-app>
-		<button @click="step++">next step</button>
+		<div class="col-1">
+			<button class="btn btn-slider" @click="step++">next step</button>
+		</div>
 	</section>
 
   	<section class="row" v-if="step==1">
@@ -97,10 +99,25 @@
 			</select>
 
 			<div v-if="deliveryType == 'CFR / CIF'">
+				<div>
+					<strong>Filter port</strong>
+					<input type="text" v-model="filterPort"/>
+				</div>
+				<!--
 				<select v-model="deliveryPorts" multiple>
 					<option disabled selected>select one or more ports</option>
-					<option v-for="port in ports" :value="port">{{port}}</option>
+					<option v-for="port in portsF" :value="port">{{port}}</option>
 				</select>
+				-->
+				<div class="row">
+					<span class="btn btn-outline-dark col m-1" v-for="port in portsF" @click="addDelPort(port)">{{port}}</span>
+				</div>
+				<div>
+					<strong>add new port</strong>
+					<input type="text" v-model="newPort"/>
+					<button class="btn btn-slider" @click="addPort">Add</button>
+				</div>
+				
 			</div>
 
 
@@ -117,8 +134,8 @@
 				<option v-for="paymentTerm in paymentTerms" :value="paymentTerm">{{paymentTerm}}</option>
 			</select>
   		</div>
-		<button @click="step--">previous step</button>
-		<button @click="step++">next step</button>
+		<button class="btn btn-slider" @click="step--">previous step</button>
+		<button class="btn btn-slider" @click="step++">next step</button>
   	</section>
 
   	<section class="row" v-if="step==2">
@@ -139,7 +156,7 @@
 	  <div v-if="validEmail() && articles.length>0 && step==2">
 			 -->
 	  <div v-if="validEmail() && someArticle && step==2">
-		  <button @click="sendData()">SEND</button>
+		  <button class="btn btn-slider" @click="sendData()">SEND</button>
 	  </div>
 
 	<div class="row">
