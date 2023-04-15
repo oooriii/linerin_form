@@ -302,7 +302,7 @@ Vue.component('rebar-form', {
     },
 	template: `
 <div>
-	<h1>STEEL: LONG PRODUCTS: Reinforcing steel bars (REBAR)</h1>
+	<h1>STEEL: LONG PRODUCTS:<br/>Reinforcing steel bars (REBAR)</h1>
 	<div>
 		<strong>Quality:</strong>&nbsp;
 				<select v-model="article.quality">
@@ -820,49 +820,58 @@ Vue.component('beam-form', {
 		article: Object,
     },
 	template: `
-<div>
-	<h1>STEEL: LONG PRODUCTS: Beams)</h1>
-	<div>
-		<strong>Quality:</strong>&nbsp;
-				<select v-model="article.quality">
-					<option disabled selected>select steel quality</option>
-					<option v-for="q in qualities" :value="q">{{q}}</option>
+<div class="row">
+	<h2>STEEL: LONG PRODUCTS: Beams</h2>
+	<div class="col-12">
+		<h3>Steel Quality</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality==q}" v-for="q in qualities" @click="setQuality(q)">{{q}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality=='other'}" @click="setQuality('other')">Other quality</div>
+		</div>
+		<transition name="fade">
+			<div class="row" v-if="this.article.quality=='other'" >
+				<input type="text" v-model="article.quality_other" placeholder="Other quality - please, specify"/>
+			</div>
+		</transition>
+	</div>
+	<div class="col-6">
+		<h3>Length</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setLength(l)">{{l}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setLength('other')">Other length</div>
+		</div>
+		<transition name="fade">
+			<div class="row" v-if="this.article.length=='other'" >
+				<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+			</div>
+		</transition>
+	</div>
+	
+	<div class="col-6">
+		<h3>Unity</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unity==u}" v-for="u in unities" @click="setValue('unity',u)">{{u}}</div>
 
-					<option value="other">Other grade - please specify</option>
+		</div>
+	</div>
+	
+	<div class="col-12">
+		<h3>Subtypes</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+		</div>
+	</div>
+	
 
-				</select>
-				<input v-if="article.quality=='other'" type="text" v-model="article.quality_other" placeholder="Other grade - please, specify"/>
-	</div>
-	<div>
-		<strong>Length:</strong>&nbsp;
-				<select v-model="article.length">
-					<option disabled selected>select length</option>
-					<option v-for="l in lengths" :value="l">{{l}}</option>
-					<option value="other">Other length - please specify</option>
-				</select>
-				<input v-if="article.length=='other'" type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
-	</div>
-	<div>
-		<strong>Subtypes:</strong>&nbsp;
-				<select v-model="article.subtype" @change="updateSub">
-					<option disabled selected>select subtype</option>
-					<option v-for="s in subtypes" :value="s">{{s}}</option>
-				</select>
-	</div>
-	<div>
-		<strong>Product:</strong>&nbsp;
-				<select v-model="article.product">
-					<option disabled selected>select product</option>
-					<option v-for="p in products[article.subtype]" :value="p">{{p}}</option>
-				</select>
-	</div>
-	<div>
-		<strong>Unity:</strong>&nbsp;
-				<select v-model="article.unity">
-					<option disabled selected>select unity</option>
-					<option v-for="u in unities" :value="u">{{u}}</option>
-				</select>
-	</div>
+	<transition name="fade">
+		<div class="col-12" v-if="article.subtype">
+			<h3>Product</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="setValue('product',p)">{{p}}</div>	
+			</div>
+		</div>
+	</transition>
+
 
 </div>
 	`,
@@ -1112,9 +1121,27 @@ Vue.component('beam-form', {
 			}
 		},
 		*/
+		/*
 		updateSub: function(){
 			this.$forceUpdate();	
 		},
+		*/
+		setQuality: function(q){
+			this.article.quality=q;
+			this.$forceUpdate();
+		},
+		setLength: function(l){
+			this.article.length=l;
+			this.$forceUpdate();
+		},
+		setSubtype: function(s){
+			this.article.subtype=s;
+			this.$forceUpdate();
+		},
+		setValue: function(variable,val){
+			this.article[variable]=val;
+			this.$forceUpdate();
+		},		
 
 
 	},
@@ -1243,7 +1270,7 @@ Vue.component('form-articles', {
 	<!--
 			<h4 class="col-12">Types:</h4>
 	-->
-			<div class="btn btn-outline-dark col-3 m-1" v-for="pType in types" @click="setType(pType)">{{pType}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)">{{pType}}</div>
 			<p class="help">Select one type of product to start</p>
 		</div>
 		<div class="row">
