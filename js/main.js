@@ -818,6 +818,7 @@ BEAMS
 Vue.component('beam-form', {
     props:{
 		article: Object,
+		articles: Object,
     },
 	template: `
 <div class="row">
@@ -825,8 +826,8 @@ Vue.component('beam-form', {
 	<div class="col-12">
 		<h3>Steel Quality</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality==q}" v-for="q in qualities" @click="setQuality(q)">{{q}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality=='other'}" @click="setQuality('other')">Other quality</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality==q}" v-for="q in qualities" @click="setValue('quality',q)">{{q}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality=='other'}" @click="setValue('quality','other')">Other quality</div>
 		</div>
 		<transition name="fade">
 			<div class="row" v-if="this.article.quality=='other'" >
@@ -837,8 +838,8 @@ Vue.component('beam-form', {
 	<div class="col-6">
 		<h3>Length</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setLength(l)">{{l}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setLength('other')">Other length</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other length</div>
 		</div>
 		<transition name="fade">
 			<div class="row" v-if="this.article.length=='other'" >
@@ -867,7 +868,7 @@ Vue.component('beam-form', {
 		<div class="col-12" v-if="article.subtype">
 			<h3>Product</h3>
 			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="setValue('product',p)">{{p}}</div>	
+				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="selectProduct(p)">{{p}}</div>	
 			</div>
 		</div>
 	</transition>
@@ -1109,7 +1110,7 @@ Vue.component('beam-form', {
 					"HL 1100 x 607",
 				],
 			},
-
+			newArt: {},
 
 		}
 	},
@@ -1126,6 +1127,7 @@ Vue.component('beam-form', {
 			this.$forceUpdate();	
 		},
 		*/
+		/*
 		setQuality: function(q){
 			this.article.quality=q;
 			this.$forceUpdate();
@@ -1138,10 +1140,21 @@ Vue.component('beam-form', {
 			this.article.subtype=s;
 			this.$forceUpdate();
 		},
+		*/
 		setValue: function(variable,val){
 			this.article[variable]=val;
 			this.$forceUpdate();
-		},		
+		},	
+		selectProduct: function(p){
+			// patch x copiar obj enlloc d'agafar referència
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.product = p;
+			this.articles['BEAM'].push(this.newArt);
+			//this.articles['BEAM'] = _.uniq(this.articles['BEAM']);
+			
+			this.$emit('new-element');
+
+		},	
 
 
 	},
@@ -1161,44 +1174,42 @@ Vue.component('cement-form', {
 		article: Object,
     },
 	template: `
-<div>
-	<h1>CEMENT</h1>
-	<div>
-		<strong>Cement type:</strong>&nbsp;
-				<select v-model="article.cement_type">
-					<option disabled selected>select cement type</option>
-					<option v-for="ct in Object.keys(cement_types_legend)" :value="ct">{{ct}}</option>
+<div class="row">
+	<h2>CEMENT</h2>
+	<div class="col-12">
+		<h3>Cement type</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.cement_type==ct}" v-for="ct in Object.keys(cement_types_legend)" @click="setValue('type',ct)">{{ct}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.cement_type=='other'}" @click="setValue('type','other')">Other quality</div>
+		</div>
 
-					<option value="other">Other - please specify</option>
-
-				</select>
-				<input v-if="article.cement_type=='other'" type="text" v-model="article.cement_type_other" placeholder="Other - please, specify"/>
+			<div class="row" v-if="this.article.cement_type=='other'" >
+				<input type="text" v-model="article.cement_type_other" placeholder="Other type - please, specify"/>
+			</div>
+		<transition name="fade">
+			<div v-if="this.article.cement_type">
+				<em>{{cement_types_legend[article.cement_type]}}</em>
+			</div>
+		</transition>
 	</div>
-	<div>
-		<em>{{cement_types_legend[article.cement_type]}}</em>
+	<div class="col-12">
+		<h3>Bagged cement / Bulk Cemen</h3>
+		<div class="row">
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format==format}" v-for="format in formats" @click="setValue('format',format)">{{format}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format=='other'}" @click="setValue('format','other')">Other format</div>
+		</div>
+		<transition name="fade">
+			<div class="row" v-if="this.article.format=='other'" >
+				<input type="text" v-model="article.format_other" placeholder="Other format - please, specify"/>
+			</div>
+		</transition>
 	</div>
-	<div>
-		<strong>Bagged cement / Bulk Cement:</strong>&nbsp;
-				<select v-model="article.format">
-					<option disabled selected>select format</option>
-					<option v-for="format in formats" :value="format">{{format}}</option>
 
-					<option value="other">Other - please specify</option>
-
-				</select>
-				<input v-if="article.format=='other'" type="text" v-model="article.format_other" placeholder="Other - please, specify"/>
-	</div>
 	<div>
 		<strong>Unity:</strong>&nbsp;{{article.unity}}
-		<!--
-				<select v-model="article.unity">
-					<option disabled selected>select unity</option>
-					<option v-for="u in unities" :value="u">{{u}}</option>
-				</select>
-		-->
 	</div>
-
 </div>
+
 	`,
 	data () {
 	    return {
@@ -1244,7 +1255,20 @@ Vue.component('cement-form', {
 	},
 	methods:{
 
+		setValue: function(variable,val){
+			this.article[variable]=val;
+			this.$forceUpdate();
+		},	
+		selectProduct: function(p){
+			// patch x copiar obj enlloc d'agafar referència
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.product = p;
+			this.articles['CEMENT'].push(this.newArt);
+			//this.articles['BEAM'] = _.uniq(this.articles['BEAM']);
+			
+			this.$emit('new-element');
 
+		},	
 
 	},
 	computed:{
@@ -1252,6 +1276,7 @@ Vue.component('cement-form', {
 	},
   mounted (){
 	  this.article.unity = 'MT';
+	  this.article.cement_type = null;
   },
 
 });
@@ -1291,13 +1316,13 @@ Vue.component('form-articles', {
 			</transition>
     		<transition name="fade">
 				<div v-if="type == 'BEAM'">
-					<beam-form :article="article"></beam-form>
+					<beam-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></beam-form>
 				</div>
 			</transition>
 
     		<transition name="fade">
 				<div v-if="type == 'CEMENT'">
-					<cement-form :article="article"></cement-form>
+					<cement-form :article="article" v-on:new-element="emitNewElement"></cement-form>
 				</div>
 		    </transition>
 		</div>
@@ -1365,6 +1390,9 @@ Vue.component('form-articles', {
 	    },
 		setType: function(t){
 			this.type = t;
+		},
+		emitNewElement: function(){
+			this.$emit('new-element');
 		},
 
 	},
