@@ -89,7 +89,58 @@
 	</section>
 
   	<section class="row" v-if="step==1">
-		<h3>Payment and delivery</h3>
+		<h3 class="col-12">Payment and delivery</h3>
+		<div class="col-12 col-md-6">
+			<h4>Delivery terms</h4>
+			<div class="row">
+				<div class="btn btn-outline-dark col-5 m-1" :class="{active:deliveryType=='CFR'}" @click="deliveryType='CFR'">CFR / CIF</div>
+				<div class="btn btn-outline-dark col-5 m-1" :class="{active:deliveryType=='DAP'}" @click="deliveryType='DAP'">DAP – Delivered At Place</div>
+			</div>
+			<div class="row" v-if="deliveryType=='CFR'">
+				<h5 class="col-12">ports</h5>
+					<div class="row col-12">
+						<strong>Filter port</strong>
+						<input type="text" v-model="filterPort"/>
+					</div>
+
+					<div class="row col-12">
+						<span class="btn btn-outline-dark col-3 m-1" v-for="port in portsF" @click="addDelPort(port)">{{port}}</span>
+					</div>
+					<div>
+						<strong>add new port</strong>
+						<input type="text" v-model="newPort"/>
+						<button class="btn btn-slider" @click="addPort">Add</button>
+					</div>
+			</div>
+			<transition name="fade">
+				<div class="row col-12" v-if="deliveryType=='DAP'">
+					
+					<div class="col-3">
+						<h5>Country</h5>
+						<input v-model="DAP.country" type="text"  placeholder="Enter Country"/>
+					</div>
+					<div class="col-3">
+						<h5>City</h5>
+						<input v-model="DAP.city"  type="text" placeholder="Enter City"/>
+					</div>
+					<div class="col-3">
+						<h5>ZIP code</h5>
+						<input v-model="DAP.zip" type="number" placeholder="Enter ZIP Code"/>
+					</div>
+
+				</div>
+			</transition>
+		</div>
+		<div class="col-12 col-md-6">
+			<h4>Payment terms</h4>
+			<div class="row">
+				<div class="btn btn-outline-dark col-5 m-1" :class="{active:payment==paymentTerm}" v-for="paymentTerm in paymentTerms" @click="payment=paymentTerm">{{paymentTerm}}</div>
+			</div>
+
+		</div>
+		
+		
+<!--		
   		<div>
   			<strong>Delivery terms:</strong>&nbsp;
 			<select v-model="deliveryType">
@@ -103,12 +154,14 @@
 					<strong>Filter port</strong>
 					<input type="text" v-model="filterPort"/>
 				</div>
+-->
 				<!--
 				<select v-model="deliveryPorts" multiple>
 					<option disabled selected>select one or more ports</option>
 					<option v-for="port in portsF" :value="port">{{port}}</option>
 				</select>
 				-->
+<!--
 				<div class="row">
 					<span class="btn btn-outline-dark col m-1" v-for="port in portsF" @click="addDelPort(port)">{{port}}</span>
 				</div>
@@ -134,19 +187,37 @@
 				<option v-for="paymentTerm in paymentTerms" :value="paymentTerm">{{paymentTerm}}</option>
 			</select>
   		</div>
+	-->
+	<div class="col-12">
 		<button class="btn btn-slider" @click="step--">previous step</button>
 		<button class="btn btn-slider" @click="step++">next step</button>
+	</div>
+	
   	</section>
 
   	<section class="row" v-if="step==2">
-		<h3>Contact</h3>
-  		<div>
-  			<strong>Email:</strong>&nbsp;<input type="email" v-model="email" placeholder="Contact email" required/>
+		<h3 class="col-12">Contact</h3>
+  		<div class="col-3">
+  			<h4>Email <strong :class="{'text-danger':!alertEmail}">*</strong></h4>
+			<input type="email" v-model="email" placeholder="Contact email" required/>
   		</div>
-  		<div>
-  			<strong>Name:</strong>&nbsp;<input type="text" v-model="name" placeholder="Contact name"/>
+  		<div class="col-3">
+  			<h4>Name</h4>
+			<input type="text" v-model="name" placeholder="Contact name"/>
   		</div>
-		<button @click="step--">previous step</button>
+		<div class="col-12">
+			<p class="help">You must add <strong :class="{'text-danger':!someArticle}">some products</strong> and a <strong :class="{'text-danger':!alertEmail}">valid email</strong></p>
+		</div>
+		<div class="col-12 row">
+			<div class="col-3">
+				<button class="btn btn-slider" @click="step--">previous step</button>
+			</div>
+			<transition name="fade">
+	  	  		<div class="col-3" v-if="validEmail() && someArticle && step==2">
+	  				<button class="btn btn-slider" @click="sendData()">SEND</button>
+	  	  		</div>
+			</transition>
+		</div>
   	</section>
 
 	  <!--
@@ -155,10 +226,11 @@
 		  <!--
 	  <div v-if="validEmail() && articles.length>0 && step==2">
 			 -->
+<!--
 	  <div v-if="validEmail() && someArticle && step==2">
 		  <button class="btn btn-slider" @click="sendData()">SEND</button>
 	  </div>
-
+-->
 	<div class="row">
 		<div class="col">
 			<strong>Count:</strong> <span>{{count}}</span>

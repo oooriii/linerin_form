@@ -1378,7 +1378,7 @@ Vue.component('cement-form', {
 		</transition>
 	</div>
 	<div class="col-12">
-		<h3>Bagged cement / Bulk Cemen</h3>
+		<h3>Bagged cement / Bulk Cement</h3>
 		<div class="row">
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format==format}" v-for="format in formats" @click="setValue('format',format)">{{format}}</div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format=='other'}" @click="setValue('format','other')">Other format</div>
@@ -1501,14 +1501,7 @@ Vue.component('form-articles', {
 	
 	</div>
 
-<!--
-	</div>
 
-<button class="btn-slider" @click="addNew">add art</button>
-	
-</div>
-	
--->
 	`,
 	data () {
 	    return {
@@ -1755,7 +1748,9 @@ methods:{
 		if(this.email.match(mailformat)){
 			return true;
 		}
-		else return false;
+		else{
+			return false;
+		} 
 
 	},
 	popUp: function(){
@@ -1787,6 +1782,9 @@ computed:{
 		else{
 			return false;
 		}
+	},
+	alertEmail: function(){
+		return this.validEmail();
 	},
 	count: function(){
 			return _.countBy(this.articles, 'length');

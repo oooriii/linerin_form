@@ -4,6 +4,10 @@ body{
   background-color: #ece9df;
 }
 
+.text-danger{
+	color: red;
+}
+
 .popup{
 	position: fixed;
 	display: block;
