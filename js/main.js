@@ -1730,7 +1730,19 @@ methods:{
 	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}, {type: "pipe", quantity: 1050, product: "q3|um400|12m|10cm"}, {type: "pipe", quantity: 1050, product: "q2|B452X0|4x12cm|2cm"}]};
 	  //data = {email: "manolo@xxxx.com", name: "Manolo", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}]};
 	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: this.articles};
-	  data = {email: this.email, name: this.name, articles: this.articles};
+	  newArticles = [];
+	  _.forEach(this.articles, function(v2,vk) {
+		  _.forEach(v2, function(value) {
+		  	aux = JSON.stringify(value)
+		  	newArticles.push({type:k2, quantity: value.quantity, product: aux});
+		 }) 
+	  });
+	  // oriol 20230421 - TODO
+	  //JSON.stringify(obj);
+	  console.log(newArticles);
+	  
+	  //data = {email: this.email, name: this.name, articles: this.articles};
+	  data = {email: this.email, name: this.name, articles: newArticles};
 	  axios.post(urlMake, data).
 	  then(function(response){
 		  console.log(response.data);
