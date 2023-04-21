@@ -70,9 +70,6 @@
     <transition name="fade">
       <p class="info popup" v-if="pop">New element added</p>
     </transition>
-	<transition name="fade">
-      <p class="info popup" v-if="sent">Your request was sent</p>
-    </transition>
 
 	 
 	

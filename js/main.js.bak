@@ -1726,7 +1726,7 @@ methods:{
 		} 
 
 	},
-	sentEmail: function(){
+	sent: function(){
 		//console.log('pop');
 		this.sent = true;
 		self = this;
