@@ -13,7 +13,7 @@
 	https://demo-web.com.es/wp-content/themes/inusti/css/bootstrap.css?ver=1.0.2
 	-->
 	<link rel="stylesheet" href="https://demo-web.com.es/wp-content/themes/inusti/css/bootstrap.css?ver=1.0.2">
-	
+
     <link rel="stylesheet" href="css/main.css">
 <!--
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -74,8 +74,8 @@
       <p class="info popup" v-if="sent">Your request was sent</p>
     </transition>
 
-	 
-	
+
+
   <div class="container-fluid">
 <!--
     <section class="row">
@@ -117,7 +117,7 @@
 			</div>
 			<transition name="fade">
 				<div class="row col-12" v-if="deliveryType=='DAP'">
-					
+
 					<div class="col-3">
 						<h5>Country</h5>
 						<input v-model="DAP.country" type="text"  placeholder="Enter Country"/>
@@ -141,9 +141,9 @@
 			</div>
 
 		</div>
-		
-		
-<!--		
+
+
+<!--
   		<div>
   			<strong>Delivery terms:</strong>&nbsp;
 			<select v-model="deliveryType">
@@ -173,7 +173,7 @@
 					<input type="text" v-model="newPort"/>
 					<button class="btn btn-slider" @click="addPort">Add</button>
 				</div>
-				
+
 			</div>
 
 
@@ -195,7 +195,7 @@
 		<button class="btn btn-slider" @click="step--">previous step</button>
 		<button class="btn btn-slider" @click="step++">next step</button>
 	</div>
-	
+
   	</section>
 
   	<section class="row" v-if="step==2">
@@ -209,14 +209,14 @@
 			<input type="text" v-model="name" placeholder="Contact name"/>
   		</div>
 		<div class="col-12">
-			<p class="help">You must add <strong :class="{'text-danger':!someArticle}">some products</strong> and a <strong :class="{'text-danger':!alertEmail}">valid email</strong></p>
+			<p class="help">You must add <strong :class="{'text-danger':!someArticle}">some products</strong>, an <strong :class="{'text-danger':!alertEmail}">valid email</strong> and add a <strong :class="{'text-danger':!deliveryGood}">delivery place</strong></p>
 		</div>
 		<div class="col-12 row">
 			<div class="col-3">
 				<button class="btn btn-slider" @click="step--">previous step</button>
 			</div>
 			<transition name="fade">
-	  	  		<div class="col-3" v-if="validEmail() && someArticle && step==2">
+	  	  		<div class="col-3" v-if="validEmail() && someArticle && step==2 && deliveryPlace()">
 	  				<button class="btn btn-slider" @click="sendData()">SEND</button>
 	  	  		</div>
 			</transition>
