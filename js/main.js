@@ -810,6 +810,7 @@ Vue.component('merchant-bars-form', {
 			if(variable=='d1'){
 				//this.article[variable]=val;
 				p = document.getElementById('p');
+        p.style.visibility = 'visible';
 				setTimeout(function(){
 						p.focus();
 				}, 500);
@@ -1520,6 +1521,8 @@ Vue.component('form-articles', {
 	    },
 		setType: function(t){
 			this.type = t;
+      this.article = {};
+      this.$forceUpdate();
 		},
 		emitNewElement: function(){
 			this.$emit('new-element');
