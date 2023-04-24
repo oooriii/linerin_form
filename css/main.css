@@ -3,6 +3,11 @@ body{
   color: #000;
   background-color: #ece9df;
 }
+/* botons amb span dins x centrar textos */
+.btn{
+  padding-left: 0;
+  padding-right: 0;
+}
 
 .text-danger{
 	color: red;
