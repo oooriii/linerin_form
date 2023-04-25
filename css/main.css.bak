@@ -12,9 +12,7 @@ body{
 .text-danger{
 	color: red;
 }
-img.aux-sizes{
-	max-width: 200px;
-}
+
 .popup{
 	position: fixed;
 	display: block;
