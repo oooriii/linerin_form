@@ -10,8 +10,8 @@ Vue.component('line-rebar', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
-	<td v-else>{{line.grade_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="length">{{line.length}}</td>
 	<td class="number">{{line.diameter}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
@@ -52,8 +52,8 @@ Vue.component('line-wire-rod', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
-	<td v-else>{{line.grade_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="number">{{line.diameter}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
@@ -93,9 +93,9 @@ Vue.component('line-merchant1', {
 	template: `
 <tr v-if="line.subtype!='Flat Bars' && line.subtype!='Equal Angles'">
 	<td>{{id}}</td>
-	<td>{{line.subtype}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
-	<td v-else>{{line.grade_other}}</td>
+	<td class="grade">{{line.subtype}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.size}}</td>
@@ -134,8 +134,8 @@ Vue.component('line-merchant2', {
 	template: `
 <tr v-if="line.subtype=='Flat Bars' || line.subtype=='Equal Angles'">
 	<td>{{id}}</td>
-	<td>{{line.subtype}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade">{{line.subtype}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
@@ -179,8 +179,8 @@ Vue.component('line-beam', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
-	<td v-else>{{line.grade_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.product}}</td>
@@ -222,9 +222,9 @@ Vue.component('line-cement', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.cement_type!='other'">{{line.cement_type}}</td>
-	<td v-else>{{line.cement_type_other}}</td>
-	<td>{{line.format}}</td>
+	<td class="grade" v-if="line.cement_type!='other'">{{line.cement_type}}</td>
+	<td class="grade" v-else>{{line.cement_type_other}}</td>
+	<td class="grade">{{line.format}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
@@ -257,7 +257,7 @@ Vue.component('lines-articles', {
 		linies: Object,
     },
 	template: `
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 lines-articles">
 <h3>Lines articles</h3>
 	<section v-if="linies['REBAR'].length > 0">
 	<h4>REBAR</h4>
@@ -834,10 +834,11 @@ Vue.component('wire-rod-form', {
 		</div>
 	</transition>
 
-	<div class="col-12">
-		<strong>Unit:</strong>&nbsp;{{article.unit}}
-	</div>
-
+	<transition name="fade" v-if="this.article.grade">
+		<div>
+			<h3>Unit:</h3><div class="btn btn-outline-dark col-2 m-1 active">{{article.unit}}</div>
+		</div>
+	  </transition>
 </div>
 	`,
 	data () {
@@ -926,8 +927,8 @@ Vue.component('beam-form', {
 <div class="col-6">
 		<h3>Length</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
 		</div>
 		<transition name="fade">
 			<div class="row" v-if="this.article.length=='other'" >
@@ -939,7 +940,7 @@ Vue.component('beam-form', {
 	<div class="col-6">
 		<h3>Unit</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
 
 		</div>
 	</div>
@@ -1289,7 +1290,7 @@ Vue.component('cement-form', {
 	 </div>
   </transition>
 	<transition name="fade" v-if="this.article.cement_type">
-		<div class="col-12">
+		<div>
 			<h3>Unit:</h3><div class="btn btn-outline-dark col-2 m-1 active">{{article.unit}}</div>
 		</div>
 	  </transition>
@@ -1363,11 +1364,24 @@ Vue.component('form-articles', {
     },
 	template: `
 	<div>
-		<div>
+		<div class="row pl-1">
 
   <p class="col-12 help">Select one type of product to start</p>
+  <!-- canvi
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)"><span>{{pType}}</span></div>
-
+-->
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Long Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in long" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Flat Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in flat" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Other Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in other" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
 		</div>
 		<div>
 	    	<transition name="fade">

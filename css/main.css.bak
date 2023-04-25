@@ -12,7 +12,12 @@ body{
 .text-danger{
 	color: red;
 }
-
+img.aux-sizes{
+	max-width: 200px;
+}
+.lines-articles input{
+	max-width: 20px;
+}
 .popup{
 	position: fixed;
 	display: block;
