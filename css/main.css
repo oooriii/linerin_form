@@ -41,7 +41,13 @@ img.aux-sizes{
   opacity: 0
 }
 
-
+@media (min-width: 576px) {
+	#lines-articles{
+		position: fixed;
+		right: 0;
+	
+	}
+}
 
 
 
