@@ -10,8 +10,8 @@ Vue.component('line-rebar', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.quality!='other'">{{line.quality}}</td>
-	<td v-else>{{line.quality_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="length">{{line.length}}</td>
 	<td class="number">{{line.diameter}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
@@ -52,8 +52,8 @@ Vue.component('line-wire-rod', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.grade!='other'">{{line.grade}}</td>
-	<td v-else>{{line.grade_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="number">{{line.diameter}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
@@ -93,7 +93,7 @@ Vue.component('line-merchant1', {
 	template: `
 <tr v-if="line.subtype!='Flat Bars' && line.subtype!='Equal Angles'">
 	<td>{{id}}</td>
-	<td>{{line.subtype}}</td>
+	<td class="grade">{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
@@ -106,7 +106,7 @@ Vue.component('line-merchant1', {
 	`,
 	data () {
 	    return {
-			type: "MERCHANT BARS",
+			type: "MERCHANTS",
 		}
 	},
 	methods:{
@@ -134,7 +134,7 @@ Vue.component('line-merchant2', {
 	template: `
 <tr v-if="line.subtype=='Flat Bars' || line.subtype=='Equal Angles'">
 	<td>{{id}}</td>
-	<td>{{line.subtype}}</td>
+	<td class="grade">{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
@@ -148,7 +148,7 @@ Vue.component('line-merchant2', {
 	`,
 	data () {
 	    return {
-			type: "MERCHANT BARS",
+			type: "MERCHANTS",
 		}
 	},
 	methods:{
@@ -179,8 +179,8 @@ Vue.component('line-beam', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.quality!='other'">{{line.quality}}</td>
-	<td v-else>{{line.quality_other}}</td>
+	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
+	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.product}}</td>
@@ -222,9 +222,9 @@ Vue.component('line-cement', {
 	template: `
 <tr>
 	<td>{{id}}</td>
-	<td v-if="line.cement_type!='other'">{{line.cement_type}}</td>
-	<td v-else>{{line.cement_type_other}}</td>
-	<td>{{line.format}}</td>
+	<td class="grade" v-if="line.cement_type!='other'">{{line.cement_type}}</td>
+	<td class="grade" v-else>{{line.cement_type_other}}</td>
+	<td class="grade">{{line.format}}</td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
@@ -257,12 +257,12 @@ Vue.component('lines-articles', {
 		linies: Object,
     },
 	template: `
-<div class="col-12 col-md-6">
+<div class="col-12 col-md-6 lines-articles">
 <h3>Lines articles</h3>
 	<section v-if="linies['REBAR'].length > 0">
 	<h4>REBAR</h4>
 			<table>
-				<tr><th>id</th><th>quality</th><th>length</th><th>diameter</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<tr><th>id</th><th>grade</th><th>length</th><th>diameter</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
 				<line-rebar v-for="(line, id) in linies['REBAR']" :key="id" :linies="linies" :line="line" :id="id"></line-rebar>
 			</table>
 	</section>
@@ -275,25 +275,25 @@ Vue.component('lines-articles', {
 			</table>
 	</section>
 
-	<section v-if="linies['MERCHANT BARS'].length > 0">
-	<h4>MERCHANT BAR</h4>
+	<section v-if="linies['MERCHANTS'].length > 0">
+	<h4>MERCHANT BARS</h4>
 			<table>
 				<tr><th>id</th><th>subtype</th><th>grade</th><th>length</th><th>size</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
-				<line-merchant1 v-for="(line, id) in linies['MERCHANT BARS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant1>
+				<line-merchant1 v-for="(line, id) in linies['MERCHANTS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant1>
 			</table>
 			<table>
 				<tr><th>id</th><th>subtype</th><th>grade</th><th>length</th><th>a</th><th>s</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
 				<!--
-				<line-merchant2 v-for="(line, id) in _.find(linies['MERCHANT BARS'], function(o) { return o.subtype=='Flat Bars'; })" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
+				<line-merchant2 v-for="(line, id) in _.find(linies['MERCHANTS'], function(o) { return o.subtype=='Flat Bars'; })" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
 				-->
-				<line-merchant2 v-for="(line, id) in linies['MERCHANT BARS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
+				<line-merchant2 v-for="(line, id) in linies['MERCHANTS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
 			</table>
 	</section>
 
 	<section v-if="linies['BEAM'].length > 0">
 	<h4>BEAMS</h4>
 			<table>
-				<tr><th>id</th><th>quality</th><th>length</th><th>product</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
+				<tr><th>id</th><th>grade</th><th>length</th><th>product</th><th>Quantity</th><th>Untity</th><th>action</th></tr>
 				<line-beam v-for="(line, id) in linies['BEAM']" :key="id" :linies="linies" :line="line" :id="id"></line-beam>
 			</table>
 	</section>
@@ -339,38 +339,36 @@ Vue.component('rebar-form', {
 		articles: Object,
     },
 	template: `
-<div class="row">
-	<h2>STEEL: LONG PRODUCTS:<br/>Reinforcing steel bars (REBAR)</h2>
-	<div class="col-12">
-		<h3>Quality</h3>
-		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality==q}" v-for="q in qualities" @click="setValue('quality',q)">{{q}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality=='other'}" @click="setValue('quality','other')">Other quality</div>
+<div>
+
+	<div>
+		<h3 class="col-12">Grade</h3>
+		<div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
 		</div>
 
-		<div class="row" v-if="this.article.quality=='other'" >
-			<input type="text" v-model="article.quality_other" placeholder="Other quality - please, specify"/>
+		<div class="row" v-if="this.article.grade=='other'" >
+			<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
 		</div>
 	</div>
 	<transition name="fade">
-		<div class="col-6" v-if="article.quality">
-			<h3>Length</h3>
-			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Length</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
 			</div>
-			<div class="row" v-if="this.article.length=='other'" >
-				<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
-			</div>
-		</div>
-
-	</transition>
-
-	<transition name="fade">
-		<div class="col-6" v-if="article.quality">
-			<h3>Unit</h3>
-			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
 			</div>
 		</div>
 	</transition>
@@ -379,7 +377,7 @@ Vue.component('rebar-form', {
 		<div class="col-12" v-if="article.unit && article.length">
 			<h3>Diameters (mm)</h3>
 			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
+				<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
 			</div>
 		</div>
 	</transition>
@@ -388,8 +386,8 @@ Vue.component('rebar-form', {
 	`,
 	data () {
 	    return {
-			qualities: [
-				"BS4448 GR B500B",
+			grades: [
+				"BS4449 GR B500B",
 				"NFA 35-080-1 B 500B",
 				"ASTM A615 GR 60",
 				//"Other grade - please specify",
@@ -398,8 +396,8 @@ Vue.component('rebar-form', {
 //				"In 12 meters standard bar length",
 				//"In other length (please specify)",
 //				"In coils",
-          "12m",
-          "Coils",
+				"12m",
+				"Coils",
 			],
 			unities: [
 				"MT",
@@ -458,11 +456,11 @@ Vue.component('merchant-bars-form', {
 		articles: Object,
     },
 	template: `
-<div class="row">
-	<h2>STEEL: LONG PRODUCTS:<br/>Merchant bars: {{subtype}}</h2>
-	<div class="col-12">
-		<h3>Subtypes</h3>
-		<div class="row">
+<div>
+
+	<div>
+		<h3 class="col-12">Subtypes</h3>
+		<div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
 		</div>
 	</div>
@@ -477,31 +475,28 @@ Vue.component('merchant-bars-form', {
 			<div class="row" v-if="this.article.grade=='other'" >
 				<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
 			</div>
-	</div>
+		</div>
 	</transition>
 
 	<transition name="fade">
-		<div class="col-6" v-if="article.grade">
-			<h3>Length</h3>
-			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Length</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
 			</div>
-			<div class="row" v-if="this.article.length=='other'" >
-				<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
-			</div>
-		</div>
-
-	</transition>
-
-	<transition name="fade">
-		<div class="col-6" v-if="article.grade">
-			<h3>Unit</h3>
-			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
 			</div>
 		</div>
-
 	</transition>
 
 	<transition name="fade">
@@ -510,18 +505,18 @@ Vue.component('merchant-bars-form', {
 			<!-- flat i angle bars - 2 dimensions -->
 			<div v-if="article.subtype == 'Flat Bars' || article.subtype == 'Equal Angles'" class="row">
 				<div class="col-12">
-					<img :src="sizes[article.subtype].img"/>
+					<img class="aux-sizes" :src="sizes[article.subtype].img"/>
 				</div>
 				<div class="col-12">
 					<h4>{{sizes[article.subtype].label1}}</h4>
 					<div class="row">
-						<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.d1==d1}" v-for="d1 in Object.keys(this.sizes[article.subtype].values)" @click="setValue('d1',d1)">{{d1}}</div>
+						<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.d1==d1}" v-for="d1 in Object.keys(this.sizes[article.subtype].values)" @click="setValue('d1',d1)">{{d1}}</div>
 					</div>
 				</div>
 
 			</div>
 			<div class="row" v-else>
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.size==s}" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.size==s}" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
 			</div>
 		</div>
 
@@ -534,7 +529,7 @@ Vue.component('merchant-bars-form', {
 					<h4 ref="d2">{{sizes[article.subtype].label2}}</h4>
 <input autofocus id="p"/>
 					<div class="row">
-						<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.d2==d2}" v-for="d2 in this.sizes[this.article.subtype].values[this.article.d1]" @click="addProduct('d2',d2)">{{d2}}</div>
+						<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.d2==d2}" v-for="d2 in this.sizes[this.article.subtype].values[this.article.d1]" @click="addProduct('d2',d2)">{{d2}}</div>
 					</div>
 				</div>
 
@@ -746,54 +741,11 @@ Vue.component('merchant-bars-form', {
 
 
 			newArt: {},
-	  		//fsize: null,
-	  /*
-	  		flats: [3,4,5,6,8,10,12,16,20,25,30,35,40,50],
-	  		angles: [2.3,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,25,26,28],
-	  */
+
 		}
 	},
 	methods:{
-		/*
-		addDiameter: function(d){
-			//console.log("dia: "+d);
-			// patch x copiar obj enlloc d'agafar referència
-			this.newArt = JSON.parse(JSON.stringify(this.article));
-			this.newArt.diameter = d;
-			this.articles['MERCHANT BARS'].push(this.newArt);
 
-		},
-		*/
-		/*
-		addSize: function(d1, d2){
-			// patch x copiar obj enlloc d'agafar referència
-			this.newArt = JSON.parse(JSON.stringify(this.article));
-			this.newArt.d1 = d1;
-			this.newArt.d2 = d2;
-			this.articles['MERCHANT BARS'].push(this.newArt);
-
-		},
-   	 	selectSubtype: function(s){
-     	   	this.subtype = s;
-     	   	this.article.subtype = s;
-
-    	},
-		isEnabled: function(val1, val2){
-			return _.includes(this.sizes[this.subtype].values[val1], val2);
-		},
-
-
-		addDiameter: function(d){
-			//console.log("dia: "+d);
-			// patch x copiar obj enlloc d'agafar referència
-			this.newArt = JSON.parse(JSON.stringify(this.article));
-			this.newArt.diameter = d;
-			this.articles['REBAR'].push(this.newArt);
-
-			this.$emit('new-element');
-
-		},
-		*/
 
 		setValue: function(variable,val){
 			this.article[variable]=val;
@@ -810,6 +762,7 @@ Vue.component('merchant-bars-form', {
 			if(variable=='d1'){
 				//this.article[variable]=val;
 				p = document.getElementById('p');
+        p.style.visibility = 'visible';
 				setTimeout(function(){
 						p.focus();
 				}, 500);
@@ -827,7 +780,7 @@ Vue.component('merchant-bars-form', {
 		addProduct: function(variable,val){
 			this.newArt = JSON.parse(JSON.stringify(this.article));
 			this.newArt[variable] = val;
-			this.articles['MERCHANT BARS'].push(this.newArt);
+			this.articles['MERCHANTS'].push(this.newArt);
 
 			this.$emit('new-element');
 		},
@@ -860,11 +813,10 @@ Vue.component('wire-rod-form', {
 		articles: Object,
     },
 	template: `
-<div class="row">
-	<h2>STEEL: LONG PRODUCTS: Wire Rod</h2>
-	<div class="col-12">
-		<h3>Steel Grade</h3>
-		<div class="row">
+<div>
+	<div>
+		<h3 class="col-12">Steel Grade</h3>
+		<div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
 		</div>
@@ -877,15 +829,16 @@ Vue.component('wire-rod-form', {
 		<div class="col-12" v-if="article.grade">
 			<h3>Diameters (mm)</h3>
 			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
+				<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
 			</div>
 		</div>
 	</transition>
 
-	<div class="col-12">
-		<strong>Unit:</strong>&nbsp;{{article.unit}}
-	</div>
-
+	<transition name="fade" v-if="this.article.grade">
+		<div>
+			<h3>Unit:</h3><div class="btn btn-outline-dark col-2 m-1 active">{{article.unit}}</div>
+		</div>
+	  </transition>
 </div>
 	`,
 	data () {
@@ -957,25 +910,25 @@ Vue.component('beam-form', {
 		articles: Object,
     },
 	template: `
-<div class="row">
-	<h2>STEEL: LONG PRODUCTS: Beams</h2>
-	<div class="col-12">
-		<h3>Steel Quality</h3>
-		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality==q}" v-for="q in qualities" @click="setValue('quality',q)">{{q}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.quality=='other'}" @click="setValue('quality','other')">Other quality</div>
+<div>
+	<div>
+		<h3 class="col-12">Steel Grade</h3>
+		<div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade==g}" v-for="g in qualities" @click="setValue('grade',g)">{{g}}</div>
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
 		</div>
 		<transition name="fade">
-			<div class="row" v-if="this.article.quality=='other'" >
-				<input type="text" v-model="article.quality_other" placeholder="Other quality - please, specify"/>
+			<div class="row" v-if="this.article.grade=='other'" >
+				<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
 			</div>
 		</transition>
 	</div>
-	<div class="col-6">
+<!--
+<div class="col-6">
 		<h3>Length</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
 		</div>
 		<transition name="fade">
 			<div class="row" v-if="this.article.length=='other'" >
@@ -987,24 +940,46 @@ Vue.component('beam-form', {
 	<div class="col-6">
 		<h3>Unit</h3>
 		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
 
 		</div>
 	</div>
-
-	<div class="col-12">
-		<h3>Subtypes</h3>
-		<div class="row">
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+-->
+	<transition name="fade">
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Length</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
+			</div>
 		</div>
-	</div>
+	</transition>
 
+	<transition name="fade">
+		<div class="col-12" v-if="article.length">
+			<h3>Subtypes</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+			</div>
+		</div>
+	</transition>
 
 	<transition name="fade">
 		<div class="col-12" v-if="article.subtype">
 			<h3>Product</h3>
 			<div class="row">
-				<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="selectProduct(p)">{{p}}</div>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="selectProduct(p)">{{p}}</div>
 			</div>
 		</div>
 	</transition>
@@ -1251,32 +1226,7 @@ Vue.component('beam-form', {
 		}
 	},
 	methods:{
-		/*
-		otherGrade: function(){
-			if(this.quality==""){
-				this.other = true;
-			}
-		},
-		*/
-		/*
-		updateSub: function(){
-			this.$forceUpdate();
-		},
-		*/
-		/*
-		setQuality: function(q){
-			this.article.quality=q;
-			this.$forceUpdate();
-		},
-		setLength: function(l){
-			this.article.length=l;
-			this.$forceUpdate();
-		},
-		setSubtype: function(s){
-			this.article.subtype=s;
-			this.$forceUpdate();
-		},
-		*/
+
 		setValue: function(variable,val){
 			this.article[variable]=val;
 			this.$forceUpdate();
@@ -1311,11 +1261,10 @@ Vue.component('cement-form', {
       articles: Object,
     },
 	template: `
-<div class="row">
-	<h2>CEMENT</h2>
-	<div class="col-12">
-		<h3>Cement type</h3>
-		<div class="row">
+<div>
+	<div>
+		<h3 class="col-12">Cement type</h3>
+		<div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.cement_type==ct}" v-for="ct in Object.keys(cement_types_legend)" @click="setValue('cement_type',ct)">{{ct}}</div>
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.cement_type=='other'}" @click="setValue('cement_type','other')">Other quality</div>
 		</div>
@@ -1333,26 +1282,18 @@ Vue.component('cement-form', {
 	   <div class="col-12" v-if="this.article.cement_type">
 		   <h3>Bagged cement / Bulk Cement</h3>
 		   <div class="row">
-<!--
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format==format}" v-for="format in formats" @click="setValue('format',format)">{{format}}</div>
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format=='other'}" @click="setValue('format','other')">Other format</div>
--->
+
           <div class="btn btn-outline-dark col-3 m-1" :class="{active:article.format==format}" v-for="format in formats" @click="selectProduct(format)">{{format}}</div>
 
 		   </div>
-<!--
-		<transition name="fade">
-			<div class="row" v-if="this.article.format=='other'" >
-				<input type="text" v-model="article.format_other" placeholder="Other format - please, specify"/>
-			</div>
-		</transition>
--->
+
 	 </div>
   </transition>
-
-	<div class="col-12">
-		<strong>Unit:</strong>&nbsp;{{article.unit}}
-	</div>
+	<transition name="fade" v-if="this.article.cement_type">
+		<div>
+			<h3>Unit:</h3><div class="btn btn-outline-dark col-2 m-1 active">{{article.unit}}</div>
+		</div>
+	  </transition>
 </div>
 
 	`,
@@ -1413,7 +1354,505 @@ Vue.component('cement-form', {
 
 });
 
+/*****
+	HOT ROLLED
+*****/
+Vue.component('hot-form', {
+    props:{
+		article: Object,
+		articles: Object,
+    },
+	template: `
+<div>
 
+	<div>
+		<h3 class="col-12">Subtypes</h3>
+		<div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+		</div>
+	</div>
+	<transition name="fade">
+		<div class="col-12" v-if="article.subtype">
+			<h3>Grade</h3>
+			<div class="row">
+				<h5 class="col-12">Structural steel</h5>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade==g}" v-for="g in grades1" @click="setValue('grade',g)">{{g}}</div>
+				<h5 class="col-12">pressure vessel steel</h5>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade==g}" v-for="g in grades2" @click="setValue('grade',g)">{{g}}</div>
+				<h5 class="col-12">Cold forming and stamping steel</h5>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade==g}" v-for="g in grades3" @click="setValue('grade',g)">{{g}}</div>
+				<h5 class="col-12">Other steel grade</h5>
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			</div>
+
+			<div class="row" v-if="this.article.grade=='other'" >
+				<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
+			</div>
+		</div>
+	</transition>
+	<transition name="fade">
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Width (mm)</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width==w}" v-for="w in widths" @click="setValue('width',w)">{{w}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width=='other'}" @click="setValue('width','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.width=='other'" >
+					<input type="text" v-model="article.width_other" placeholder="Other width - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6" v-show="article.subtype=='Sheets'">
+				<h3>Length</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<h3>Oiling range</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.oiling==o}" v-for="o in oilings" @click="setValue('oiling',o)">{{o}}</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
+			</div>
+		</div>
+	</transition>
+
+	<transition name="fade">
+		<div class="col-12" v-if="article.unit && article.width">
+			<h3>Thickness</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
+			</div>
+		</div>
+	</transition>
+
+</div>
+	`,
+	data () {
+	    return {
+			subtypes: [
+				"Coils (HRC)",
+				"Sheets (HRS)",
+			],
+			grades1: [
+				"S185",
+				"S235",
+				"S275",
+				"S355",
+			],
+			grades2: [
+				"P245",
+				"P265",
+				"P310",
+				"P355",
+			],
+			grades3: [
+				"DD11",
+				"DD12",
+				"DD13",
+				"DD14",
+			],
+			widths: [
+				1000,
+				1250,
+				1500,
+				2000,
+			],
+			lengths: [
+				2000,
+				2500,
+				3000,
+				3500,
+				4000,
+				6000,
+			],
+			unities: [
+				"MT",
+				"KGS",
+				"PCS/COILS",
+			],
+			oilings: [
+				"Without",
+			],
+			thicknesses: [
+				1.5,
+				2,
+				2.5,
+				3,
+				4,
+				5,
+				6,
+				8,
+				10,
+				12,
+				15,
+				20,
+			],
+			other: false,
+
+		}
+	},
+	methods:{
+		addThickness: function(t){
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.thickness = t;
+			this.articles['HOT ROLLED'].push(this.newArt);
+
+			this.$emit('new-element');
+
+		},
+
+		setValue: function(variable,val){
+			this.article[variable]=val;
+			this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+      this.article.unit = 'MT';
+	  this.article.oiling = 'Without';
+  },
+
+});
+
+/*****
+	COLD ROLLED
+*****/
+Vue.component('cold-form', {
+    props:{
+		article: Object,
+		articles: Object,
+    },
+	template: `
+<div>
+
+	<div>
+		<h3 class="col-12">Subtypes</h3>
+		<div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+		</div>
+	</div>
+	<transition name="fade">
+		<div class="col-12" v-if="article.subtype">
+			<h3>Grade</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
+
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			</div>
+
+			<div class="row" v-if="this.article.grade=='other'" >
+				<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
+			</div>
+		</div>
+	</transition>
+	<transition name="fade">
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Width (mm)</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width==w}" v-for="w in widths" @click="setValue('width',w)">{{w}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width=='other'}" @click="setValue('width','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.width=='other'" >
+					<input type="text" v-model="article.width_other" placeholder="Other width - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6" v-show="article.subtype=='Sheets'">
+				<h3>Length</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<h3>Oiling range</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.oiling==o}" v-for="o in oilings" @click="setValue('oiling',o)">{{o}}</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
+			</div>
+		</div>
+	</transition>
+
+	<transition name="fade">
+		<div class="col-12" v-if="article.unit && article.width">
+			<h3>Thickness</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
+			</div>
+		</div>
+	</transition>
+
+</div>
+	`,
+	data () {
+	    return {
+			subtypes: [
+				"Coils (CRC)",
+				"Sheets (CRS)",
+			],
+			grades: [
+				"DC01",
+				"DC03",
+				"DC04",
+				"DC05",
+			],
+			widths: [
+				1000,
+				1250,
+				1500,
+				2000,
+			],
+			lengths: [
+				2000,
+				2500,
+				3000,
+			],
+			unities: [
+				"MT",
+				"KGS",
+				"PCS/COILS",
+			],
+			oilings: [
+				"Without",
+				"Oiled",
+			],
+			thicknesses: [
+				0.5,
+				0.6,
+				0.8,
+				0.9,
+				1,
+				1.2,
+				1.5,
+				1.6,
+				2,
+				2.5,
+				3,
+			],
+			other: false,
+
+		}
+	},
+	methods:{
+		addThickness: function(t){
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.thickness = t;
+			this.articles['COLD ROLLED'].push(this.newArt);
+
+			this.$emit('new-element');
+
+		},
+
+		setValue: function(variable,val){
+			this.article[variable]=val;
+			this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+      this.article.unit = 'MT';
+	  this.article.oiling = 'Without';
+  },
+
+});
+
+
+/*****
+	GALVANIZED
+*****/
+Vue.component('galvanized-form', {
+    props:{
+		article: Object,
+		articles: Object,
+    },
+	template: `
+<div>
+
+	<div>
+		<h3 class="col-12">Subtypes</h3>
+		<div>
+			<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+		</div>
+	</div>
+	<transition name="fade">
+		<div class="col-12" v-if="article.subtype">
+			<h3>Grade</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
+
+				<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			</div>
+
+			<div class="row" v-if="this.article.grade=='other'" >
+				<input type="text" v-model="article.grade_other" placeholder="Other grade - please, specify"/>
+			</div>
+		</div>
+	</transition>
+	<transition name="fade">
+		<div class="col-12 row" v-if="article.grade">
+			<div class="col-12 col-md-6">
+				<h3>Width (mm)</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width==w}" v-for="w in widths" @click="setValue('width',w)">{{w}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.width=='other'}" @click="setValue('width','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.width=='other'" >
+					<input type="text" v-model="article.width_other" placeholder="Other width - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6" v-show="article.subtype=='Sheets'">
+				<h3>Length (mm)</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length==l}" v-for="l in lengths" @click="setValue('length',l)">{{l}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.length=='other'}" @click="setValue('length','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.length=='other'" >
+					<input type="text" v-model="article.length_other" placeholder="Other length - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<h3>Zing coating</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.zing==z}" v-for="z in zings" @click="setValue('zing',z)">{{z}}</div>
+					<div class="btn btn-outline-dark col-2 m-1" :class="{active:article.zing=='other'}" @click="setValue('zing','other')">Other</div>
+				</div>
+				<div class="row" v-if="this.article.zing=='other'" >
+					<input type="text" v-model="article.zing_other" placeholder="Other zing coating - please, specify"/>
+				</div>
+			</div>
+			<div class="col-12 col-md-6">
+				<h3>Oiling range</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.oiling==o}" v-for="o in oilings" @click="setValue('oiling',o)">{{o}}</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-6">
+				<h3>Unit</h3>
+				<div class="row">
+					<div class="btn btn-outline-dark col-3 m-1" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
+				</div>
+			</div>
+		</div>
+	</transition>
+
+	<transition name="fade">
+		<div class="col-12" v-if="article.unit && article.width && article.zing">
+			<h3>Thickness</h3>
+			<div class="row">
+				<div class="btn btn-outline-dark col-1 m-1" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
+			</div>
+		</div>
+	</transition>
+
+</div>
+	`,
+	data () {
+	    return {
+			subtypes: [
+				"Coils (GIC)",
+				"Sheets (GIS)",
+			],
+			grades: [
+				"DC01",
+				"DX51D",
+			],
+			widths: [
+				1000,
+				1250,
+				1500,
+				2000,
+			],
+			lengths: [
+				2000,
+				2500,
+				3000,
+			],
+			zings: [
+				"Z100",
+				"Z140",
+				"Z200",
+				"Z275",
+			],
+			unities: [
+				"MT",
+				"KGS",
+				"PCS/COILS",
+			],
+			oilings: [
+				"Without",
+				"Oiled",
+			],
+			thicknesses: [
+				0.5,
+				0.6,
+				0.8,
+				0.9,
+				1,
+				1.2,
+				1.5,
+				1.6,
+				2,
+				2.5,
+				3,
+			],
+			other: false,
+
+		}
+	},
+	methods:{
+		addThickness: function(t){
+			this.newArt = JSON.parse(JSON.stringify(this.article));
+			this.newArt.thickness = t;
+			this.articles['COLD ROLLED'].push(this.newArt);
+
+			this.$emit('new-element');
+
+		},
+
+		setValue: function(variable,val){
+			this.article[variable]=val;
+			this.$forceUpdate();
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+      this.article.unit = 'MT';
+	  this.article.oiling = 'Without';
+  },
+
+});
 
 Vue.component('form-articles', {
     props:{
@@ -1422,15 +1861,27 @@ Vue.component('form-articles', {
 		//rebarArticles: Array,
     },
 	template: `
-	<div class="col-12 col-md-6">
-		<div class="row">
-	<!--
-			<h4 class="col-12">Types:</h4>
-	-->
-			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)">{{pType}}</div>
-			<p class="col-12 help">Select one type of product to start</p>
+	<div>
+		<div class="row pl-1">
+
+  <p class="col-12 help">Select one type of product to start</p>
+  <!-- canvi
+			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)"><span>{{pType}}</span></div>
+-->
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Long Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in long" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Flat Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in flat" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
+			<div class="col-12 col-md-3 pl-2 p-0">
+				<h3>Other Products</h3>
+				<div class="btn btn-outline-dark col-3 col-md-12 m-1" :class="{active:type==pType}" v-for="pType in other" @click="setType(pType)"><span>{{pType}}</span></div>
+			</div>
 		</div>
-		<div class="row">
+		<div>
 	    	<transition name="fade">
 				<div v-if="type == 'REBAR'">
 					<rebar-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></rebar-form>
@@ -1442,7 +1893,7 @@ Vue.component('form-articles', {
 				</div>
 			</transition>
 	    	<transition name="fade">
-				<div v-if="type == 'MERCHANT BARS'">
+				<div v-if="type == 'MERCHANTS'">
 					<merchant-bars-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></merchant-bars-form>
   				</div>
 			</transition>
@@ -1453,20 +1904,39 @@ Vue.component('form-articles', {
 			</transition>
 
     		<transition name="fade">
+				<div v-if="type == 'HOT ROLLED'">
+					<hot-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></hot-form>
+				</div>
+			</transition>
+			<transition name="fade">
+				<div v-if="type == 'COLD ROLLED'">
+					<cold-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></cold-form>
+				</div>
+			</transition>
+			<transition name="fade">
+				<div v-if="type == 'GALVANIZED'">
+					<galvanized-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></galvanized-form>
+				</div>
+			</transition>
+			<transition name="fade">
+				<div v-if="type == 'PREPAINTED'">
+					<div>
+						<h3>Prepainted</h3>
+						<div>
+						<p>For this product, please contact us:</p>
+						<div><a class="btn btn-outline-dark" href="mailto:info@linerin.com?subject=[linerin Products] Prepainted (PPGI)&body=Fill in name, email and your request%0D%0dName:%0D%0DEmail:%0D%0D" target="_blank">info@linerin.com</div>
+						</div>
+					</div>
+			</transition>
+
+			
+    		<transition name="fade">
 				<div v-if="type == 'CEMENT'">
 					<cement-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></cement-form>
 				</div>
 		    </transition>
 		</div>
-<!--
-		<div class="row">
-	    	<transition name="fade">
-				<div v-if="type == 'CEMENT'">
-					<button v-if="" class="btn btn-slider" @click="addNew">add article</button>
-				</div>
-			</transition>
-		</div>
--->
+
 	</div>
 
 
@@ -1479,12 +1949,29 @@ Vue.component('form-articles', {
 				"REBAR",
 				"BEAM",
 				"WIRE ROD",
-				"MERCHANT BARS",
+				"MERCHANTS",
 				"HOT ROLLED",
 				"COLD ROLLED",
-//				"GALVANIZED",
+				"GALVANIZED",
 
-//				"NAILS",
+				"NAILS",
+				"CEMENT",
+			],
+			long: [
+				"REBAR",
+				"BEAM",
+				"WIRE ROD",
+				"MERCHANTS",
+			],
+			flat: [
+				"HOT ROLLED",
+				"COLD ROLLED",
+				"GALVANIZED",
+				"PREPAINTED",
+			],
+			other: [
+				"STAINLESS STEEL",
+				"NAILS",
 				"CEMENT",
 			],
 			type: "",
@@ -1492,6 +1979,7 @@ Vue.component('form-articles', {
 		}
 	},
 	methods:{
+	/*
 	    addNew: function(){
 		  //console.log(this.articles);
 		  this.article.type=this.type;
@@ -1518,8 +2006,11 @@ Vue.component('form-articles', {
 
 		  this.$emit('new-element');
 	    },
+		*/
 		setType: function(t){
 			this.type = t;
+			this.article = {};
+			this.$forceUpdate();
 		},
 		emitNewElement: function(){
 			this.$emit('new-element');
@@ -1543,13 +2034,11 @@ Vue.component('all-app', {
 		articles: Object,
     },
 	template: `
-<div class="container-fluid">
-	<h3>Our Products</h3>
-	<section class="col-12 row">
+<div>
+	<section>
 		<form-articles :articles="articles" v-on:new-element="popUp"></form-articles>
-		<lines-articles :linies="articles"></lines-articles>
 	</section>
-  <pre>
+  <pre v-show="true">
   {{articles}}
   </pre>
 </div>
@@ -1598,96 +2087,332 @@ var vm = new Vue({
 	   },
 	   */
 	   ports: [
-		   /*
-	   	   "Belgium:Antwerp",
-
-		   "France:Le Havre",
-		   "France:Marseille",
-
-		   "Italy:Venice",
-		   "Italy:Ravenna",
-		   "Italy:Genova",
-		   "Italy:Porto Nogaro",
-		   "Italy:Trieste",
-
-		   "Portugal:Leixoes",
-		   "Portugal:Setubal",
-		   "Portugal:Aveiro",
-
-		   "Spain:Bilbao",
-		   "Spain:Barcelona",
-		   "Spain:Valencia",
-		   "Spain:Sagunto",
-		   "Spain:Santander",
-
-		   "Tunisia:Bizerte",
-		   "Tunisia:Sfax",
-		   "Tunisia:Rades",
-		   "Tunisia:Sousse",
-		   */
-					"Italy:Venice",
-					"Italy:Ravenna",
-					"Italy:Genova",
-					"Italy:Porto Nogaro",
-					"Italy:Trieste",
-					"Italy:Chioggia",
-					"Italy:Porto Marghera",
-					"Italy:Bari",
-					"Italy:Taranto",
-					"Italy:Gioia Tauro",
-					"Italy:Catania",
-					"Italy:Palermo",
-					"Italy:Cagliari",
-					"Italy:Civitavecchia",
-					"Italy:Livorno",
-					"Italy:La Spezia",
-					"Slovenia:Koper",
-					"Portugal:Funchal",
-					"Portugal:Praia da Vitoria",
-					"Portugal:Lisboa",
-					"Portugal:Leixoes",
-					"Portugal:Setubal",
-					"Portugal:Aveiro",
-					"Portugal:Porto",
-					"Spain:Bilbao",
-					"Spain:Barcelona",
-					"Spain:Valencia",
-					"Spain:Sagunto",
-					"Spain:Santander",
-					"Spain:Cartagena",
-					"Spain:Carboneras",
-					"Spain:Algeciras",
-					"Spain:Vigo",
-					"Spain:Marin",
-					"Spain:Gijon",
-					"Spain:Pasajes",
-					"Spain:Santander",
-					"France:Le Havre",
-					"France:Marseille",
-					"France:Fos sur Mer",
-					"Tunisia:Bizerte",
-					"Tunisia:Sfax",
-					"Tunisia:Rades",
-					"Tunisia:Sousse",
-					"UK:London Gateway",
-					"UK:Tilbuty",
-					"UK:Felixstowe",
-					"UK:Teesport",
-					"Uk:Aberdeen",
-					"UK:Belfast",
-					"UK:Liverpool",
-					"UK:Cardiff",
-					"UK:Bristol",
-					"Ireland:Dublin",
-					"Ireland:Cork",
-					"Ireland:Rosslare",
-					"Belgium:Antwerp",
-					"Belgium:Zeebgrugge",
-					"Tunisia:Bizerte",
-					"Tunisia:Sfax",
-					"Tunisia:Rades",
-					"Tunisia:Sousse",
-					"Tunisia:Gabes",
+			"Albania:Durres",
+			"Algeria:Annaba",
+			"Algeria:Skikda",
+			"Algeria:Djen-Djen",
+			"Algeria:Bejaia",
+			"Algeria:Oran",
+			"Algeria:Ghazaouet",
+			"Angola:Cabinda",
+			"Angola:Luanda",
+			"Angola:Lobito",
+			"Argentina:Mar del Plata",
+			"Argentina:Buenos Aires",
+			"Australia:Melbourne",
+			"Australia:Sydney",
+			"Australia:Brisbane",
+			"Bangladesh:Chittagong",
+			"Bangladesh:Dhaka",
+			"Belgium:Antwerp",
+			"Belgium:Zeebgrugge",
+			"Benin:Cotonou",
+			"Brasil:Puerto Alegre",
+			"Brasil:Vila do Conde",
+			"Brasil:Fortaleza",
+			"Brasil:Natal",
+			"Brasil:Recife",
+			"Brasil:Salvador",
+			"Brasil:Rio De Jan Eiro",
+			"Brasil:Sepetiba",
+			"Bulgaria:Varna",
+			"Bulgaria:Burgas",
+			"Cameroun:Douala",
+			"Cameroun:Kribi",
+			"Canada:Montreal",
+			"Canada:Toronto",
+			"Canada:Vancouver",
+			"Cape Verde:Mindelo",
+			"Cape Verde:Praia da Vitoria",
+			"Chile:Arica",
+			"Chile:Valparaiso",
+			"Chile:San Antonio",
+			"China:Ningbo",
+			"China:Shanghai",
+			"China:Rizhao",
+			"China:Qingdao",
+			"China:Longkou",
+			"China:Xingang",
+			"China:Tangshan",
+			"Colombia:Santa Marta",
+			"Colombia:Barranquilla",
+			"Colombia:Cartagena",
+			"Colombia:Turbo",
+			"Colombia:Buenaventura",
+			"Comoros:Mayotte",
+			"Comoros:Mutsamudu",
+			"Comoros:Moroni",
+			"Congo:Pointe Noire",
+			"Costa Rica:Puerto Limon",
+			"Costa Rica:Puntarenas",
+			"Costa Rica:Caldera",
+			"Croatia:Dubrovnik",
+			"Croatia:Split",
+			"Croatia:Zadar",
+			"Croatia:Pula",
+			"Croatia:Rijeka Bakar",
+			"Cuba:Santiago",
+			"Cuba:Havana",
+			"Cyprus:Larnaca",
+			"Cyprus:Limassol",
+			"Denmark:Aarhus",
+			"Denmark:Aalborg",
+			"Denmark:Frederikshavn",
+			"Denmark:Kalundborg",
+			"Denmark:Fredericia",
+			"Denmark:Kolding",
+			"Denmark:Esbjerg",
+			"Djibouti:Djibouti",
+			"Dominican Republic:Rio Haina",
+			"Ecuador:Guayaquil",
+			"Egypt:Ain Sukhna",
+			"Egypt:Sokhna",
+			"Egypt:Port Said",
+			"Egypt:Damietta",
+			"Egypt:Abu Qir",
+			"Egypt:Alexandria",
+			"Egypt:El Dekheila",
+			"Equatorial Guinea:Malabo",
+			"Equatorial Guinea:Bata",
+			"Eritrea:Massawa",
+			"Estonia:Tallinn",
+			"Finland:Helsinki",
+			"France:Le Havre",
+			"France:Marseille",
+			"France:Fos sur Mer",
+			"French Guyana:Cayenne",
+			"Gabon:Owendo",
+			"Gabon:Port Gentil",
+			"Gambia:Banjoul",
+			"Germany:Bremen",
+			"Germany:Hamburg",
+			"Ghana:Takoradi",
+			"Ghana:Tema",
+			"Ghana:Accra",
+			"Greece:Thessaloniki",
+			"Greece:Piraeus",
+			"Guatemala:Puerto Barrios",
+			"Guatemala:Puerto Quetzal",
+			"Guinea:Conakry",
+			"Guinea-Bissau:Bissau",
+			"Guyana:Georgetown",
+			"Haiti:Cap Haitien",
+			"Haiti:Port au Prince",
+			"Honduras:Puerto Cortes",
+			"Honduras:San Lorenzo",
+			"India:Mumbai",
+			"India:Nhava Sheva",
+			"India:Mangalore",
+			"India:Cochin",
+			"India:Chennai",
+			"India:Madras",
+			"India:Calcutta",
+			"Iraq:Umm Qasr",
+			"Ireland:Dublin",
+			"Ireland:Cork",
+			"Ireland:Rosslare",
+			"Israel:Haifa",
+			"Israel:Ashdod",
+			"Italy:Venice",
+			"Italy:Ravenna",
+			"Italy:Genova",
+			"Italy:Porto Nogaro",
+			"Italy:Trieste",
+			"Italy:Chioggia",
+			"Italy:Porto Marghera",
+			"Italy:Bari",
+			"Italy:Taranto",
+			"Italy:Gioia Tauro",
+			"Italy:Catania",
+			"Italy:Palermo",
+			"Italy:Cagliari",
+			"Italy:Civitavecchia",
+			"Italy:Livorno",
+			"Italy:La Spezia",
+			"Ivory Coast:Abidjan",
+			"Ivory Coast:San Pedro",
+			"Jamaica:Montego Bay",
+			"Jamaica:Kingston",
+			"Jamaica:Port Antonio",
+			"Jordan:Aqaba",
+			"Kemya:Mombasa",
+			"Kenya:Malindi",
+			"Latvia:Riga",
+			"Lebanon:Beirut",
+			"Lebanon:Tripoli",
+			"Liberia:Monrovia",
+			"Lithuania:Klaipeda",
+			"Lybia:Benghazi",
+			"Lybia:Misurata",
+			"Lybia:Tripoli",
+			"Madagascar:Nosy Be",
+			"Madagascar:Tomasina",
+			"Malta:Valletta",
+			"Mauritania:Nouadhibou",
+			"Mauritania:Nouakchott",
+			"Mauritius:Port Louis",
+			"Mexico:Altamira",
+			"Mexico:Veracruz",
+			"Mexico:Lazaro Cardenas",
+			"Mexico:Manzanillo",
+			"Montenegro:Bar",
+			"Morocco:Casablanca",
+			"Morocco:Tanger",
+			"Morocco:Agadir",
+			"Morocco:Laayoune",
+			"Mozambique:Maputo",
+			"Mozambique:Beira",
+			"Mozambique:Nacala",
+			"Mozambique:Pemba",
+			"Netherlands:Rotterdam",
+			"Netherlands:Willemstad",
+			"Netherlands:Den Helder",
+			"Netherlands:Amsterdam",
+			"New Zealand:Port Chalmers",
+			"New Zealand:Wellington",
+			"Nigeria:Port Harcourt",
+			"Nigeria:Lagos",
+			"Norway:Oslo",
+			"Norway:Fredrikstad",
+			"Norway:Sandnes",
+			"Norway:Stavanger",
+			"Norway:Bergen",
+			"Norway:Mongstad",
+			"Norway:Aalesund",
+			"Norway:Trondheim",
+			"Norway:Tromso",
+			"Oman:Salalah",
+			"Oman:Muscat",
+			"Pakistan:Port Qasim",
+			"Pakistan:Karachi",
+			"Panama:Balboa",
+			"Panama:Manzanillo",
+			"Panama:Colon",
+			"Panama:Cristobal",
+			"Panama:Panama",
+			"Peru:Callao",
+			"Poland:Gdynia",
+			"Poland:Gdansk",
+			"Poland:Szczecin",
+			"Portugal:Funchal",
+			"Portugal:Praia da Vitoria",
+			"Portugal:Lisboa",
+			"Portugal:Leixoes",
+			"Portugal:Setubal",
+			"Portugal:Aveiro",
+			"Portugal:Porto",
+			"RDC (Democratic Republic of Congo):Matadi",
+			"RDC (Democratic Republic of Congo):Boma",
+			"RDC (Democratic Republic of Congo):Banana",
+			"Reunion:Pointe des Galets",
+			"Romania:Costanta",
+			"Saudi Arabia:Jeddah",
+			"Saudi Arabia:Dammam",
+			"Senegal:Dakar",
+			"Sierra Leone:Freetown",
+			"Slovenia:Koper",
+			"Somali:Mogadiscio",
+			"Somali:Berbera",
+			"South Africa:Richards Bay",
+			"South Africa:Durban",
+			"South Africa:Port Elizabeth",
+			"South Africa:Cape Town",
+			"South Korea:Incheon",
+			"Spain:Bilbao",
+			"Spain:Barcelona",
+			"Spain:Valencia",
+			"Spain:Sagunto",
+			"Spain:Santander",
+			"Spain:Cartagena",
+			"Spain:Carboneras",
+			"Spain:Algeciras",
+			"Spain:Vigo",
+			"Spain:Marin",
+			"Spain:Gijon",
+			"Spain:Pasajes",
+			"Spain:Santander",
+			"Sudan:Port Sudan",
+			"Sweden:Gotthenburg",
+			"Sweden:Helsingborg",
+			"Sweden:Malmo",
+			"Sweden:Stockholm",
+			"Syria:Latakia",
+			"Syria:Tartous",
+			"Tanzania:Zanzibar",
+			"Tanzania:Dar Es Salaam",
+			"Togo:Lome",
+			"Tunisia:Bizerte",
+			"Tunisia:Sfax",
+			"Tunisia:Rades",
+			"Tunisia:Sousse",
+			"Tunisia:Bizerte",
+			"Tunisia:Sfax",
+			"Tunisia:Rades",
+			"Tunisia:Sousse",
+			"Tunisia:Gabes",
+			"Turkey:Iskenderun",
+			"Turkey:Mersin",
+			"Turkey:Antalya",
+			"Turkey:Izmir",
+			"Turkey:Aliaga",
+			"Turkey:Nemrut Bay",
+			"Turkey:Gemlik",
+			"Turkey:Izmit (Evyap)",
+			"Turkey:Gebze",
+			"Turkey:Istanbul",
+			"Turkey:Mardas",
+			"Turkey:Samsun",
+			"Turkey:Zonguldak",
+			"Turkey:Eregli",
+			"Turkey:Ambarli",
+			"Turkey:Tekirdag",
+			"UK:London Gateway",
+			"UK:Tilbuty",
+			"UK:Felixstowe",
+			"UK:Teesport",
+			"Uk:Aberdeen",
+			"UK:Belfast",
+			"UK:Liverpool",
+			"UK:Cardiff",
+			"UK:Bristol",
+			"United arab Emirates (UAE):Ras Al Khaimah",
+			"United arab Emirates (UAE):Sharjah",
+			"United arab Emirates (UAE):Jebel Ali",
+			"Uruguay:Montevideo",
+			"USA:Newport",
+			"USA:Newark",
+			"USA:Port Elizabeth",
+			"USA:Wilmington",
+			"USA:Philadelphia",
+			"USA:Baltimore",
+			"USA:Norfolk",
+			"USA:Charleston",
+			"USA:Savannah",
+			"USA:Brunswick",
+			"USA:Jacksonville",
+			"USA:Port Everglades",
+			"USA:Miami",
+			"USA:Naples",
+			"USA:Tampa",
+			"USA:Mobile",
+			"USA:Pittsburgh",
+			"USA:New Orleans",
+			"USA:Freeport",
+			"USA:Houston",
+			"USA:San Diego",
+			"USA:Los angeles",
+			"USA:Long Beach",
+			"USA:Oakland",
+			"USA:San Francisco",
+			"USA:Tacoma",
+			"USA:Seattle",
+			"Venezuela:Puerto Cabello",
+			"Venezuela:La Guaira",
+			"Vietnam:Haiphong",
+			"Vietnam:Hon Gay",
+			"Yemen:Hodeidah",
+			"Yemen:Aden",
+			"Yemen:Mukalla",
 	   ],
 	   paymentTerms: [
 		   "100% Advance payment",
@@ -1703,7 +2428,7 @@ var vm = new Vue({
 		   	'REBAR':[],
 			'BEAM':[],
 			'WIRE ROD':[],
-			'MERCHANT BARS':[],
+			'MERCHANTS':[],
 			'HOT ROLLED':[],
 			'COLD ROLLED':[],
 			'GALVANIZED':[],
