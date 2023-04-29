@@ -2873,10 +2873,13 @@ methods:{
 	  //data = {email: "manolo@xxxx.com", name: "Manolo", articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}]};
 	  //data = {email: "antonio@xxxx.com", name: "Toni Luna", articles: this.articles};
 	  newArticles = [];
+	  self = this;
 	  _.forEach(this.articles, function(v2,k2) {
 		  _.forEach(v2, function(value) {
-		  	aux = JSON.stringify(value)
+		  	//aux = JSON.stringify(value)
+			aux = self.prepareLine(k2, value);
 		  	newArticles.push({type:k2, quantity: value.quantity, product: aux});
+			//newArticles.push({type:k2, quantity: value.quantity, product: value});
 		 })
 	  });
 	  // oriol 20230421 - TODO
@@ -2905,9 +2908,76 @@ methods:{
 	  catch(response => (this.result =  response.data )).
 	  finally(function(){
 	  	self.loading=false;
-		console.log("DONE");
+	 	console.log("DONE");
 	  });
-  },
+    },
+  	prepareLine: function(type, line){
+		var aux = '';
+		
+		//console.log(line);
+		if(type=='REBAR'){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.length == 'other') line.length = line.length_other;
+			aux += line.grade + "\t" + line.length + "\t" + line.diameter + "\t" + line.unit;
+		}
+		else if(type=='BEAM'){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.length == 'other') line.length = line.length_other;
+			aux += line.grade + "\t" + line.length + "\t" + line.product + "\t" + line.unit;
+		}
+		else if(type=='WIRE ROD'){
+			if(line.grade =='other') line.grade = line.grade_other;
+			aux += line.grade + "\t" + line.diameter + "\t" + line.unit;
+		}
+		else if(type=='MERCHANTS' && (line.subtype == 'Flat Bars' || line.subtype == 'Equal Angles')){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.length == 'other') line.length = line.length_other;
+			aux += line.subtype + "\t" + line.grade + "\t" + line.length + "\t" + line.d1 + "\t" + line.d2 + "\t" + line.unit;
+		}
+		else if(type=='MERCHANTS' && (line.subtype != 'Flat Bars' && line.subtype != 'Equal Angles')){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.length == 'other') line.length = line.length_other;
+			aux += line.subtype + "\t" + line.grade + "\t" + line.length + "\t" + line.size + "\t" + line.unit;
+		}
+		else if(type=='CEMENT'){
+			if(line.cement_type == 'other') line.cement_type = line.cement_type_other;
+			aux += line.cement_type + "\t" + line.format + "\t" + line.unit;
+		}
+		else if(type=='HOT ROLLED'){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.width == 'other') line.width = line.width_other;
+			if(line.subtype == 'Sheets (HRS)'){
+				if(line.length == 'other') line.length = line.length_other;
+				line.length += '\t';
+			}
+			else line.length='';
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.unit;
+		}
+		else if(type=='COLD ROLLED'){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.width == 'other') line.width = line.width_other;
+			if(line.subtype == 'Sheets (HRS)'){
+				if(line.length == 'other') line.length = line.length_other;
+				line.length += '\t';
+			}
+			else line.length='';
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t" + line.unit;
+		}
+		else if(type=='GALVANIZED'){
+			if(line.grade == 'other') line.grade = line.grade_other;
+			if(line.width == 'other') line.width = line.width_other;
+			if(line.zing == 'other') line.zing = line.zing_other;
+			if(line.subtype == 'Sheets (HRS)'){
+				if(line.length == 'other') line.length = line.length_other;
+				line.length += '\t';
+			}
+			else line.length='';
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t"+ line.zing + "\t" + line.unit;
+		}
+		
+		return  aux;
+	
+  	},
 	validEmail: function(){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 		if(this.email.match(mailformat)){
@@ -2948,7 +3018,7 @@ methods:{
     else if (this.deliveryType == 'DAP') {
       good = this.DAP.country != '';
     }
-console.log('good', good);
+//console.log('good', good);
     return good;
   },
 },
@@ -2972,12 +3042,15 @@ computed:{
 			return _.countBy(this.articles, 'length');
 	},
 	portsF: function(){
-		self = this;
-
-		return _.sortBy(_.filter(this.ports, function(o) {
-			var thisRegex = new RegExp(self.filterPort);
-			return thisRegex.test(o);
-		}));
+		if(self.filterPort.length > 1){
+			self = this;
+			exp = self.filterPort;
+			if(self.filterPort=='ALL') exp = '.*'; 
+			return _.sortBy(_.filter(this.ports, function(o) {
+				var thisRegex = new RegExp(exp+'.*:', 'i');
+				return thisRegex.test(o);
+			}));
+		}
 	},
   deliveryGood: function(){
     return this.deliveryPlace();

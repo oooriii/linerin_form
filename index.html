@@ -277,18 +277,25 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<div class="row" v-if="deliveryType=='CFR'">
 				<h5 class="col-12">ports</h5>
 					<div class="row col-12">
+						<!-- enter country
 						<strong>Filter port</strong>
+						-->
+						<strong>Filter ports by country</strong>
 						<input type="text" v-model="filterPort"/>
+						<p class="help">Try <strong>ALL</strong> for see all ports</p>
 					</div>
-
-					<div class="row col-12">
-						<span class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" v-for="port in portsF" @click="addDelPort(port)">{{port}}</span>
-					</div>
+					<transition name="fade">
+						<div class="row col-12" v-if="filterPort">
+							<span class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" v-for="port in portsF" @click="addDelPort(port)">{{port}}</span>
+						</div>
+					</transition>
+<!--
 					<div>
 						<strong>add new port</strong>
 						<input type="text" v-model="newPort"/>
 						<button class="btn btn-slider" @click="addPort">Add</button>
 					</div>
+-->
 			</div>
 			<transition name="fade">
 				<div class="row col-12" v-if="deliveryType=='DAP'">
@@ -325,9 +332,11 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<p class="help">You must add <strong :class="{'text-danger':!someArticle}">some products</strong>, an <strong :class="{'text-danger':!alertEmail}">valid email</strong> and add a <strong :class="{'text-danger':!deliveryGood}">delivery place</strong></p>
 		</div>
 		<div class="col-12 row">
+<!--
 			<div class="col-3">
 				<button class="btn btn-slider" @click="step--">previous step</button>
 			</div>
+-->
 			<transition name="fade">
 	  	  		<div class="col-3" v-if="validEmail() && someArticle && step==2 && deliveryPlace()">
 	  				<button class="btn btn-slider" @click="sendData()">SEND</button>

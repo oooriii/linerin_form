@@ -19,7 +19,10 @@ img.aux-sizes{
 	max-width: 80px;
 }
 .lines-articles td.grade{
-	min-width: 200px;
+	min-width: 100px;
+}
+.lines-articles td.number{
+	text-align: right;
 }
 .popup{
 	position: fixed;
@@ -45,7 +48,8 @@ img.aux-sizes{
 	#lines-articles{
 		position: fixed;
 		right: 0;
-	
+		overflow: scroll;
+		height: 100%;
 	}
 }
 
