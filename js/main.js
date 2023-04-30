@@ -2358,13 +2358,6 @@ var vm = new Vue({
 	   contact_email: "quotations@linerin.com",
        formArticles: [],
 
-	   /* si ha de ser possible múltiples seleccions cal fer-ho així
-	   ports: {
-		   Belgium: ["Antwerp"],
-		   Italy: ["Venice", "Ravenna", "Genova", "Porto Nogaro", "Trieste"],
-		   Portugal: ["Leixoes", "Setubal", "Aveiro"],
-	   },
-	   */
 	   ports: [
 			"Albania:Durres",
 			"Algeria:Annaba",
@@ -2801,12 +2794,10 @@ var vm = new Vue({
 		   "100% Advance payment",
 		   "20% advance and 80% against B/L",
 		   "L/C (Letter of Credit)",
-		   "100% Open Account 30 days (Against invoice at 30 days)",
+		   "Open Account 30 days",
 		   "CAD (Cash Against Documents)",
 	   ],
-	 	// news
-	   //articles: [{type: "beam", quantity: 350, product: "q1|utm3|4x4|10m"}, {type: "pipe", quantity: 1050, product: "q3|um400|12m|10cm"}, {type: "pipe", quantity: 1050, product: "q2|B452X0|4x12cm|2cm"}],
-	   //articles: [],
+
 	   articles: {
 		   	'REBAR':[],
 			'BEAM':[],
@@ -3007,8 +2998,14 @@ methods:{
 		this.newPort = '';
 	},
 	addDelPort: function(p){
-		this.deliveryPorts.push(p);
-		this.deliveryPorts = _.sortBy(_.uniq(this.deliveryPorts));
+		if(! this.selPort(p)){
+			
+			this.deliveryPorts.push(p);
+			this.deliveryPorts = _.sortBy(_.uniq(this.deliveryPorts));
+		}
+		else{
+			this.delDelPort(p);
+		}
 	},
   deliveryPlace: function(){
     var good = false;
@@ -3021,6 +3018,17 @@ methods:{
 //console.log('good', good);
     return good;
   },
+  cleanPort: function(port){
+	  return port.replace(/^.*:/,'');
+  },
+  
+  selPort: function(port){
+	  return _.indexOf(this.deliveryPorts, port) > -1;
+  },
+  delDelPort: function(port){
+	  this.deliveryPorts = _.without(this.deliveryPorts, port);
+  },
+
 },
 computed:{
 	someArticle: function(){
@@ -3045,9 +3053,12 @@ computed:{
 		if(self.filterPort.length > 1){
 			self = this;
 			exp = self.filterPort;
-			if(self.filterPort=='ALL') exp = '.*'; 
+			//if(self.filterPort=='ALL') exp = '.*'; 
 			return _.sortBy(_.filter(this.ports, function(o) {
-				var thisRegex = new RegExp(exp+'.*:', 'i');
+				//var thisRegex = new RegExp(exp+'.*:', 'i');
+				exp = exp.replace('^(.*)\(.*)','\1');
+				var thisRegex = new RegExp(exp+':', 'i');
+				console.log(thisRegex);
 				return thisRegex.test(o);
 			}));
 		}
