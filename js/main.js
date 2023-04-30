@@ -2573,9 +2573,14 @@ var vm = new Vue({
 			"Portugal:Setubal",
 			"Portugal:Aveiro",
 			"Portugal:Porto",
+/*
 			"RDC (Democratic Republic of Congo):Matadi",
 			"RDC (Democratic Republic of Congo):Boma",
 			"RDC (Democratic Republic of Congo):Banana",
+*/
+			"Democratic Republic of Congo:Matadi",
+			"Democratic Republic of Congo:Boma",
+			"Democratic Republic of Congo:Banana",
 			"Reunion:Pointe des Galets",
 			"Romania:Costanta",
 			"Saudi Arabia:Jeddah",
@@ -2647,9 +2652,14 @@ var vm = new Vue({
 			"UK:Liverpool",
 			"UK:Cardiff",
 			"UK:Bristol",
+/*
 			"United arab Emirates (UAE):Ras Al Khaimah",
 			"United arab Emirates (UAE):Sharjah",
 			"United arab Emirates (UAE):Jebel Ali",
+*/
+			"United arab Emirates:Ras Al Khaimah",
+			"United arab Emirates:Sharjah",
+			"United arab Emirates:Jebel Ali",
 			"Uruguay:Montevideo",
 			"USA:Newport",
 			"USA:Newark",
@@ -2764,7 +2774,8 @@ var vm = new Vue({
 				"Peru",
 				"Poland",
 				"Portugal",
-				"RDC (Democratic Republic of Congo)",
+//				"RDC (Democratic Republic of Congo)",
+				"Democratic Republic of Congo",
 				"Reunion",
 				"Romania",
 				"Saudi Arabia",
@@ -2784,7 +2795,8 @@ var vm = new Vue({
 				"Turkey",
 				"UK",
 				"USA",
-				"United arab Emirates (UAE)",
+//				"United arab Emirates (UAE)",
+				"United arab Emirates",
 				"Uruguay",
 				"Venezuela",
 				"Vietnam",
@@ -2892,6 +2904,7 @@ methods:{
 		  console.log(self.result);
 		  self.$forceUpdate();
 
+		  self.step = 3;
 		  self.sentEmail();
 
 	  }).
@@ -3007,6 +3020,9 @@ methods:{
 			this.delDelPort(p);
 		}
 	},
+	sortCountries: function(){
+		return _.sortBy(this.countries);
+	},
   deliveryPlace: function(){
     var good = false;
     if(this.deliveryType == 'CFR'){
@@ -3056,7 +3072,7 @@ computed:{
 			//if(self.filterPort=='ALL') exp = '.*'; 
 			return _.sortBy(_.filter(this.ports, function(o) {
 				//var thisRegex = new RegExp(exp+'.*:', 'i');
-				exp = exp.replace('^(.*)\(.*)','\1');
+				//exp = exp.replace('^(.*)\(.*)','\1');
 				var thisRegex = new RegExp(exp+':', 'i');
 				console.log(thisRegex);
 				return thisRegex.test(o);

@@ -286,12 +286,12 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 						<p class="help">Try <strong>ALL</strong> for see all ports</p>
 -->
 						<select v-model="filterPort">
-							<option v-for="c in countries" :value="c">{{c}}</option>
+							<option v-for="c in sortCountries()" :value="c">{{c}}</option>
 						</select>
 					</div>
 					<transition name="fade">
 						<div class="row col-12" v-if="filterPort">
-							<span class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:selPort(port)}" v-for="port in portsF" @click="addDelPort(port)">{{cleanPort(port)}}</span>
+							<span class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:selPort(port)}" v-for="port in portsF" @click="addDelPort(port)">{{cleanPort(port)}}</span>
 						</div>
 					</transition>
 <!--
@@ -366,6 +366,10 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 				<p v-if="deliveryType=='DAP'">Country: {{DAP.country}}<br/>City: {{DAP.city}}<br/>ZIP: {{DAP.zip}}</p>
 			</div>
 		</translition>
+	</section>
+	<section class="col-12 col-md-6" v-if="step==3">
+		
+		<p>We have recived your specification, you will recive our prices on your email</p>
 	</section>
 
 	<div class="col-12 m-1">	
