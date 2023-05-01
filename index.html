@@ -251,8 +251,8 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 <div class="row">
 	
 	<div class="col-12 m-1">	
-		<button class="btn btn-slider" @click="step--" v-if="step>0">previous step</button>
-		<button class="btn btn-slider" @click="step++" v-if="step<2">next step</button>
+		<button class="btn btn-slider col-3" @click="step--" v-if="step>0">previous step</button>
+		<button class="btn btn-slider col-3" @click="step++" v-if="step<2">next step</button>
 	</div>
 	
 	<section class="col-12 col-md-6" v-if="step==0">
@@ -339,7 +339,7 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 		<div class="col-12 row">
 <!--
 			<div class="col-3">
-				<button class="btn btn-slider" @click="step--">previous step</button>
+				<button class="btn btn-slider col-3" @click="step--">previous step</button>
 			</div>
 -->
 			<transition name="fade">
@@ -373,8 +373,8 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 	</section>
 
 	<div class="col-12 m-1">	
-		<button class="btn btn-slider" @click="step--" v-if="step>0">previous step</button>
-		<button class="btn btn-slider" @click="step++" v-if="step<2">next step</button>
+		<button class="btn btn-slider col-3" @click="step--" v-if="step>0">previous step</button>
+		<button class="btn btn-slider col-3" @click="step++" v-if="step<2">next step</button>
 	</div>
 
 </div>
