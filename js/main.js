@@ -619,7 +619,7 @@ Vue.component('rebar-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -971,7 +971,7 @@ Vue.component('merchant-bars-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -1096,7 +1096,7 @@ Vue.component('wire-rod-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -1427,7 +1427,7 @@ Vue.component('beam-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 		selectProduct: function(p){
@@ -1540,7 +1540,7 @@ Vue.component('cement-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 		
@@ -1736,7 +1736,7 @@ Vue.component('hot-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -1902,7 +1902,7 @@ Vue.component('cold-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -2083,7 +2083,7 @@ Vue.component('galvanized-form', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 
@@ -2286,7 +2286,7 @@ Vue.component('form-articles', {
 		},
 		scrollNext: function(variable){
 			jQuery('html, body').animate({
-				scrollTop: jQuery("#"+variable).offset().top
+				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
 		emitNewElement: function(){

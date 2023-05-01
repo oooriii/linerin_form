@@ -47,6 +47,7 @@ img.aux-sizes{
 @media (min-width: 576px) {
 	#lines-articles{
 		position: fixed;
+		top: 250px;
 		right: 0;
 		overflow: scroll;
 		height: 100%;
