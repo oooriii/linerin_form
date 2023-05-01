@@ -15,7 +15,7 @@ Vue.component('line-hot', {
 	<td v-else>{{line.grade_other}}</td>
 	<td class="length" v-if="line.width!='other'">{{line.width}}</td>
 	<td class="length" v-else>{{line.width_other}}</td>
-	<td class="length" v-if="line.width!='other'">{{line.length}}</td>
+	<td class="length" v-if="line.length!='other'">{{line.length}}</td>
 	<td class="length" v-else>{{line.length_other}}</td>
 	<td class="length">{{line.oiling}}</td>
 	<td class="number">{{line.thickness}}</td>
@@ -62,7 +62,7 @@ Vue.component('line-cold', {
 	<td v-else>{{line.grade_other}}</td>
 	<td class="length" v-if="line.width!='other'">{{line.width}}</td>
 	<td class="length" v-else>{{line.width_other}}</td>
-	<td class="length" v-if="line.width!='other'">{{line.length}}</td>
+	<td class="length" v-if="line.length!='other'">{{line.length}}</td>
 	<td class="length" v-else>{{line.length_other}}</td>
 	<td class="length">{{line.oiling}}</td>
 	<td class="number">{{line.thickness}}</td>
@@ -110,7 +110,7 @@ Vue.component('line-galvanized', {
 	<td v-else>{{line.grade_other}}</td>
 	<td class="length" v-if="line.width!='other'">{{line.width}}</td>
 	<td class="length" v-else>{{line.width_other}}</td>
-	<td class="length" v-if="line.width!='other'">{{line.length}}</td>
+	<td class="length" v-if="line.length!='other'">{{line.length}}</td>
 	<td class="length" v-else>{{line.length_other}}</td>
 	<td class="length">{{line.zing}}</td>
 	<td class="length">{{line.oiling}}</td>
