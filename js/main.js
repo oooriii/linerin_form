@@ -2882,9 +2882,9 @@ methods:{
 	  newArticles = [];
 	  self = this;
 	  _.forEach(this.articles, function(v2,k2) {
-		  _.forEach(v2, function(value) {
+		  _.forEach(v2, function(value, pos) {
 		  	//aux = JSON.stringify(value)
-			aux = self.prepareLine(k2, value);
+			aux = self.prepareLine(k2, value, pos);
 		  	newArticles.push({type:k2, quantity: value.quantity, product: aux});
 			//newArticles.push({type:k2, quantity: value.quantity, product: value});
 		 })
@@ -2919,10 +2919,14 @@ methods:{
 	 	console.log("DONE");
 	  });
     },
-  	prepareLine: function(type, line){
+  	prepareLine: function(type, line, pos){
 		var aux = '';
 		
 		//console.log(line);
+		console.log(pos);
+		if(pos == 0){
+			aux+= "\n\n"+type+"\n";
+		}
 		if(type=='REBAR'){
 			if(line.grade == 'other') line.grade = line.grade_other;
 			if(line.length == 'other') line.length = line.length_other;
