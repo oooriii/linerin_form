@@ -16,12 +16,18 @@ img.aux-sizes{
 	max-width: 200px;
 }
 .lines-articles input{
-	max-width: 80px;
+	max-width: 50px;
 }
 .lines-articles td.grade{
-	min-width: 100px;
+	min-width: 60px;
+}
+.lines-articles td.type{
+	min-width: 160px;
 }
 .lines-articles td.number{
+	text-align: right;
+}
+input[type="number"]{
 	text-align: right;
 }
 .popup{
@@ -45,6 +51,7 @@ img.aux-sizes{
 }
 
 @media (min-width: 576px) {
+	/*
 	#lines-articles{
 		position: fixed;
 		top: 250px;
@@ -52,14 +59,19 @@ img.aux-sizes{
 		overflow: scroll;
 		height: 100%;
 	}
+	*/
 }
 @media (max-width: 1200px) {
 	.btn{
 		font-size: 0.95rem;
 	}
 }
+.centrat{
+	height: 100vh;
+}
 
 
+/*
 
 	.diameters{
 		width: 300px;
@@ -122,3 +134,4 @@ img.aux-sizes{
 	td.number{
 		text-align: right;
 	}
+*/

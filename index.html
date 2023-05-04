@@ -248,28 +248,22 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 -->
   <div class="container-fluid">
 
-<div class="row">
+<div class="row" id="centrat">
 	
-	<div class="col-12 m-1">	
-		<button class="btn btn-slider col-3" @click="step--" v-if="step>0">previous step</button>
-		<button class="btn btn-slider col-3" @click="step++" v-if="step<2">next step</button>
+	<div class="col-12 col-md-6 m-1">	
+		<button class="elementor-button-link elementor-button elementor-size-md float-left" @click="step--" v-if="step>0 && step!=4">previous</button>
+		<button class="elementor-button-link elementor-button elementor-size-md float-right" @click="step++" v-if="step<4 && step!=4">next</button>
 	</div>
 	
 	<section class="col-12 col-md-6" v-if="step==0">
-		<h3 class="col-12">Our Products</h3>
+		<h3 class="col-12 pl-0 mt-1">Our Products</h3>
+		<p>Select one type of <strong>Product</strong> to start and click “Next”</p>
 		<all-app :articles="articles" v-on:new-element="popUp" :contact_email="this.contact_email"></all-app>
 	</section>
 	<section class="col-12 col-md-6" v-if="step==1">
-		<h3 class="col-12">Payment and delivery</h3>
+		<h3 class="col-12 pl-0 mt-1">Payment and delivery</h3>
 		<div class="col-12">
-			<h4>Payment terms</h4>
-			<div class="row">
-				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:payment==paymentTerm}" v-for="paymentTerm in paymentTerms" @click="payment=paymentTerm">{{paymentTerm}}</div>
-			</div>
-
-		</div>
-		<div class="col-12">
-			<h4>Delivery terms</h4>
+			<h4 class="col-12 pl-0 mt-1">Delivery terms</h4>
 			<div class="row">
 				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='CFR'}" @click="deliveryType='CFR'">CFR / CIF</div>
 				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='DAP'}" @click="deliveryType='DAP'">DAP – Delivered At Place</div>
@@ -305,15 +299,15 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<transition name="fade">
 				<div class="row col-12" v-if="deliveryType=='DAP'">
 
-					<div class="col-3">
+					<div class="col-3 mr-1">
 						<h5>Country</h5>
 						<input v-model="DAP.country" type="text"  placeholder="Enter Country"/>
 					</div>
-					<div class="col-3">
+					<div class="col-3 mr-1">
 						<h5>City</h5>
 						<input v-model="DAP.city"  type="text" placeholder="Enter City"/>
 					</div>
-					<div class="col-3">
+					<div class="col-3 mr-1">
 						<h5>ZIP code</h5>
 						<input v-model="DAP.zip" type="number" placeholder="Enter ZIP Code"/>
 					</div>
@@ -324,12 +318,22 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 
 	</section>
 	<section class="col-12 col-md-6" v-if="step==2">
-		<h3 class="col-12">Contact</h3>
-  		<div class="col-3">
+		<h3 class="col-12 pl-0 mt-1">Payment and delivery</h3>
+		<div class="col-12 pl-0">
+			<h4 class="col-12 pl-0 mt-1">Payment terms</h4>
+			<div class="">
+				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:payment==paymentTerm}" v-for="paymentTerm in paymentTerms" @click="payment=paymentTerm">{{paymentTerm}}</div>
+			</div>
+
+		</div>
+	</section>
+	<section class="col-12 col-md-6" v-if="step==3">
+		<h3 class="col-12 pl-0 mt-1">Contact</h3>
+  		<div class="col-6 pl-0">
   			<h4>Email <strong :class="{'text-danger':!alertEmail}">*</strong></h4>
 			<input type="email" v-model="email" placeholder="Contact email" required/>
   		</div>
-  		<div class="col-3">
+  		<div class="col-6 pl-0">
   			<h4>Name</h4>
 			<input type="text" v-model="name" placeholder="Contact name"/>
   		</div>
@@ -339,19 +343,21 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 		<div class="col-12 row">
 <!--
 			<div class="col-3">
-				<button class="btn btn-slider col-3" @click="step--">previous step</button>
+				<button class="elementor-button-link elementor-button elementor-size-md" @click="step--">previous</button>
 			</div>
 -->
 			<transition name="fade">
 	  	  		<div class="col-3" v-if="validEmail() && someArticle && step==2 && deliveryPlace()">
-	  				<button class="btn btn-slider" @click="sendData()">SEND</button>
+	  				<button class="elementor-button-link elementor-button elementor-size-md float-left" @click="sendData()">SEND</button>
 	  	  		</div>
 			</transition>
 		</div>
 	</section>
 	
-	<section class="col-12 col-md-6" id="lines-articles">
-		<lines-articles :linies="articles"></lines-articles>
+	<section class="col-12 col-md-6" id="lines-articles" v-if="step<4">
+		<transition name="fade">
+			<lines-articles :linies="articles" v-if="someArticle"></lines-articles>
+		</transition>
 		<transition name="fade">
 			<div v-if="payment">
 				<h4>Payment terms</h4>
@@ -367,14 +373,14 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			</div>
 		</translition>
 	</section>
-	<section class="col-12 col-md-6" v-if="step==3">
-		
-		<p>We have recived your specification, you will recive our prices on your email</p>
+	<section class="col-12 align-middle" v-if="step==4">
+		<p class="m-auto col-6">Thank you for your interest, you will receive our prices for the selected products directly to your email address.</p>
+		<p class="m-auto pt-3 col-6">If you want to know prices for other products, just click on <a href="/check-our-prices-2" class="elementor-button-link elementor-button elementor-size-lg" title="check our prices">Check our prices</a></p>
 	</section>
 
-	<div class="col-12 m-1">	
-		<button class="btn btn-slider col-3" @click="step--" v-if="step>0">previous step</button>
-		<button class="btn btn-slider col-3" @click="step++" v-if="step<2">next step</button>
+	<div class="col-12 col-md-6 m-1">	
+		<button class="elementor-button-link elementor-button elementor-size-md float-left" @click="step--" v-if="step>0 && step!=4">previous</button>
+		<button class="elementor-button-link elementor-button elementor-size-md float-right" @click="step++" v-if="step<4 && step!=4">next</button>
 	</div>
 
 </div>
