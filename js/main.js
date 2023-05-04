@@ -2122,16 +2122,16 @@ Vue.component('form-articles', {
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)"><span>{{pType}}</span></div>
 -->
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-center">Long Products</h3>
-				<div class="btn btn-outline-dark col-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in long" @click="setType(pType)"><span>{{pType}}</span></div>
+				<h3 class="pl-1 text-md-center">Long Products</h3>
+				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in long" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-center">Flat Products</h3>
-				<div class="btn btn-outline-dark col-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in flat" @click="setType(pType)"><span>{{pType}}</span></div>
+				<h3 class="pl-1 text-md-center">Flat Products</h3>
+				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in flat" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-center">Other Products</h3>
-				<div class="btn btn-outline-dark col-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in other" @click="setType(pType)"><span>{{pType}}</span></div>
+				<h3 class="pl-1 text-md-center">Other Products</h3>
+				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in other" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 		</div>
 		<div>
