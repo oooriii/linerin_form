@@ -1641,11 +1641,11 @@ Vue.component('hot-form', {
 	</transition>
 
 	<transition name="fade">
-		<div class="col-12" v-if="article.unit && article.width">
+		<div class="col-12 p-0" v-if="article.unit && article.width">
 			<h3 id="unit" class="col-12 pl-1 mt-1">Thickness</h3>
 			<p class="pl-1">Plis select all the Thicknesses you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
-			<div class="row">
+			<div class="">
 				<div class="btn btn-outline-dark col-1 m-1 pl-0 pr-0pl-0 pr-0" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
 			</div>
 		</div>
@@ -2122,15 +2122,15 @@ Vue.component('form-articles', {
 			<div class="btn btn-outline-dark col-3 m-1" :class="{active:type==pType}" v-for="pType in types" @click="setType(pType)"><span>{{pType}}</span></div>
 -->
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-md-center">Long Products</h3>
+				<h3 class="pl-1 text-md-center">Long<br/>Products</h3>
 				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in long" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-md-center">Flat Products</h3>
+				<h3 class="pl-1 text-md-center">Flat<br/>Products</h3>
 				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in flat" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 			<div class="col-12 col-md-3 pl-2 p-0">
-				<h3 class="pl-1 text-md-center">Other Products</h3>
+				<h3 class="pl-1 text-md-center">Other<br/>Products</h3>
 				<div class="btn btn-outline-dark col-5 col-md-3 col-md-12 m-1 pl-0 pr-0" :class="{active:type==pType}" v-for="pType in other" @click="setType(pType)"><span>{{pType}}</span></div>
 			</div>
 		</div>
