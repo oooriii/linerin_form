@@ -506,8 +506,8 @@ Vue.component('rebar-form', {
 	<div>
 		<h3 id="type" class="col-12 pl-1 mt-1">Steel Grade</h3>
 		<div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
+			<div class="btn btn-outline-dark col-5 col-md-3  m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 		</div>
 
 		<div class="pl-1" v-if="this.article.grade=='other'" >
@@ -541,7 +541,7 @@ Vue.component('rebar-form', {
 			<p class="pl-1">Plis select all the Diameters you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
 			<div class="row pl-3">
-				<div class="btn btn-outline-dark col-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
+				<div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
 			</div>
 		</div>
 	</transition>
@@ -648,7 +648,7 @@ Vue.component('merchant-bars-form', {
 			<h3 id="subtype" class="pl-1 mt-1">Steel Grade</h3>
 			<div class="row pl-3">
 				<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
-				<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+				<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 			</div>
 
 			<div class="pl-1" v-if="this.article.grade=='other'" >
@@ -1011,7 +1011,7 @@ Vue.component('wire-rod-form', {
 		<h3 id="type" class="col-12 pl-1 mt-1">Steel Grade</h3>
 		<div>
 			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 		</div>
 
 		<div class="pl-1 mt-1" v-if="this.article.grade=='other'" >
@@ -1121,7 +1121,7 @@ Vue.component('beam-form', {
 		<h3 id="type" class="col-12 pl-1 mt-1">Steel Grade</h3>
 		<div>
 			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in qualities" @click="setValue('grade',g)">{{g}}</div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 		</div>
 		<transition name="fade">
 			<div class="pl-1 mt-1" v-if="this.article.grade=='other'" >
@@ -1593,8 +1593,8 @@ Vue.component('hot-form', {
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades2" @click="setValue('grade',g)">{{g}}</div>
 				<h5 class="col-12 pl-1 mt-1">Cold forming and stamping steel</h5>
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades3" @click="setValue('grade',g)">{{g}}</div>
-				<h5 class="col-12 pl-1 mt-1">Other steel grade</h5>
-				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+				<h5 class="col-12 pl-1 mt-1">Other</h5>
+				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 			</div>
 
 			<div class="pl-1" v-if="this.article.grade=='other'" >
@@ -1777,7 +1777,7 @@ Vue.component('cold-form', {
 			<div class="">
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
 
-				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 			</div>
 
 			<div class="pl-1" v-if="this.article.grade=='other'" >
@@ -1946,7 +1946,7 @@ Vue.component('galvanized-form', {
 			<div class="">
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
 
-				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>
+				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other</div>
 			</div>
 
 			<div class="pl-1" v-if="this.article.grade=='other'" >
@@ -1983,7 +1983,7 @@ Vue.component('galvanized-form', {
 					<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.zing=='other'}" @click="setValue('zing','other')">Other</div>
 				</div>
 				<div class="" v-if="this.article.zing=='other'" >
-					<input type="text" v-model="article.zing_other" placeholder="Other zing coating - please, specify"/>
+					<input type="text" v-model="article.zing_other" placeholder="Please enter zing"/>
 				</div>
 			</div>
 			<div class="col-12 col-md-6 p-0">
