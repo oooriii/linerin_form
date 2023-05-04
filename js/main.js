@@ -504,7 +504,7 @@ Vue.component('rebar-form', {
 <div>
 
 	<div>
-		<h3 class="col-12 pl-1 mt-1">Steel Grade</h3>
+		<h3 id="type" class="col-12 pl-1 mt-1">Steel Grade</h3>
 		<div>
 			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade==g}" v-for="g in grades" @click="setValue('grade',g)">{{g}}</div>
 			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.grade=='other'}" @click="setValue('grade','other')">Other grade</div>

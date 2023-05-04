@@ -1,8 +1,10 @@
+/*
 body{
   font-family: 'Montserrat', sans-serif;
   color: #000;
   background-color: #ece9df;
 }
+*/
 /* botons amb span dins x centrar textos */
 .btn{
   padding-left: 0;
@@ -17,6 +19,7 @@ img.aux-sizes{
 }
 .lines-articles input{
 	max-width: 50px;
+	padding: 0px;
 }
 .lines-articles td.grade{
 	min-width: 60px;
@@ -68,6 +71,9 @@ input[type="number"]{
 }
 .centrat{
 	height: 100vh;
+}
+p{
+	line-height: 1.2rem;
 }
 
 
