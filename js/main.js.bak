@@ -18,7 +18,7 @@ Vue.component('port', {
 	},
 	methods:{
 		del: function(){
-			this.$emit('delDelPort', this.id);
+			this.$emit('del', this.id);
 		},
 
 	},

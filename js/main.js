@@ -1496,8 +1496,8 @@ Vue.component('cement-form', {
 	<div>
 		<h3 id="type" class="col-12 pl-1 mt-1">Cement type</h3>
 		<div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.cement_type==ct}" v-for="ct in Object.keys(cement_types_legend)" @click="setValue('cement_type',ct)">{{ct}}</div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.cement_type=='other'}" @click="setValue('cement_type','other')">Other quality</div>
+			<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.cement_type==ct}" v-for="ct in Object.keys(cement_types_legend)" @click="setValue('cement_type',ct)">{{ct}}</div>
+			<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.cement_type=='other'}" @click="setValue('cement_type','other')">Other quality</div>
 		</div>
 
 			<div class="row" v-if="this.article.cement_type=='other'" >
