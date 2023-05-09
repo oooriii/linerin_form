@@ -1,8 +1,10 @@
+/*
 body{
   font-family: 'Montserrat', sans-serif;
   color: #000;
   background-color: #ece9df;
 }
+*/
 /* botons amb span dins x centrar textos */
 .btn{
   padding-left: 0;
@@ -16,7 +18,20 @@ img.aux-sizes{
 	max-width: 200px;
 }
 .lines-articles input{
-	max-width: 20px;
+	max-width: 50px;
+	padding: 0px;
+}
+.lines-articles td.grade{
+	min-width: 60px;
+}
+.lines-articles td.type{
+	min-width: 160px;
+}
+.lines-articles td.number{
+	text-align: right;
+}
+input[type="number"]{
+	text-align: right;
 }
 .popup{
 	position: fixed;
@@ -38,10 +53,31 @@ img.aux-sizes{
   opacity: 0
 }
 
+@media (min-width: 576px) {
+	/*
+	#lines-articles{
+		position: fixed;
+		top: 250px;
+		right: 0;
+		overflow: scroll;
+		height: 100%;
+	}
+	*/
+}
+@media (max-width: 1200px) {
+	.btn{
+		font-size: 0.95rem;
+	}
+}
+.centrat{
+	height: 100vh;
+}
+p{
+	line-height: 1.2rem;
+}
 
 
-
-
+/*
 
 	.diameters{
 		width: 300px;
@@ -104,3 +140,4 @@ img.aux-sizes{
 	td.number{
 		text-align: right;
 	}
+*/

@@ -1516,7 +1516,7 @@ Vue.component('cement-form', {
 			<p class="pl-1">Once finished, select "Next".</p>
 		   <div class="row pl-3">
 
-          		<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.format==format}" v-for="format in formats" @click="selectProduct(format)">{{format}}</div>
+          		<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.format==format}" v-for="format in formats" @click="selectProduct(format)">{{format}}</div>
 
 		   </div>
 
