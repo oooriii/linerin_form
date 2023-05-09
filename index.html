@@ -368,7 +368,12 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<div v-if="deliveryType">
 				<h4>Delivery terms</h4>
 				<h6>{{deliveryType}}</h6>
+				<!--
 				<p v-if="deliveryType=='CFR'">Ports: {{deliveryPorts}}</p>
+				-->
+				<p v-if="deliveryType=='CFR'">Ports: 
+					<port v-for="(p, id) in deliveryPorts" :port="p" @del="delPortById" :id="id">{{p}}</port>
+				</p>
 				<p v-if="deliveryType=='DAP'">Country: {{DAP.country}}<br/>City: {{DAP.city}}<br/>ZIP: {{DAP.zip}}</p>
 			</div>
 		</translition>

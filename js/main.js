@@ -1,4 +1,37 @@
 /****
+lines port
+****/
+Vue.component('port', {
+    props:{
+		port: '',
+		id: Number,
+    },
+	template: `
+<span class="mr-1 btn btn-outline-dark" title="delete" @click="del">
+{{port}} <span class="pr-1">x</span>
+</span>
+	`,
+	data () {
+	    return {
+			
+		}
+	},
+	methods:{
+		del: function(){
+			this.$emit('del', this.id);
+		},
+
+	},
+	computed:{
+
+	},
+  mounted (){
+
+         },
+
+});
+
+/****
 lines hot
 ****/
 Vue.component('line-hot', {
@@ -3048,6 +3081,9 @@ methods:{
   delDelPort: function(port){
 	  this.deliveryPorts = _.without(this.deliveryPorts, port);
   },
+  delPortById: function(id){
+	this.deliveryPorts.splice(id,1);
+  }
 
 },
 computed:{
@@ -3078,7 +3114,7 @@ computed:{
 				//var thisRegex = new RegExp(exp+'.*:', 'i');
 				//exp = exp.replace('^(.*)\(.*)','\1');
 				var thisRegex = new RegExp(exp+':', 'i');
-				console.log(thisRegex);
+				//console.log(thisRegex);
 				return thisRegex.test(o);
 			}));
 		}
@@ -3090,8 +3126,9 @@ computed:{
 },
 });
 
-
+/*
 jQuery('window').scroll( function() {
   //jQuery( "#log" ).append( "<div>Handler for `scroll` called.</div>" );
   // console.log('scroll!');
 } );
+*/
