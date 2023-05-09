@@ -68,6 +68,9 @@ input[type="number"]{
 	.btn{
 		font-size: 0.95rem;
 	}
+	#lines-articles{
+		overflox-x: scroll;
+	}
 }
 .centrat{
 	height: 100vh;
