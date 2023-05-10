@@ -384,8 +384,8 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 	</section>
 
 	<div class="col-12 col-md-6 m-1">	
-		<button class="elementor-button-link elementor-button elementor-size-md float-left" @click="step--" v-if="step>0 && step!=4">previous</button>
-		<button class="elementor-button-link elementor-button elementor-size-md float-right" @click="step++" v-if="step<4 && step!=4">next</button>
+		<button class="elementor-button-link elementor-button elementor-size-md float-left" @click="step--; scrollUp()" v-if="step>0 && step!=4">previous</button>
+		<button class="elementor-button-link elementor-button elementor-size-md float-right" @click="step++; scrollUp()" v-if="step<4 && step!=4">next</button>
 	</div>
 
 </div>

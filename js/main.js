@@ -3089,7 +3089,13 @@ methods:{
   },
   delPortById: function(id){
 	this.deliveryPorts.splice(id,1);
-  }
+  },
+  scrollUp: function(){
+	//console.log('scrollUp');
+	jQuery('html, body').animate({
+		scrollTop: jQuery("#vue-app").offset().top - 210
+	}, 2000);
+  },
 
 },
 computed:{
