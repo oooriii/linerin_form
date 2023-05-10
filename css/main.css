@@ -64,12 +64,18 @@ input[type="number"]{
 	}
 	*/
 }
+
 @media (max-width: 1200px) {
 	.btn{
 		font-size: 0.95rem;
 	}
 	#lines-articles{
 		overflow-x: scroll;
+	}
+}
+@media (max-width: 576px) {
+	.btn{
+		font-size: 0.8rem;
 	}
 }
 .centrat{
