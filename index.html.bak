@@ -262,15 +262,15 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 	</section>
 	<section class="col-12 col-md-6" v-if="step==1">
 		<h3 class="col-12 pl-0 mt-1">Payment and delivery</h3>
-		<div class="col-12">
+		<div class="col-12 p-0">
 			<h4 class="col-12 pl-0 mt-1">Delivery terms</h4>
-			<div class="row">
+			<div class="">
 				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='CFR'}" @click="deliveryType='CFR'">CFR / CIF</div>
 				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='DAP'}" @click="deliveryType='DAP'">DAP – Delivered At Place</div>
 			</div>
-			<div class="row" v-if="deliveryType=='CFR'">
+			<div class="" v-if="deliveryType=='CFR'">
 				<h5 class="col-12">ports</h5>
-					<div class="row col-12">
+					<div class="col-12 p-0">
 						<!-- enter country
 						<strong>Filter port</strong>
 						-->
@@ -284,7 +284,7 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 						</select>
 					</div>
 					<transition name="fade">
-						<div class="row col-12" v-if="filterPort">
+						<div class="col-12 p-0" v-if="filterPort">
 							<span class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:selPort(port)}" v-for="port in portsF" @click="addDelPort(port)">{{cleanPort(port)}}</span>
 						</div>
 					</transition>
@@ -299,15 +299,15 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<transition name="fade">
 				<div class="row col-12" v-if="deliveryType=='DAP'">
 
-					<div class="col-3 mr-1">
+					<div class="col-5 col-md-4 p-0 mr-1">
 						<h5>Country</h5>
 						<input v-model="DAP.country" type="text"  placeholder="Enter Country"/>
 					</div>
-					<div class="col-3 mr-1">
+					<div class="col-6 col-md-4 pl-2 p-md-0 mr-1">
 						<h5>City</h5>
 						<input v-model="DAP.city"  type="text" placeholder="Enter City"/>
 					</div>
-					<div class="col-3 mr-1">
+					<div class="col-5 col-md-3 p-0 mr-1">
 						<h5>ZIP code</h5>
 						<input v-model="DAP.zip" type="number" placeholder="Enter ZIP Code"/>
 					</div>
@@ -368,9 +368,9 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<div v-if="deliveryType">
 				<h4>Delivery terms</h4>
 				<h6>{{deliveryType}}</h6>
-				
+				<!--
 				<p v-if="deliveryType=='CFR'">Ports: {{deliveryPorts}}</p>
-				
+				-->
 				<p v-if="deliveryType=='CFR'">Ports: 
 					<port v-for="(p, id) in deliveryPorts" :port="p" @del="delPortById" :id="id">{{p}}</port>
 				</p>
