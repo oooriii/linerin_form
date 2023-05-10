@@ -791,8 +791,8 @@ Vue.component('merchant-bars-form', {
             label: "Sizes",
 			label1: "B",
 			label2: "S",
-			//img: "/imgs/flat.png",
-			img: "imgs/flat.png",
+			//img: "imgs/flat.png",
+			img: "https://oooriii.github.io/linerin_form/imgs/flat.png",
 			s: [3,4,5,6,8,10,12,16,20,25,30,35,40,50],
             values: {
 				'10': [3,4,5],
@@ -835,8 +835,8 @@ Vue.component('merchant-bars-form', {
             label: "Sizes",
 			label1: "A",
 			label2: "S",
-			//img: "/imgs/flat.png",
-			img: "imgs/equal_angles.png",
+			//img: "imgs/equal_angles.png",
+			img: "https://oooriii.github.io/linerin_form/imgs/equal_angles.png",
 			s: [2.3,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,25,26,28],
             values: {
 				'20x20': [2.3,3,4],
