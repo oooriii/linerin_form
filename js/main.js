@@ -7,7 +7,7 @@ Vue.component('port', {
 		id: Number,
     },
 	template: `
-<span class="mr-1 btn btn-outline-dark" title="delete" @click="del">
+<span class="mr-1 mt-1 pl-1 btn btn-outline-dark" title="delete" @click="del">
 {{port}} <span class="pr-1">x</span>
 </span>
 	`,

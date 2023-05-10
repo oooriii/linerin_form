@@ -7,7 +7,7 @@ Vue.component('port', {
 		id: Number,
     },
 	template: `
-<span class="mr-1 btn btn-outline-dark" title="delete" @click="del">
+<span class="mr-1 mt-1 btn btn-outline-dark" title="delete" @click="del">
 {{port}} <span class="pr-1">x</span>
 </span>
 	`,
@@ -736,7 +736,7 @@ Vue.component('merchant-bars-form', {
 			<!--
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.size==s}" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
 			-->
-				<div class="btn btn-outline-dark m-1 pl-0 pr-0" :class="[{active:article.size==s}, article.subtype == 'T Bars' ? 'col-3 col-md-2' : 'col-2']" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
+				<div class="btn btn-outline-dark m-1 pl-0 pr-0" :class="[{active:article.size==s}, article.subtype == 'T Bars' ? 'col-5 col-md-2' : 'col-2']" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
 			</div>
 		</div>
 

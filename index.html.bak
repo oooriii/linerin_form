@@ -266,7 +266,7 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 			<h4 class="col-12 pl-0 mt-1">Delivery terms</h4>
 			<div class="">
 				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='CFR'}" @click="deliveryType='CFR'">CFR / CIF</div>
-				<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='DAP'}" @click="deliveryType='DAP'">DAP – Delivered At Place</div>
+				<div class="btn btn-outline-dark col-6 col-md-5 m-1 pl-0 pr-0" :class="{active:deliveryType=='DAP'}" @click="deliveryType='DAP'">DAP – Delivered At Place</div>
 			</div>
 			<div class="" v-if="deliveryType=='CFR'">
 				<h5 class="col-12">ports</h5>
