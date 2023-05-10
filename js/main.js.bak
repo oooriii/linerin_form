@@ -1516,7 +1516,7 @@ Vue.component('cement-form', {
 			<p class="pl-1">Once finished, select "Next".</p>
 		   <div class="row pl-3">
 
-          		<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.format==format}" v-for="format in formats" @click="selectProduct(format)">{{format}}</div>
+          		<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.format==format}" v-for="format in formats" @click="selectProduct(format)">{{format}}</div>
 
 		   </div>
 
@@ -1613,7 +1613,7 @@ Vue.component('hot-form', {
 	<div>
 		<h3 id="type" class="col-12 pl-1 mt-1">Subtypes</h3>
 		<div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+			<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
 		</div>
 	</div>
 	<transition name="fade">
@@ -1679,7 +1679,7 @@ Vue.component('hot-form', {
 			<p class="pl-1">Plis select all the Thicknesses you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
 			<div class="">
-				<div class="btn btn-outline-dark col-1 m-1 pl-0 pr-0pl-0 pr-0" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
+				<div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0pl-0 pr-0" :class="{active:article.thickness==t}" v-for="t in thicknesses" @click="addThickness(t)">{{t}}</div>
 			</div>
 		</div>
 	</transition>
