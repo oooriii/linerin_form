@@ -673,7 +673,7 @@ Vue.component('merchant-bars-form', {
 	<div>
 		<h3 id="type" class="col-12 pl-1 mt-1">Subtypes</h3>
 		<div>
-			<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
+			<div class="btn btn-outline-dark col-5 col-md-3 m-1 pl-0 pr-0" :class="{active:article.subtype==s}" v-for="s in subtypes" @click="setValue('subtype',s)">{{s}}</div>
 		</div>
 	</div>
 	<transition name="fade">
@@ -722,7 +722,10 @@ Vue.component('merchant-bars-form', {
 				<div class="col-12">
 					<h4 class="pl-1 mt-1">{{sizes[article.subtype].label1}}</h4>
 					<div>
+					<!--
 						<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.d1==d1}" v-for="d1 in Object.keys(this.sizes[article.subtype].values)" @click="setValue('d1',d1)">{{d1}}</div>
+					-->
+						<div class="btn btn-outline-dark m-1 pl-0 pr-0" :class="[{active:article.d1==d1}, article.subtype == 'Equal Angles' ? 'col-3 col-md-2' : 'col-2']" v-for="d1 in Object.keys(this.sizes[article.subtype].values)" @click="setValue('d1',d1)">{{d1}}</div>
 					</div>
 				</div>
 
@@ -730,7 +733,10 @@ Vue.component('merchant-bars-form', {
 			<div v-else>
 			<p class="pl-1">Plis select all the Sizes you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
+			<!--
 				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.size==s}" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
+			-->
+				<div class="btn btn-outline-dark m-1 pl-0 pr-0" :class="[{active:article.size==s}, article.subtype == 'T Bars' ? 'col-3 col-md-2' : 'col-2']" v-for="s in sizes[article.subtype].values" @click="addProduct('size',s)">{{s}}</div>
 			</div>
 		</div>
 
@@ -744,7 +750,7 @@ Vue.component('merchant-bars-form', {
 			<p class="pl-1">Plis select all the Sizes you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
 					<div>
-						<div class="btn btn-outline-dark col-1 m-1 pl-0 pr-0" :class="{active:article.d2==d2}" v-for="d2 in this.sizes[this.article.subtype].values[this.article.d1]" @click="addProduct('d2',d2)">{{d2}}</div>
+						<div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0" :class="{active:article.d2==d2}" v-for="d2 in this.sizes[this.article.subtype].values[this.article.d1]" @click="addProduct('d2',d2)">{{d2}}</div>
 					</div>
 				</div>
 
@@ -1057,7 +1063,7 @@ Vue.component('wire-rod-form', {
 			<p class="pl-1">Plis select all the Diameters you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
 			<div class="row pl-3">
-				<div class="btn btn-outline-dark col-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
+				<div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
 			</div>
 		</div>
 	</transition>
@@ -1175,7 +1181,7 @@ Vue.component('beam-form', {
 					<input type="text" v-model="article.length_other" placeholder="Please enter length"/>
 				</div>
 			</div>
-			<div class="col-12 col-md-6">
+			<div class="col-12 col-md-6 p-0">
 				<h3 class="pl-1 mt-1">Unit</h3>
 				<div class="row pl-3">
 					<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.unit==u}" v-for="u in unities" @click="setValue('unit',u)">{{u}}</div>
@@ -1199,7 +1205,7 @@ Vue.component('beam-form', {
 			<p class="pl-1">Plis select all the products you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
 			<div class="row pl-3">
-				<div class="btn btn-outline-dark col-2 m-1 pl-0 pr-0" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="selectProduct(p)">{{p}}</div>
+				<div class="btn btn-outline-dark col-3 col-md-2 m-1 pl-0 pr-0" :class="{active:article.product==p}" v-for="p in products[article.subtype]" @click="selectProduct(p)">{{p}}</div>
 			</div>
 		</div>
 	</transition>
@@ -2022,7 +2028,7 @@ Vue.component('galvanized-form', {
 			<div class="col-12 col-md-6 p-0">
 				<h3 class="col-12 pl-1 mt-1">Oiling range</h3>
 				<div class="">
-					<div class="btn btn-outline-dark col-3 m-1 pl-0 pr-0" :class="{active:article.oiling==o}" v-for="o in oilings" @click="setValue('oiling',o)">{{o}}</div>
+					<div class="btn btn-outline-dark col-5 m-1 pl-0 pr-0" :class="{active:article.oiling==o}" v-for="o in oilings" @click="setValue('oiling',o)">{{o}}</div>
 				</div>
 			</div>
 
