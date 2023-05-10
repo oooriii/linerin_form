@@ -71,6 +71,7 @@ input[type="number"]{
 	}
 	#lines-articles{
 		overflow-x: scroll;
+		margin-top: 30px;
 	}
 }
 @media (max-width: 576px) {

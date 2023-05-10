@@ -43,6 +43,8 @@ Vue.component('line-hot', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
@@ -52,8 +54,6 @@ Vue.component('line-hot', {
 	<td class="length" v-else>{{line.length_other}}</td>
 	<td class="length">{{line.oiling}}</td>
 	<td class="number">{{line.thickness}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -89,6 +89,8 @@ Vue.component('line-cold', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
@@ -98,8 +100,6 @@ Vue.component('line-cold', {
 	<td class="length" v-else>{{line.length_other}}</td>
 	<td class="length">{{line.oiling}}</td>
 	<td class="number">{{line.thickness}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -136,6 +136,8 @@ Vue.component('line-galvanized', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
@@ -146,8 +148,6 @@ Vue.component('line-galvanized', {
 	<td class="length">{{line.zing}}</td>
 	<td class="length">{{line.oiling}}</td>
 	<td class="number">{{line.thickness}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -184,12 +184,12 @@ Vue.component('line-rebar', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
 	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="length">{{line.length}}</td>
 	<td class="number">{{line.diameter}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -225,11 +225,11 @@ Vue.component('line-wire-rod', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
 	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td class="number">{{line.diameter}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -265,14 +265,14 @@ Vue.component('line-merchant1', {
 	template: `
 <tr v-if="line.subtype!='Flat Bars' && line.subtype!='Equal Angles'">
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="grade">{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.size}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -305,6 +305,8 @@ Vue.component('line-merchant2', {
 	template: `
 <tr v-if="line.subtype=='Flat Bars' || line.subtype=='Equal Angles'">
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="grade">{{line.subtype}}</td>
 	<td v-if="line.grade!='other'">{{line.grade}}</td>
 	<td v-else>{{line.grade_other}}</td>
@@ -312,8 +314,6 @@ Vue.component('line-merchant2', {
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.d1}}</td>
 	<td>{{line.d2}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -349,13 +349,13 @@ Vue.component('line-beam', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
 	<td class="grade" v-else>{{line.grade_other}}</td>
 	<td v-if="line.length!='other'" class="number">{{line.length}}</td>
 	<td v-else class="number">{{line.length_other}}</td>
 	<td>{{line.product}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
 </tr>
 	`,
 	data () {
@@ -391,12 +391,11 @@ Vue.component('line-cement', {
 	template: `
 <tr>
 	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
+	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
+	<td>{{line.unit}}</td>
 	<td class="type" v-if="line.cement_type!='other'">{{line.cement_type}}</td>
 	<td class="type" v-else>{{line.cement_type_other}}</td>
 	<td class="grade">{{line.format}}</td>
-	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
-	<td>{{line.unit}}</td>
-	
 </tr>
 	`,
 	data () {
@@ -431,7 +430,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['REBAR'].length > 0">
 	<h4>REBAR</h4>
 			<table>
-				<tr><th></th><th>grade</th><th>length</th><th>diameter</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>grade</th><th>length</th><th>diameter</th></tr>
 				<line-rebar v-for="(line, id) in linies['REBAR']" :key="id" :linies="linies" :line="line" :id="id"></line-rebar>
 			</table>
 	</section>
@@ -439,7 +438,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['WIRE ROD'].length > 0">
 	<h4>WIRE ROD</h4>
 			<table>
-				<tr><th></th><th>grade</th><th>diameter</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>grade</th><th>diameter</th></tr>
 				<line-wire-rod v-for="(line, id) in linies['WIRE ROD']" :key="id" :linies="linies" :line="line" :id="id"></line-wire-rod>
 			</table>
 	</section>
@@ -447,11 +446,11 @@ Vue.component('lines-articles', {
 	<section v-if="linies['MERCHANTS'].length > 0">
 	<h4>MERCHANT BARS</h4>
 			<table>
-				<tr><th></th><th>subtype</th><th>grade</th><th>length</th><th>size</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>length</th><th>size</th></tr>
 				<line-merchant1 v-for="(line, id) in linies['MERCHANTS']" :key="id" :linies="linies" :line="line" :id="id"></line-merchant1>
 			</table>
 			<table>
-				<tr><th></th><th>subtype</th><th>grade</th><th>length</th><th>a</th><th>s</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>length</th><th>a</th><th>s</th></tr>
 				<!--
 				<line-merchant2 v-for="(line, id) in _.find(linies['MERCHANTS'], function(o) { return o.subtype=='Flat Bars'; })" :key="id" :linies="linies" :line="line" :id="id"></line-merchant2>
 				-->
@@ -462,7 +461,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['BEAM'].length > 0">
 	<h4>BEAMS</h4>
 			<table>
-				<tr><th></th><th>grade</th><th>length</th><th>product</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>grade</th><th>length</th><th>product</th></tr>
 				<line-beam v-for="(line, id) in linies['BEAM']" :key="id" :linies="linies" :line="line" :id="id"></line-beam>
 			</table>
 	</section>
@@ -470,7 +469,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['GALVANIZED'].length > 0">
 	<h4>GALVANIZED</h4>
 			<table>
-				<tr><th></th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>zing</th><th>oiling</th><th>thick</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>zing</th><th>oiling</th><th>thick</th></tr>
 				<line-galvanized v-for="(line, id) in linies['GALVANIZED']" :key="id" :linies="linies" :line="line" :id="id"></line-galvanized>
 			</table>
 	</section>
@@ -478,7 +477,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['HOT ROLLED'].length > 0">
 	<h4>HOT ROLLED</h4>
 			<table>
-				<tr><th></th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th></tr>
 				<line-hot v-for="(line, id) in linies['HOT ROLLED']" :key="id" :linies="linies" :line="line" :id="id"></line-hot>
 			</table>
 	</section>	
@@ -487,7 +486,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['COLD ROLLED'].length > 0">
 	<h4>COLD ROLLED</h4>
 			<table>
-				<tr><th></th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th></tr>
 				<line-cold v-for="(line, id) in linies['COLD ROLLED']" :key="id" :linies="linies" :line="line" :id="id"></line-cold>
 			</table>
 	</section>		
@@ -496,7 +495,7 @@ Vue.component('lines-articles', {
 	<section v-if="linies['CEMENT'].length > 0">
 	<h4>CEMENT</h4>
 			<table>
-				<tr><th></th><th>type</th><th>format</th><th>quantity</th><th>unit</th></tr>
+				<tr><th></th><th>quantity</th><th>unit</th><th>type</th><th>format</th></tr>
 				<line-cement v-for="(line, id) in linies['CEMENT']" :key="id" :linies="linies" :line="line" :id="id"></line-cement>
 			</table>
 	</section>
