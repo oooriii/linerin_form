@@ -13,7 +13,7 @@ Vue.component('port', {
 	`,
 	data () {
 	    return {
-			
+
 		}
 	},
 	methods:{
@@ -42,7 +42,7 @@ Vue.component('line-hot', {
     },
 	template: `
 <tr>
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
@@ -88,7 +88,7 @@ Vue.component('line-cold', {
     },
 	template: `
 <tr>
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
@@ -135,7 +135,7 @@ Vue.component('line-galvanized', {
     },
 	template: `
 <tr>
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td>{{line.subtype}}</td>
@@ -264,7 +264,7 @@ Vue.component('line-merchant1', {
     },
 	template: `
 <tr v-if="line.subtype!='Flat Bars' && line.subtype!='Equal Angles'">
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td class="grade">{{line.subtype}}</td>
@@ -304,7 +304,7 @@ Vue.component('line-merchant2', {
     },
 	template: `
 <tr v-if="line.subtype=='Flat Bars' || line.subtype=='Equal Angles'">
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td class="grade">{{line.subtype}}</td>
@@ -348,7 +348,7 @@ Vue.component('line-beam', {
     },
 	template: `
 <tr>
-	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>	
+	<td><button class="button is-danger is-pulled-right" @click="del(type,id)"><span class="icon"><i class="fas fa-trash"></i></span></button></td>
 	<td><input class="input" type="number" v-model.number="linies[type][id]['quantity']" placeholder="0"/></td>
 	<td>{{line.unit}}</td>
 	<td class="grade" v-if="line.grade!='other'">{{line.grade}}</td>
@@ -465,7 +465,7 @@ Vue.component('lines-articles', {
 				<line-beam v-for="(line, id) in linies['BEAM']" :key="id" :linies="linies" :line="line" :id="id"></line-beam>
 			</table>
 	</section>
-	
+
 	<section v-if="linies['GALVANIZED'].length > 0">
 	<h4>GALVANIZED</h4>
 			<table>
@@ -473,15 +473,15 @@ Vue.component('lines-articles', {
 				<line-galvanized v-for="(line, id) in linies['GALVANIZED']" :key="id" :linies="linies" :line="line" :id="id"></line-galvanized>
 			</table>
 	</section>
-	
+
 	<section v-if="linies['HOT ROLLED'].length > 0">
 	<h4>HOT ROLLED</h4>
 			<table>
 				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th></tr>
 				<line-hot v-for="(line, id) in linies['HOT ROLLED']" :key="id" :linies="linies" :line="line" :id="id"></line-hot>
 			</table>
-	</section>	
-	
+	</section>
+
 
 	<section v-if="linies['COLD ROLLED'].length > 0">
 	<h4>COLD ROLLED</h4>
@@ -489,7 +489,7 @@ Vue.component('lines-articles', {
 				<tr><th></th><th>quantity</th><th>unit</th><th>subtype</th><th>grade</th><th>width</th><th>length</th><th>oiling</th><th>thick</th></tr>
 				<line-cold v-for="(line, id) in linies['COLD ROLLED']" :key="id" :linies="linies" :line="line" :id="id"></line-cold>
 			</table>
-	</section>		
+	</section>
 
 
 	<section v-if="linies['CEMENT'].length > 0">
@@ -572,7 +572,10 @@ Vue.component('rebar-form', {
 			<h3 id="length" class="pl-1 mt-1">Diameters (mm)</h3>
 			<p class="pl-1">Plis select all the Diameters you need, they will appear under <strong>Lines articles</strong> where you can enter the quantity.</p>
 			<p class="pl-1">Once finished, select "Next".</p>
-			<div class="row pl-3">
+      <div class="row pl-3" v-if="article.length=='Coils'">
+        <div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in coildiameters" @click="addDiameter(d)">{{d}}</div>
+      </div>
+			<div class="row pl-3" v-else>
 				<div class="btn btn-outline-dark col-2 col-md-1 m-1 pl-0 pr-0" :class="{active:article.diameter==d}" v-for="d in diameters" @click="addDiameter(d)">{{d}}</div>
 			</div>
 		</div>
@@ -587,7 +590,7 @@ Vue.component('rebar-form', {
 				"BS4449 GR B500B",
 				"NFA 35-080-1 B 500B",
 				"ASTM A615 GR 60",
-*/				
+*/
 				"B500B",
 				"ASTM GR60",
 				//"Other grade - please specify",
@@ -617,6 +620,15 @@ Vue.component('rebar-form', {
 				32,
 				40,
 			],
+      coildiameters: [
+				6,
+				8,
+				10,
+				12,
+				14,
+				16,
+				20,
+			],
 			other: false,
 
 		}
@@ -636,7 +648,7 @@ Vue.component('rebar-form', {
 		setValue: function(variable,val){
 			this.article[variable]=val;
 			this.$forceUpdate();
-			
+
 			self = this;
 			setTimeout(function(){
 				self.scrollNext(variable);
@@ -1582,7 +1594,7 @@ Vue.component('cement-form', {
 				scrollTop: jQuery("#"+variable).offset().top - 210
 			}, 2000);
 		},
-		
+
     	selectProduct: function(p){
 			// patch x copiar obj enlloc d'agafar referència
 			this.newArt = JSON.parse(JSON.stringify(this.article));
@@ -1936,7 +1948,7 @@ Vue.component('cold-form', {
 		setValue: function(variable,val){
 			this.article[variable]=val;
 			this.$forceUpdate();
-			
+
 			self = this;
 			setTimeout(function(){
 				self.scrollNext(variable);
@@ -2119,7 +2131,7 @@ Vue.component('galvanized-form', {
 		setValue: function(variable,val){
 			this.article[variable]=val;
 			this.$forceUpdate();
-			
+
 			self = this;
 			setTimeout(function(){
 				self.scrollNext(variable);
@@ -2242,7 +2254,7 @@ Vue.component('form-articles', {
 					</div>
 				</div>
 			</transition>
-			
+
     		<transition name="fade">
 				<div v-if="type == 'CEMENT'">
 					<cement-form :article="article" :articles="articles" v-on:new-element="emitNewElement"></cement-form>
@@ -2853,15 +2865,15 @@ var vm = new Vue({
 				"Yemen",
 	   ],
 	   paymentTerms: [
-		   "100% Advance payment",
-		   "20% advance and 80% against B/L",
-		   "L/C (Letter of Credit)",
-		   "Open Account 30 days",
-		   "CAD (Cash Against Documents)",
+		   "100%<br/>Advance payment",
+		   "20% advance<br/>and 80% against B/L",
+		   "L/C<br/>(Letter of Credit)",
+		   "Open Account<br/>30 days",
+		   "CAD<br/>(Cash Against Documents)",
 	   ],
 
 	   articles: {
-		   	'REBAR':[],
+		  'REBAR':[],
 			'BEAM':[],
 			'WIRE ROD':[],
 			'MERCHANTS':[],
@@ -2890,6 +2902,7 @@ var vm = new Vue({
 	   sent: false,
 	   filterPort: "",
 	   newPort: "",
+     notSent: true,
    }
  },
 
@@ -2928,21 +2941,22 @@ methods:{
 	  });
 
 	  //console.log(newArticles);
-
+    this.notSent=false;
 
 	  self = this;
-	  data = {email: this.email, name: this.name, articles: newArticles, delivery: this.deliveryType, ports: this.deliveryPorts, zipcode: this.DAP.zip, country: this.DAP.country, city: this.DAP.city, payment: this.payment};
+	  data = {email: this.email, name: this.name, articles: newArticles, delivery: this.deliveryType, ports: this.deliveryPorts, zipcode: this.DAP.zip, country: this.DAP.country, city: this.DAP.city, payment: this.pay};
 	  axios.post(urlMake, data).
 	  then(function(response){
 		 // console.log(response.data);
 
 
 		  self.result = response.data["message"];
-		  console.log(self.result);
+		  //console.log(self.result);
 		  self.$forceUpdate();
 
 		  self.step = 4;
 		  jQuery("#centrat").addClass("centrat");
+
 		  self.sentEmail();
 
 	  }).
@@ -2950,14 +2964,14 @@ methods:{
 	  catch(response => (this.result =  response.data )).
 	  finally(function(){
 	  	self.loading=false;
-	 	console.log("DONE");
+//	 	console.log("DONE");
 	  });
     },
   	prepareLine: function(type, line, pos){
 		var aux = '';
-		
+
 		//console.log(line);
-		console.log(pos);
+		//console.log(pos);
 		if(pos == 0){
 			aux+= "\n\n"+type+"\n";
 		}
@@ -3020,9 +3034,9 @@ methods:{
 			else line.length='';
 			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t"+ line.zing + "\t" + line.unit;
 		}
-		
+
 		return  aux;
-	
+
   	},
 	validEmail: function(){
 		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -3043,7 +3057,7 @@ methods:{
 	popUp: function(){
 		//console.log('pop');
 		this.pop = true;
-		console.log(this.pop);
+		//console.log(this.pop);
 		self = this;
 		setTimeout(function(){self.pop = false;} , 1000);
 	},
@@ -3054,7 +3068,7 @@ methods:{
 	},
 	addDelPort: function(p){
 		if(! this.selPort(p)){
-			
+
 			this.deliveryPorts.push(p);
 			this.deliveryPorts = _.sortBy(_.uniq(this.deliveryPorts));
 		}
@@ -3079,7 +3093,7 @@ methods:{
   cleanPort: function(port){
 	  return port.replace(/^.*:/,'');
   },
-  
+
   selPort: function(port){
 	  return _.indexOf(this.deliveryPorts, port) > -1;
   },
@@ -3120,7 +3134,7 @@ computed:{
 		if(self.filterPort.length > 1){
 			self = this;
 			exp = self.filterPort;
-			//if(self.filterPort=='ALL') exp = '.*'; 
+			//if(self.filterPort=='ALL') exp = '.*';
 			return _.sortBy(_.filter(this.ports, function(o) {
 				//var thisRegex = new RegExp(exp+'.*:', 'i');
 				//exp = exp.replace('^(.*)\(.*)','\1');
@@ -3132,6 +3146,9 @@ computed:{
 	},
   deliveryGood: function(){
     return this.deliveryPlace();
+  },
+  pay: function(){
+    return this.payment.replace('<br/>', ' ')
   },
 
 },
