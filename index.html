@@ -238,7 +238,7 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 <main id="form">
 
     <transition name="fade">
-      <p class="info popup" v-if="pop">New element added</p>
+      <p class="info popup" v-if="pop">New element added.<br><strong>You can enter quantity</stong></p>
     </transition>
 	<transition name="fade">
       <p class="info popup" v-if="sent">Your request was sent</p>
@@ -332,6 +332,7 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 	</section>
 	<section class="col-12 col-md-6" v-if="step==3">
 		<h3 class="col-12 pl-0 mt-1">Contact</h3>
+    <p class="col-12 pl-0">You will recive our prices directly to your email address:</p>
   		<div class="col-6 pl-0">
   			<h4>Email <strong :class="{'text-danger':!alertEmail}">*</strong></h4>
 			<input type="email" v-model="email" placeholder="Contact email" required/>

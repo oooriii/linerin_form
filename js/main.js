@@ -3011,28 +3011,28 @@ methods:{
 				line.length += '\t';
 			}
 			else line.length='';
-			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.unit;
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.thickness + "\t" + line.unit;
 		}
 		else if(type=='COLD ROLLED'){
 			if(line.grade == 'other') line.grade = line.grade_other;
 			if(line.width == 'other') line.width = line.width_other;
-			if(line.subtype == 'Sheets (HRS)'){
+			if(line.subtype == 'Sheets (CRS)'){
 				if(line.length == 'other') line.length = line.length_other;
 				line.length += '\t';
 			}
 			else line.length='';
-			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t" + line.unit;
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t" + line.thickness + "\t" + line.unit;
 		}
 		else if(type=='GALVANIZED'){
 			if(line.grade == 'other') line.grade = line.grade_other;
 			if(line.width == 'other') line.width = line.width_other;
 			if(line.zing == 'other') line.zing = line.zing_other;
-			if(line.subtype == 'Sheets (HRS)'){
+			if(line.subtype == 'Sheets (GIS)'){
 				if(line.length == 'other') line.length = line.length_other;
 				line.length += '\t';
 			}
 			else line.length='';
-			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t"+ line.zing + "\t" + line.unit;
+			aux += line.subtype + "\t" + line.grade + "\t" + line.width + "\t" + line.length + line.oiling + "\t"+ line.zing + "\t" + line.thickness + "\t" + line.unit;
 		}
 
 		return  aux;
