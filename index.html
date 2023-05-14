@@ -334,12 +334,16 @@ var wpgmza_google_api_status = {"message":"Engine is not google-maps","code":"EN
 		<h3 class="col-12 pl-0 mt-1">Contact</h3>
     <p class="col-12 pl-0">You will recive our prices directly to your email address:</p>
   		<div class="col-6 pl-0">
-  			<h4>Email <strong :class="{'text-danger':!alertEmail}">*</strong></h4>
+  			<h4>Email <strong :class="{'text-danger':!alertEmail}">*</strong> <em>(required)</em></h4>
 			<input type="email" v-model="email" placeholder="Contact email" required/>
   		</div>
   		<div class="col-6 pl-0">
-  			<h4>Name</h4>
+  			<h4>Name <em>(optional)</em></h4>
 			<input type="text" v-model="name" placeholder="Contact name"/>
+  		</div>
+      <div class="col-6 pl-0">
+  			<h4>Telephone <em>(optional)</em></h4>
+			<input type="number" v-model="telf" placeholder="Telephone"/>
   		</div>
 		<div class="col-12 p-0">
 			<p class="help">You must add <strong :class="{'text-danger':!someArticle}">some products</strong>, an <strong :class="{'text-danger':!alertEmail}">valid email</strong> and add a <strong :class="{'text-danger':!deliveryGood}">delivery place</strong></p>

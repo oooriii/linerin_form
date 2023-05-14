@@ -2887,6 +2887,7 @@ var vm = new Vue({
 
 	   email: "",
 	   name: "",
+     telf: 0,
 
 	   payment: "",
 	   delivery: "",
@@ -2944,7 +2945,7 @@ methods:{
     this.notSent=false;
 
 	  self = this;
-	  data = {email: this.email, name: this.name, articles: newArticles, delivery: this.deliveryType, ports: this.deliveryPorts, zipcode: this.DAP.zip, country: this.DAP.country, city: this.DAP.city, payment: this.pay};
+	  data = {email: this.email, name: this.name, telf: this.telf, articles: newArticles, delivery: this.deliveryType, ports: this.deliveryPorts, zipcode: this.DAP.zip, country: this.DAP.country, city: this.DAP.city, payment: this.pay};
 	  axios.post(urlMake, data).
 	  then(function(response){
 		 // console.log(response.data);
